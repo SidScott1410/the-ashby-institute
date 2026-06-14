@@ -11,12 +11,14 @@ import Publications from "./pages/Publications";
 import Events from "./pages/Events";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Theory from "./pages/Theory";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/research" component={Research} />
+      <Route path="/theory" component={Theory} />
       <Route path="/fellows" component={Fellows} />
       <Route path="/publications" component={Publications} />
       <Route path="/events" component={Events} />

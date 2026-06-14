@@ -1,6 +1,6 @@
 /**
- * Fellows.tsx — TAI Fellows page
- * Ashby Fellowship, Senior Research Fellows, Visiting Fellows, Policy Residency
+ * Fellows.tsx — TAI Fellowship Programs page
+ * Design: "Control Surface" — Post-Bauhaus Systems Functionalism
  */
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
@@ -13,7 +13,7 @@ function useReveal() {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } },
-      { threshold: 0.1 }
+      { threshold: 0.06 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -26,165 +26,262 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   return <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
-const FELLOWSHIP_TYPES = [
+const FELLOWSHIPS = [
   {
     code: "AF",
     title: "The Ashby Fellowship",
-    type: "Flagship Competitive Fellowship",
-    duration: "12 months, renewable",
-    location: "Washington DC, London, or Singapore",
-    description: "TAI's flagship competitive fellowship program. The Ashby Fellowship supports early- and mid-career researchers conducting independent work on the structural dimensions of the compute transition. Fellows are selected through a competitive annual process and receive full research support, including salary, research budget, and access to TAI's data infrastructure and advisory networks.",
-    eligibility: "Doctoral candidates (ABD), postdoctoral researchers, and early-career professionals with demonstrated research capacity in relevant fields. Disciplinary backgrounds in economics, political science, computer science, law, and related fields are all appropriate. Interdisciplinary applications are encouraged.",
-    benefits: [
-      "Full salary and benefits",
-      "Dedicated research budget",
-      "Access to TAI data infrastructure",
-      "Participation in TAI events and symposia",
-      "Publication support and peer review",
-      "Policy engagement opportunities",
+    subtitle: "Flagship Competitive Fellowship",
+    duration: "12 months, renewable once",
+    stipend: "Full stipend + research budget",
+    cohort: "4–6 fellows per annual cohort",
+    deadline: "Applications open annually in Q4",
+    description: "The Ashby Fellowship is TAI's flagship competitive fellowship program. It is designed for early-career researchers who have demonstrated exceptional analytical ability and who are working on questions at the intersection of complex systems theory, AI governance, compute infrastructure, or related domains. Fellows are full-time, resident researchers at TAI for the duration of their appointment.",
+    eligibility: [
+      "Doctoral degree or equivalent research experience in a relevant field",
+      "Demonstrated research output (publications, working papers, or equivalent)",
+      "Research agenda aligned with TAI's core mandate — applying Ashby's Law to governance design",
+      "Commitment to independent, non-advocacy research",
+      "No current employment by a commercial AI company, semiconductor manufacturer, or cloud infrastructure provider",
     ],
-    cycle: "Annual. Applications open September; decisions announced January.",
-    accent: true,
+    benefits: [
+      "Full stipend at competitive academic rates",
+      "Dedicated research budget for data, travel, and computing resources",
+      "Access to TAI's research network and advisory council",
+      "Publication support and editorial assistance",
+      "Participation in all TAI convenings and events",
+      "TAI affiliation for the duration of the fellowship",
+    ],
+    bg: "#0A0C0F",
+    textColor: "#E8E4DC",
+    mutedColor: "#5A5550",
+    borderColor: "#1E2228",
   },
   {
     code: "SRF",
     title: "Senior Research Fellows",
-    type: "Appointment",
-    duration: "2–3 years, renewable",
-    location: "Remote or resident",
-    description: "Senior Research Fellows are established scholars and practitioners who contribute to TAI's research programs on a sustained basis. Senior Fellows typically hold primary appointments at universities, government agencies, or other research institutions and affiliate with TAI to pursue collaborative research, contribute to program development, and participate in TAI events.",
-    eligibility: "Established researchers with a significant publication record in relevant fields, or senior practitioners with demonstrated analytical expertise in compute policy, AI governance, or related domains.",
-    benefits: [
-      "Research affiliation and institutional support",
-      "Collaborative research opportunities",
-      "Publication in TAI series",
-      "Participation in TAI Symposium",
-      "Policy engagement platform",
+    subtitle: "Established Scholar Appointments",
+    duration: "1–3 years, non-residential",
+    stipend: "Research grant + honorarium",
+    cohort: "Up to 8 concurrent appointments",
+    deadline: "Rolling applications; reviewed quarterly",
+    description: "Senior Research Fellows are established scholars and practitioners who affiliate with TAI on a non-residential basis. They contribute to TAI's research programs through publications, participation in TAI events, and advisory engagement with the Ashby Fellowship cohort. Senior Research Fellows maintain their primary institutional affiliations.",
+    eligibility: [
+      "Senior academic, government, or civil society position",
+      "Established publication record in a relevant field",
+      "Research agenda that complements TAI's core programs",
+      "No current employment by a commercial AI company, semiconductor manufacturer, or cloud infrastructure provider",
+      "Commitment to TAI's independence policy for the duration of the appointment",
     ],
-    cycle: "Rolling appointments. Inquiries welcome year-round.",
-    accent: false,
+    benefits: [
+      "TAI affiliation and use of TAI institutional identity in publications",
+      "Research grant for TAI-affiliated projects",
+      "Participation in TAI convenings and events",
+      "Access to TAI's research network and data resources",
+      "Co-publication opportunities with TAI research staff",
+    ],
+    bg: "#F5F2EC",
+    textColor: "#1A1410",
+    mutedColor: "#6A6560",
+    borderColor: "#D8D4CC",
   },
   {
     code: "VF",
     title: "Visiting Fellows",
-    type: "Short-Term Appointment",
+    subtitle: "Short-Term Research Appointments",
     duration: "3–6 months",
-    location: "Washington DC, London, or Singapore",
-    description: "Visiting Fellowships support researchers and practitioners who wish to spend a concentrated period in residence at TAI to complete a specific research project. Visiting Fellows have access to TAI's research infrastructure and participate in the intellectual life of the Institute during their residency.",
-    eligibility: "Researchers at any career stage with a defined project proposal relevant to TAI's research mandate. Visiting Fellowships are particularly appropriate for sabbatical visits and for practitioners transitioning between government and research roles.",
-    benefits: [
-      "Office space and research infrastructure",
-      "Stipend (for qualifying applicants)",
-      "Seminar participation",
-      "Publication support",
+    stipend: "Project-based research grant",
+    cohort: "Rolling appointments throughout the year",
+    deadline: "Applications accepted on a rolling basis",
+    description: "Visiting Fellowships are short-term appointments for researchers completing a specific project at TAI. They are designed for scholars who have a well-defined research question that fits within TAI's mandate and who would benefit from TAI's research environment, network, and resources for a defined period.",
+    eligibility: [
+      "Doctoral degree or equivalent research experience",
+      "Well-defined research project with clear deliverables",
+      "Project aligned with TAI's research mandate",
+      "No current employment by a commercial AI company, semiconductor manufacturer, or cloud infrastructure provider",
     ],
-    cycle: "Rolling. Applications accepted on a space-available basis.",
-    accent: false,
+    benefits: [
+      "TAI affiliation for the duration of the visit",
+      "Project-based research grant",
+      "Access to TAI's research network and data resources",
+      "Participation in TAI events during the visit period",
+      "Publication support for project outputs",
+    ],
+    bg: "#111318",
+    textColor: "#E8E4DC",
+    mutedColor: "#5A5550",
+    borderColor: "#1E2228",
   },
   {
     code: "PR",
     title: "Policy Residency",
-    type: "Practitioner Program",
+    subtitle: "Government & Policy Practitioner Program",
     duration: "6–12 months",
-    location: "Washington DC or London",
-    description: "The Policy Residency is designed for current or former government officials, legislative staff, and international organization professionals who wish to develop deeper analytical capacity on compute governance and AI policy. Residents work alongside TAI researchers on active projects while developing their own analytical frameworks for application in policy contexts.",
-    eligibility: "Current or former government officials, legislative staff, diplomatic personnel, or international organization professionals with direct experience in technology policy, national security, or economic governance.",
-    benefits: [
-      "Structured research mentorship",
-      "Access to TAI research programs",
-      "Policy brief development support",
-      "Network access across TAI's advisory community",
+    stipend: "Structured residency stipend",
+    cohort: "2–3 residents per cohort",
+    deadline: "Annual cohort; applications open in Q1",
+    description: "The Policy Residency is designed for government officials, regulatory staff, and policy practitioners who want to engage with TAI's research in a structured way. Residents bring practitioner knowledge into TAI's research environment and contribute to the translation of TAI's structural analysis into actionable policy frameworks.",
+    eligibility: [
+      "Current or recent government, regulatory, or policy practitioner position",
+      "Demonstrated expertise in a policy domain relevant to TAI's mandate",
+      "Institutional support from the resident's home organization (where applicable)",
+      "Commitment to TAI's independence policy for the duration of the residency",
     ],
-    cycle: "Biannual cohorts. Applications open March and September.",
-    accent: false,
+    benefits: [
+      "Structured research engagement with TAI's research programs",
+      "Access to TAI's academic and policy network",
+      "Co-authorship opportunities on TAI policy briefs",
+      "Participation in all TAI convenings and events",
+      "Residency stipend",
+    ],
+    bg: "#F5F2EC",
+    textColor: "#1A1410",
+    mutedColor: "#6A6560",
+    borderColor: "#D8D4CC",
   },
 ];
 
 export default function Fellows() {
   return (
     <Layout>
-      {/* Page header */}
-      <section className="bg-[#0F1419] pt-32 pb-20">
+      {/* ── PAGE HEADER ── */}
+      <section style={{ background: "#0A0C0F", borderBottom: "1px solid #1E2228", paddingTop: "8rem", paddingBottom: "4rem" }}>
         <div className="container">
           <Reveal>
-            <span className="tai-label text-[#A02D24] block mb-4">Fellows</span>
-            <div className="w-8 h-px bg-[#A02D24] mb-8" />
-            <h1 className="font-['Fraunces'] font-[800] text-[#F0EDE8] leading-tight max-w-2xl"
-              style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
-              The TAI Fellowship Programs
+            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
+              Fellows
+            </span>
+            <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#F0EDE6", lineHeight: 1.05, marginBottom: "1.25rem" }}>
+              Fellowship Programs
             </h1>
-            <p className="font-['Inter'] text-[#9A9490] text-lg mt-6 max-w-xl leading-relaxed">
-              TAI supports researchers and practitioners through four fellowship programs. Each program is designed to attract independent thinkers who can contribute to rigorous structural analysis of the compute transition.
+            <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1rem", color: "#5A5550", lineHeight: 1.7, maxWidth: "640px" }}>
+              TAI builds its research capacity primarily through fellowship programs. Four programs bring researchers, scholars, and practitioners into the Institute on fixed-term appointments, maintaining a rotating cohort of independent researchers working on the structural governance of complex systems.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Fellowship programs */}
-      {FELLOWSHIP_TYPES.map((f, i) => (
-        <section key={f.code} className={f.accent ? "bg-[#1A1714]" : i % 2 === 0 ? "bg-[#FAF8F5]" : "bg-[#F2EFE9]"}>
-          <div className="container py-20 md:py-28">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      {/* ── PROGRAM OVERVIEW STRIP ── */}
+      <section style={{ background: "#F5F2EC", borderBottom: "1px solid #D8D4CC" }}>
+        <div className="container" style={{ paddingTop: "3rem", paddingBottom: "3rem" }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ background: "#D8D4CC" }}>
+            {FELLOWSHIPS.map((f, i) => (
+              <Reveal key={f.code} delay={i * 50}>
+                <div style={{ background: "#FDFBF7", padding: "1.25rem 1.5rem" }}>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", border: "1px solid rgba(139,26,20,0.35)", padding: "0.2rem 0.5rem", display: "inline-block", marginBottom: "0.75rem" }}>
+                    {f.code}
+                  </span>
+                  <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "0.9375rem", color: "#1A1410", lineHeight: 1.3, marginBottom: "0.35rem" }}>
+                    {f.title}
+                  </p>
+                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.52rem", color: "#8A8580", letterSpacing: "0.06em" }}>
+                    {f.duration}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FELLOWSHIP DETAIL SECTIONS ── */}
+      {FELLOWSHIPS.map((f) => (
+        <section key={f.code} style={{ background: f.bg, borderBottom: `1px solid ${f.borderColor}` }}>
+          <div className="container" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+              {/* Left metadata rail */}
               <Reveal className="lg:col-span-4">
-                <div className="sticky top-24">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`font-['IBM_Plex_Mono'] text-xs border px-2 py-1 ${f.accent ? "border-[#A02D24] text-[#A02D24]" : "border-[#A02D24] text-[#A02D24]"}`}>
-                      {f.code}
-                    </span>
-                    {f.accent && (
-                      <span className="font-['IBM_Plex_Mono'] text-xs text-[#A02D24] uppercase tracking-wide">Flagship</span>
-                    )}
-                  </div>
-                  <h2 className={`font-['Fraunces'] font-[700] leading-tight mb-2 ${f.accent ? "text-[#F0EDE8]" : "text-[#1A1714]"}`}
-                    style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}>
+                <div style={{ position: "sticky", top: "7rem" }}>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", border: "1px solid rgba(139,26,20,0.35)", padding: "0.2rem 0.5rem", display: "inline-block", marginBottom: "1.5rem" }}>
+                    {f.code}
+                  </span>
+                  <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)", color: f.textColor, lineHeight: 1.2, marginBottom: "0.5rem" }}>
                     {f.title}
                   </h2>
-                  <p className={`font-['IBM_Plex_Mono'] text-xs mb-6 ${f.accent ? "text-[#6B6560]" : "text-[#6B6560]"}`}>
-                    {f.type}
+                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", color: "#8B1A14", textTransform: "uppercase", marginBottom: "2rem" }}>
+                    {f.subtitle}
                   </p>
 
-                  <div className="space-y-3 mb-8">
-                    <div>
-                      <p className={`font-['IBM_Plex_Mono'] text-xs uppercase tracking-wide mb-1 ${f.accent ? "text-[#A02D24]" : "text-[#A02D24]"}`}>Duration</p>
-                      <p className={`font-['Inter'] text-sm ${f.accent ? "text-[#9A9490]" : "text-[#3D3A37]"}`}>{f.duration}</p>
-                    </div>
-                    <div>
-                      <p className={`font-['IBM_Plex_Mono'] text-xs uppercase tracking-wide mb-1 ${f.accent ? "text-[#A02D24]" : "text-[#A02D24]"}`}>Location</p>
-                      <p className={`font-['Inter'] text-sm ${f.accent ? "text-[#9A9490]" : "text-[#3D3A37]"}`}>{f.location}</p>
-                    </div>
-                    <div>
-                      <p className={`font-['IBM_Plex_Mono'] text-xs uppercase tracking-wide mb-1 ${f.accent ? "text-[#A02D24]" : "text-[#A02D24]"}`}>Application Cycle</p>
-                      <p className={`font-['Inter'] text-sm ${f.accent ? "text-[#9A9490]" : "text-[#3D3A37]"}`}>{f.cycle}</p>
-                    </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                    {[
+                      { label: "Duration", value: f.duration },
+                      { label: "Support", value: f.stipend },
+                      { label: "Cohort Size", value: f.cohort },
+                      { label: "Applications", value: f.deadline },
+                    ].map(item => (
+                      <div key={item.label}>
+                        <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "0.35rem" }}>
+                          {item.label}
+                        </p>
+                        <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: f.mutedColor, lineHeight: 1.5 }}>
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
                   </div>
 
-                  <Link href="/contact" className={f.accent ? "tai-btn-primary" : "tai-btn-primary"}>
-                    Inquire
-                  </Link>
+                  <div style={{ marginTop: "2rem" }}>
+                    <a
+                      href="mailto:fellows@theashbyinstitute.org"
+                      style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "#8B1A14",
+                        textDecoration: "none",
+                        borderBottom: "1px solid rgba(139,26,20,0.4)",
+                        paddingBottom: "1px",
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.borderColor = "#8B1A14")}
+                      onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(139,26,20,0.4)")}
+                    >
+                      Inquire about this program →
+                    </a>
+                  </div>
                 </div>
               </Reveal>
 
-              <Reveal className="lg:col-span-8" delay={100}>
-                <p className={`font-['Inter'] text-base leading-relaxed mb-8 ${f.accent ? "text-[#9A9490]" : "text-[#3D3A37]"}`}>
+              {/* Right content */}
+              <Reveal className="lg:col-span-8" delay={120}>
+                <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: f.textColor, lineHeight: 1.78, marginBottom: "2.5rem", opacity: 0.85 }}>
                   {f.description}
                 </p>
 
-                <div className="mb-8">
-                  <p className={`tai-label mb-3 ${f.accent ? "text-[#A02D24]" : ""}`}>Eligibility</p>
-                  <p className={`font-['Inter'] text-sm leading-relaxed ${f.accent ? "text-[#9A9490]" : "text-[#6B6560]"}`}>
-                    {f.eligibility}
-                  </p>
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "1.25rem" }}>
+                      Eligibility
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      {f.eligibility.map((item, i) => (
+                        <div key={i} style={{ display: "flex", gap: "1rem", paddingTop: "0.75rem", paddingBottom: "0.75rem", borderTop: `1px solid ${f.borderColor}`, alignItems: "flex-start" }}>
+                          <div style={{ width: "0.25rem", height: "0.25rem", background: "#8B1A14", borderRadius: "50%", flexShrink: 0, marginTop: "0.5rem" }} />
+                          <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: f.mutedColor, lineHeight: 1.6 }}>
+                            {item}
+                          </p>
+                        </div>
+                      ))}
+                      <div style={{ borderTop: `1px solid ${f.borderColor}` }} />
+                    </div>
+                  </div>
 
-                <div>
-                  <p className="tai-label mb-4">Program Benefits</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {f.benefits.map((b) => (
-                      <div key={b} className={`flex items-start gap-3 py-2.5 border-b ${f.accent ? "border-[#2A2F36]" : "border-[#D4CFC9]"}`}>
-                        <span className="w-1 h-1 rounded-full bg-[#A02D24] mt-2 flex-shrink-0" />
-                        <span className={`font-['Inter'] text-sm ${f.accent ? "text-[#9A9490]" : "text-[#3D3A37]"}`}>{b}</span>
-                      </div>
-                    ))}
+                  <div>
+                    <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "1.25rem" }}>
+                      Benefits
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      {f.benefits.map((item, i) => (
+                        <div key={i} style={{ display: "flex", gap: "1rem", paddingTop: "0.75rem", paddingBottom: "0.75rem", borderTop: `1px solid ${f.borderColor}`, alignItems: "flex-start" }}>
+                          <div style={{ width: "0.25rem", height: "0.25rem", background: "#8B1A14", borderRadius: "50%", flexShrink: 0, marginTop: "0.5rem" }} />
+                          <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: f.mutedColor, lineHeight: 1.6 }}>
+                            {item}
+                          </p>
+                        </div>
+                      ))}
+                      <div style={{ borderTop: `1px solid ${f.borderColor}` }} />
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -193,24 +290,47 @@ export default function Fellows() {
         </section>
       ))}
 
-      {/* CTA */}
-      <section className="bg-[#FAF8F5] py-20 border-t border-[#D4CFC9]">
-        <div className="container">
-          <div className="max-w-2xl">
-            <Reveal>
-              <span className="tai-label block mb-4">Applications & Inquiries</span>
-              <h2 className="font-['Fraunces'] font-[700] text-[#1A1714] mb-4"
-                style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>
-                Join the TAI Research Community
+      {/* ── APPLICATION CTA ── */}
+      <section style={{ background: "#0A0C0F", borderBottom: "1px solid #1E2228" }}>
+        <div className="container" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+          <Reveal>
+            <div style={{ maxWidth: "640px" }}>
+              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
+                Applications
+              </span>
+              <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
+              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#E8E4DC", lineHeight: 1.2, marginBottom: "1rem" }}>
+                Apply to a TAI Fellowship Program
               </h2>
-              <p className="font-['Inter'] text-[#6B6560] text-base mb-8 leading-relaxed">
-                For application materials, fellowship inquiries, or questions about TAI's fellowship programs, contact the Institute directly. We welcome inquiries from researchers and practitioners across all relevant disciplines.
+              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1rem", color: "#5A5550", lineHeight: 1.7, marginBottom: "2rem" }}>
+                TAI is committed to building a diverse, intellectually rigorous research community. We actively seek applications from researchers working on underrepresented aspects of the compute transition — particularly those examining distributional, democratic, and non-Western governance dimensions.
               </p>
-              <Link href="/contact" className="tai-btn-primary">
-                Contact the Institute
-              </Link>
-            </Reveal>
-          </div>
+              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <a href="mailto:fellows@theashbyinstitute.org" style={{
+                  fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                  color: "#F0EDE6", background: "#8B1A14", border: "1px solid #8B1A14",
+                  padding: "0.875rem 1.75rem", textDecoration: "none", transition: "background 200ms",
+                  display: "inline-flex", alignItems: "center",
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "#6E1510")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "#8B1A14")}
+                >
+                  fellows@theashbyinstitute.org
+                </a>
+                <Link href="/contact" style={{
+                  fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                  color: "#E8E4DC", background: "transparent", border: "1px solid rgba(232,228,220,0.25)",
+                  padding: "0.875rem 1.75rem", textDecoration: "none", transition: "border-color 200ms",
+                  display: "inline-flex", alignItems: "center",
+                }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.6)")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.25)")}
+                >
+                  Contact the Institute
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
     </Layout>
