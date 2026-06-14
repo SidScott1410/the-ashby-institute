@@ -1,127 +1,225 @@
 /*
- * Publications.tsx — TAI Publications v4 — Clean Institutional White
+ * Publications.tsx — TAI Publications v4
+ * Design: GI-clone — Chakra Petch, white background, black typography, slate blue accent
  */
-import { useEffect, useRef, useState } from "react";
 import Layout from "@/components/Layout";
+import AsciiCanvas from "@/components/AsciiCanvas";
 
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } }, { threshold: 0.05 });
-    obs.observe(el); return () => obs.disconnect();
-  }, []);
-  return <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
-}
+const font = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const slate = "#2C3E6B";
+const black = "#111111";
+const mid = "#555555";
+const light = "#999999";
+const border = "#E0E0E0";
 
 const SERIES = [
-  { code: "C2030", label: "Compute 2030", desc: "Annual scenario report series on the global compute landscape", color: "#A02D24" },
-  { code: "CGA", label: "Compute Governance Annual", desc: "Annual review of compute governance frameworks and institutional developments", color: "#2D5A8B" },
-  { code: "GRT", label: "GRT Lecture Series", desc: "Annual lecture series on the Good Regulator Theorem and its applications", color: "#2D7A3A" },
-  { code: "CEI", label: "Compute Equity Index", desc: "Annual index tracking the distributional consequences of the compute transition", color: "#8B6914" },
-  { code: "WP", label: "Working Papers", desc: "Pre-publication research papers from TAI fellows and researchers", color: "#555555" },
-  { code: "PB", label: "Policy Briefs", desc: "Short-form policy analysis for practitioners and policymakers", color: "#555555" },
+  { code: "C2030", title: "Compute 2030", type: "Annual Report Series", desc: "Annual scenario analysis of the compute transition through 2030. Four structural scenarios examined through the lens of Ashby's Law." },
+  { code: "CGA", title: "Compute Governance Annual", type: "Annual Review", desc: "Annual review of compute governance developments — regulatory actions, treaty negotiations, institutional design, and policy analysis." },
+  { code: "GRT", title: "GRT Lecture Series", type: "Lecture Series", desc: "Annual public lectures developing the formal implications of the Good Regulator Theorem for contemporary governance problems." },
+  { code: "CEI", title: "Compute Equity Index", type: "Annual Index", desc: "Annual index measuring the distributional consequences of the compute transition across geographies, sectors, and demographic groups." },
+  { code: "WP", title: "Working Papers", type: "Research Papers", desc: "Pre-publication research papers from TAI fellows and affiliated researchers. Open access. Circulated for comment." },
+  { code: "PB", title: "Policy Briefs", type: "Policy Documents", desc: "Short policy-oriented documents translating TAI research findings into actionable recommendations for policymakers and regulators." },
 ];
 
 const PUBLICATIONS = [
-  { series: "C2030", code: "C2030-01", title: "Compute 2030: Four Scenarios for the AI-Native Compute Transition", authors: "TAI Research Staff", date: "June 2026", type: "Scenario Report", url: "https://theashbyinstitute.manus.space", open: true },
-  { series: "WP", code: "WP-2026-01", title: "Variety Deficits in AI Governance: A Formal Analysis", authors: "TAI Research Staff", date: "Forthcoming 2026", type: "Working Paper", url: null, open: true },
-  { series: "PB", code: "PB-2026-01", title: "The Good Regulator Theorem and AI Oversight Architecture", authors: "TAI Research Staff", date: "Forthcoming 2026", type: "Policy Brief", url: null, open: true },
-  { series: "GRT", code: "GRT-2026-01", title: "Inaugural GRT Lecture: Ashby\'s Law and the Limits of Democratic Oversight", authors: "TAI", date: "Forthcoming — Autumn 2026", type: "Lecture", url: null, open: true },
-  { series: "CEI", code: "CEI-2026", title: "Compute Equity Index 2026: Baseline Edition", authors: "TAI Compute & Society Program", date: "Forthcoming — Q4 2026", type: "Index Report", url: null, open: true },
-  { series: "CGA", code: "CGA-2026", title: "Compute Governance Annual 2026", authors: "TAI Compute Governance Program", date: "Forthcoming — Q4 2026", type: "Annual Review", url: null, open: true },
+  {
+    series: "C2030",
+    title: "Compute 2030: Four Scenarios for the AI-Native Compute Transition",
+    authors: "The Ashby Institute",
+    date: "June 2026",
+    type: "Annual Report",
+    abstract: "TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law of Requisite Variety.",
+    url: "https://theashbyinstitute.manus.space",
+    featured: true,
+  },
+  {
+    series: "WP",
+    title: "Variety Deficits in AI Oversight Architectures: A Formal Analysis",
+    authors: "TAI Research Staff",
+    date: "Forthcoming 2026",
+    type: "Working Paper",
+    abstract: "A formal analysis of variety deficits in current AI oversight architectures, applying the Good Regulator Theorem to evaluate the structural adequacy of proposed regulatory frameworks.",
+    url: null,
+    featured: false,
+  },
+  {
+    series: "PB",
+    title: "Governing Compute Concentration: A Policy Framework",
+    authors: "TAI Research Staff",
+    date: "Forthcoming 2026",
+    type: "Policy Brief",
+    abstract: "A policy framework for governing compute concentration, drawing on Ashby's Law to identify the minimum variety requirements for adequate regulatory oversight.",
+    url: null,
+    featured: false,
+  },
+  {
+    series: "GRT",
+    title: "The Good Regulator Theorem and the Limits of Democratic Oversight",
+    authors: "TAI Research Staff",
+    date: "Forthcoming Autumn 2026",
+    type: "Lecture",
+    abstract: "The inaugural GRT Lecture examines what the Good Regulator Theorem implies for the structural adequacy of democratic oversight of AI systems.",
+    url: null,
+    featured: false,
+  },
+  {
+    series: "WP",
+    title: "Ashby's Law and the 2008 Financial Crisis: A Retrospective Variety Analysis",
+    authors: "TAI Research Staff",
+    date: "Forthcoming 2026",
+    type: "Working Paper",
+    abstract: "A retrospective analysis of the 2008 financial crisis as a variety failure, examining how regulatory model complexity fell short of the variety generated by structured credit instruments.",
+    url: null,
+    featured: false,
+  },
+  {
+    series: "CEI",
+    title: "Compute Equity Index 2026: Baseline Measurement",
+    authors: "TAI Research Staff",
+    date: "Forthcoming Q4 2026",
+    type: "Annual Index",
+    abstract: "The inaugural Compute Equity Index, establishing baseline measurements of the distributional consequences of the compute transition across geographies, sectors, and demographic groups.",
+    url: null,
+    featured: false,
+  },
 ];
 
 export default function Publications() {
-  const [active, setActive] = useState("ALL");
-  const filtered = active === "ALL" ? PUBLICATIONS : PUBLICATIONS.filter(p => p.series === active);
-
   return (
     <Layout>
-      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "4rem" }}>
-        <div className="container">
-          <Reveal>
-            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Publications</p>
-            <h1 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(2rem, 4vw, 3.25rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1.5rem", maxWidth: "680px" }}>
-              All research published open access.
-            </h1>
-            <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.75, maxWidth: "600px" }}>
-              TAI publishes across six series — from annual scenario reports to working papers and policy briefs. All publications are freely available with no paywalls or embargoes.
-            </p>
-          </Reveal>
+      {/* PAGE HEADER */}
+      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0 4rem" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1.25rem", marginTop: 0 }}>Publications</p>
+          <h1 style={{ fontFamily: font, fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
+            Research & Publications
+          </h1>
+          <p style={{ fontFamily: font, fontSize: "0.95rem", color: mid, lineHeight: 1.8, maxWidth: "600px", fontWeight: 300, margin: 0 }}>
+            All TAI publications are open access. Our research is produced without commercial funding and is available without restriction. We publish across six series, from annual scenario reports to working papers and policy briefs.
+          </p>
         </div>
       </section>
 
-      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", paddingTop: "4rem", paddingBottom: "4rem" }}>
-        <div className="container">
-          <Reveal>
-            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.5rem" }}>Publication Series</p>
-          </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0", border: "1px solid #E5E4E0" }} className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {SERIES.map((s, i) => (
-              <Reveal key={s.code} delay={i * 40}>
-                <button onClick={() => setActive(active === s.code ? "ALL" : s.code)} style={{ display: "block", width: "100%", height: "100%", textAlign: "left", background: active === s.code ? "#F7F6F4" : "#FFFFFF", padding: "1.75rem", border: "none", borderRight: i % 3 !== 2 ? "1px solid #E5E4E0" : "none", borderBottom: i < 3 ? "1px solid #E5E4E0" : "none", cursor: "pointer", transition: "background 150ms", borderLeft: active === s.code ? `3px solid ${s.color}` : "3px solid transparent" }}>
-                  <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.12em", textTransform: "uppercase", color: s.color, marginBottom: "0.5rem" }}>{s.code}</p>
-                  <p style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontSize: "1rem", color: "#111111", marginBottom: "0.5rem", lineHeight: 1.25 }}>{s.label}</p>
-                  <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.8125rem", color: "#888888", lineHeight: 1.6 }}>{s.desc}</p>
-                </button>
-              </Reveal>
+      {/* FEATURED: COMPUTE 2030 — 50/50 SPLIT */}
+      <section style={{ borderBottom: `1px solid ${border}` }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "560px" }}>
+          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "560px" }}>
+            <AsciiCanvas sim="lorenz" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
+              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Lorenz Attractor · Deterministic Chaos</span>
+            </div>
+          </div>
+          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Featured · Inaugural Publication · June 2026</p>
+            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.25rem", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+              Compute 2030
+            </h2>
+            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: "0 0 2rem", fontWeight: 300 }}>
+              TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law — examining how regulatory variety must evolve to match the variety of AI-native compute systems.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", marginBottom: "2rem" }}>
+              {[
+                { n: "I", title: "Concentrated Dominance" },
+                { n: "II", title: "Multilateral Fragmentation" },
+                { n: "III", title: "Governed Transition" },
+                { n: "IV", title: "Diffuse Proliferation" },
+              ].map((s, i) => (
+                <div key={s.n} style={{ display: "flex", gap: "1rem", alignItems: "center", padding: "0.625rem 0", borderBottom: i < 3 ? `1px solid ${border}` : "none" }}>
+                  <span style={{ fontFamily: font, fontSize: "0.5rem", color: "rgba(44,62,107,0.4)", minWidth: "1.5rem" }}>{s.n}</span>
+                  <span style={{ fontFamily: font, fontSize: "0.8rem", color: black, fontWeight: 500 }}>{s.title}</span>
+                </div>
+              ))}
+            </div>
+            <a
+              href="https://theashbyinstitute.manus.space"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "0.5rem",
+                fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase",
+                color: "#fff", background: black, padding: "0.75rem 1.5rem",
+                textDecoration: "none", border: `1px solid ${black}`,
+                transition: "background 150ms, border-color 150ms", width: "fit-content",
+              }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = slate; el.style.borderColor = slate; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = black; el.style.borderColor = black; }}
+            >Read the Report →</a>
+          </div>
+        </div>
+      </section>
+
+      {/* PUBLICATION SERIES GRID */}
+      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Publication Series</p>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 3rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            Six Series
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: border }}>
+            {SERIES.map((s) => (
+              <div key={s.code} style={{ background: "#FFFFFF", padding: "2rem", transition: "background 150ms" }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F8F8F8"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#FFFFFF"}
+              >
+                <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: slate, margin: "0 0 0.5rem" }}>{s.code}</p>
+                <p style={{ fontFamily: font, fontSize: "0.85rem", fontWeight: 600, color: black, margin: "0 0 0.25rem" }}>{s.title}</p>
+                <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: "0 0 0.75rem", letterSpacing: "0.06em" }}>{s.type}</p>
+                <p style={{ fontFamily: font, fontSize: "0.72rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{s.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={{ background: "#F7F6F4", paddingTop: "4rem", paddingBottom: "5rem" }}>
-        <div className="container">
-          <Reveal>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem", flexWrap: "wrap", gap: "1rem" }}>
-              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA" }}>
-                {active === "ALL" ? "All Publications" : SERIES.find(s => s.code === active)?.label} — {filtered.length} {filtered.length === 1 ? "item" : "items"}
-              </p>
-              {active !== "ALL" && (
-                <button onClick={() => setActive("ALL")} style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#A02D24", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-                  Clear filter ×
-                </button>
-              )}
-            </div>
-          </Reveal>
+      {/* ALL PUBLICATIONS LIST */}
+      <section style={{ padding: "5rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>All Publications</p>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 3rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            Full Catalog
+          </h2>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            {filtered.map((pub, i) => {
-              const seriesObj = SERIES.find(s => s.code === pub.series);
-              return (
-                <Reveal key={pub.code} delay={i * 30}>
-                  <div style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", padding: "1.75rem 2rem", display: "flex", gap: "2rem", alignItems: "flex-start", flexWrap: "wrap" }}>
-                    <div style={{ minWidth: "80px" }}>
-                      <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: seriesObj?.color || "#555555" }}>{pub.series}</p>
-                    </div>
-                    <div style={{ flex: 1, minWidth: "240px" }}>
-                      {pub.url ? (
-                        <a href={pub.url} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontSize: "1.0625rem", color: "#111111", textDecoration: "none", lineHeight: 1.35, display: "block", marginBottom: "0.5rem", transition: "color 150ms" }}
-                          onMouseEnter={e => (e.currentTarget.style.color = "#A02D24")}
-                          onMouseLeave={e => (e.currentTarget.style.color = "#111111")}
-                        >{pub.title} ↗</a>
-                      ) : (
-                        <p style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontSize: "1.0625rem", color: "#111111", lineHeight: 1.35, marginBottom: "0.5rem" }}>{pub.title}</p>
-                      )}
-                      <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.8125rem", color: "#888888" }}>{pub.authors}</p>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.375rem", minWidth: "120px" }}>
-                      <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.06em", color: "#AAAAAA" }}>{pub.date}</p>
-                      <span style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#2D7A3A", border: "1px solid #2D7A3A", padding: "0.2rem 0.5rem" }}>Open Access</span>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
+            {PUBLICATIONS.map((pub, i) => (
+              <div key={i} style={{
+                display: "grid", gridTemplateColumns: "120px 1fr 160px",
+                gap: "2rem", alignItems: "start",
+                padding: "2rem 0",
+                borderBottom: i < PUBLICATIONS.length - 1 ? `1px solid ${border}` : "none",
+              }}>
+                <div>
+                  <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: slate, margin: "0 0 0.375rem" }}>{pub.series}</p>
+                  <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0, fontWeight: 300 }}>{pub.date}</p>
+                </div>
+                <div>
+                  <p style={{ fontFamily: font, fontSize: "0.9rem", fontWeight: 600, color: black, margin: "0 0 0.5rem", lineHeight: 1.3 }}>{pub.title}</p>
+                  <p style={{ fontFamily: font, fontSize: "0.7rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{pub.abstract}</p>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: light, margin: "0 0 0.75rem" }}>{pub.type}</p>
+                  {pub.url ? (
+                    <a href={pub.url} target="_blank" rel="noopener noreferrer" style={{
+                      fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase",
+                      color: black, textDecoration: "none", borderBottom: `1px solid ${black}`, paddingBottom: "1px",
+                      transition: "color 150ms, border-color 150ms",
+                    }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.color = slate; el.style.borderColor = slate; }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.color = black; el.style.borderColor = black; }}
+                    >Read →</a>
+                  ) : (
+                    <span style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: light }}>Forthcoming</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-          <Reveal>
-            <div style={{ marginTop: "2.5rem", padding: "1.5rem 2rem", border: "1px solid #E5E4E0", background: "#FFFFFF" }}>
-              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "0.5rem" }}>Open Access Policy</p>
-              <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#666666", lineHeight: 1.7 }}>
-                All TAI publications are released under Creative Commons Attribution 4.0 International (CC BY 4.0). You are free to share and adapt the material for any purpose, provided appropriate credit is given. TAI does not charge for access to any of its research outputs.
-              </p>
-            </div>
-          </Reveal>
+
+          {/* Open access policy */}
+          <div style={{ marginTop: "4rem", padding: "2rem", border: `1px solid ${border}` }}>
+            <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: light, margin: "0 0 0.75rem" }}>Open Access Policy</p>
+            <p style={{ fontFamily: font, fontSize: "0.78rem", color: mid, lineHeight: 1.75, margin: 0, fontWeight: 300 }}>
+              All TAI publications are released under Creative Commons Attribution 4.0 International (CC BY 4.0). You are free to share and adapt the material for any purpose, provided appropriate credit is given. TAI does not charge for access to any of its research outputs and does not accept commercial funding that would restrict publication.
+            </p>
+          </div>
         </div>
       </section>
     </Layout>

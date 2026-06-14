@@ -11,7 +11,7 @@ import { useEffect, useRef } from "react";
 const CHARS = " .·:;+|=xX$V(R)≥D∀∃→∞∂∇Σ01";
 const CHARS_DENSE = "VRD≥∀∃→∞∂∇Σ01xX$@#%&";
 
-type SimType = "cellular" | "reaction-diffusion" | "lorenz" | "network" | "boids";
+export type SimType = "cellular" | "reaction-diffusion" | "lorenz" | "network" | "boids";
 
 interface AsciiCanvasProps {
   sim: SimType;

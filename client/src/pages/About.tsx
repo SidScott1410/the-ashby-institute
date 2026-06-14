@@ -1,179 +1,209 @@
 /*
- * About.tsx — TAI About v4 — Clean Institutional White
+ * About.tsx — TAI About v4
+ * Design: GI-clone — Chakra Petch, white background, black typography, slate blue accent
  */
-import { useEffect, useRef } from "react";
-import { Link } from "wouter";
 import Layout from "@/components/Layout";
+import AsciiCanvas from "@/components/AsciiCanvas";
 
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } }, { threshold: 0.05 });
-    obs.observe(el); return () => obs.disconnect();
-  }, []);
-  return <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
-}
-
-const INDEPENDENCE = [
-  { label: "Funding Independence", desc: "TAI accepts no funding from commercial AI developers, semiconductor manufacturers, cloud infrastructure providers, or any entity with a direct financial interest in the systems TAI analyzes. TAI is funded exclusively through philanthropic grants, foundation support, and individual donations from sources with no commercial interest in AI or compute infrastructure." },
-  { label: "Governance Independence", desc: "TAI\'s Board of Directors is composed entirely of individuals with no current employment or financial interest in commercial AI development or compute infrastructure. Board members are required to disclose and recuse from any matter in which they have a potential conflict of interest." },
-  { label: "Research Independence", desc: "TAI\'s research agenda is set by its research staff and fellows, subject to Board oversight. No funder, donor, or external party has any influence over TAI\'s research agenda, methodology, findings, or publication decisions. TAI does not accept commissioned research." },
-  { label: "Publication Independence", desc: "All TAI publications are released open access under Creative Commons Attribution 4.0 International. TAI does not embargo publications, accept prepublication review by external parties, or restrict access to its research outputs in any way." },
-];
-
-const BOARD = [
-  { name: "TBA", role: "Chair", affiliation: "To be announced" },
-  { name: "TBA", role: "Vice Chair", affiliation: "To be announced" },
-  { name: "TBA", role: "Treasurer", affiliation: "To be announced" },
-  { name: "TBA", role: "Director", affiliation: "To be announced" },
-  { name: "TBA", role: "Director", affiliation: "To be announced" },
-];
-
-const SAC = [
-  { name: "TBA", field: "Systems Theory & Cybernetics", affiliation: "To be announced" },
-  { name: "TBA", field: "AI Governance & Policy", affiliation: "To be announced" },
-  { name: "TBA", field: "Compute Infrastructure", affiliation: "To be announced" },
-  { name: "TBA", field: "Financial Regulation", affiliation: "To be announced" },
-  { name: "TBA", field: "Democratic Theory", affiliation: "To be announced" },
-  { name: "TBA", field: "Cybersecurity", affiliation: "To be announced" },
-];
+const font = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const slate = "#2C3E6B";
+const black = "#111111";
+const mid = "#555555";
+const light = "#999999";
+const border = "#E0E0E0";
 
 export default function About() {
   return (
     <Layout>
-      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "4rem" }}>
-        <div className="container">
-          <Reveal>
-            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>About</p>
-            <h1 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(2rem, 4vw, 3.25rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1.5rem", maxWidth: "680px" }}>
-              The Ashby Institute
-            </h1>
-            <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.75, maxWidth: "600px" }}>
-              Independent nonprofit research organization. Applying Ashby\'s Law of Requisite Variety to the governance of complex systems.
-            </p>
-          </Reveal>
+      {/* PAGE HEADER */}
+      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0 4rem" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1.25rem", marginTop: 0 }}>About</p>
+          <h1 style={{ fontFamily: font, fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
+            The Ashby Institute
+          </h1>
+          <p style={{ fontFamily: font, fontSize: "0.95rem", color: mid, lineHeight: 1.8, maxWidth: "640px", fontWeight: 300, margin: 0 }}>
+            An independent nonprofit research organization applying Ashby's Law of Requisite Variety to the most consequential governance challenges of the compute transition and beyond.
+          </p>
         </div>
       </section>
 
-      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
-        <div className="container">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }} className="grid-cols-1 lg:grid-cols-2">
-            <Reveal>
-              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Founding Story</p>
-              <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#111111", lineHeight: 1.15, marginBottom: "1.5rem" }}>
-                Why Ashby. Why Now.
-              </h2>
-              <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.25rem" }}>
-                The Ashby Institute was founded on a simple observation: the most consequential governance failures of our era — from financial crises to AI safety to democratic breakdown — share a common structural cause. The institutions attempting to govern complex systems do not have sufficient internal variety to model those systems. They are, in Ashby\'s terms, inadequate regulators.
-              </p>
-              <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.25rem" }}>
-                W. Ross Ashby proved this in 1956. His Law of Requisite Variety is a mathematical theorem about the limits of control. The Good Regulator Theorem, proved by Conant and Ashby in 1970, extends this to a formal requirement: any system that successfully regulates another must model it. These are not metaphors. They are mathematical constraints.
-              </p>
-              <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8 }}>
-                TAI exists to apply these constraints rigorously to the governance problems that matter most — beginning with the compute transition, and extending to every domain where variety deficits are consequential. We are named for Ashby because we aspire to be what he described: a good regulator of the systems we study.
-              </p>
-            </Reveal>
-            <Reveal delay={100}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "#E5E4E0" }}>
-                {[
-                  { label: "Founded", value: "2026" },
-                  { label: "Structure", value: "Independent nonprofit research organization" },
-                  { label: "Funding", value: "Philanthropic grants and individual donations. No commercial funding." },
-                  { label: "Research Model", value: "Fellowship-based. Rotating cohort of independent researchers." },
-                  { label: "Publication Policy", value: "All research open access. CC BY 4.0." },
-                  { label: "Independence Policy", value: "No funding from commercial AI developers or compute infrastructure providers." },
-                ].map(item => (
-                  <div key={item.label} style={{ background: "#FFFFFF", padding: "1.25rem 1.75rem" }}>
-                    <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "0.375rem" }}>{item.label}</p>
-                    <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555", lineHeight: 1.6 }}>{item.value}</p>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+      {/* FOUNDING STORY — 50/50 SPLIT */}
+      <section style={{ borderBottom: `1px solid ${border}` }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "560px" }}>
+          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "560px" }}>
+            <AsciiCanvas sim="reaction-diffusion" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
+              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Reaction-Diffusion · Turing Patterns</span>
+            </div>
+          </div>
+          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Founding</p>
+            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+              Why TAI Exists
+            </h2>
+            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: "0 0 1.25rem", fontWeight: 300 }}>
+              W. Ross Ashby's Law of Requisite Variety — formalized in 1956 — states that only variety can absorb variety. A regulator can only control a system if its internal model is at least as complex as the system it governs. This is not a policy preference. It is a mathematical constraint.
+            </p>
+            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: "0 0 1.25rem", fontWeight: 300 }}>
+              The compute transition — the period in which AI-native compute orchestration reshapes the global economy, governance, and strategic balance — is generating variety at a rate that existing regulatory institutions were not designed to absorb. The variety gap is widening. The consequences are structural, not incidental.
+            </p>
+            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: 0, fontWeight: 300 }}>
+              TAI was founded to produce rigorous, independent structural analysis of this gap — and to develop the institutional frameworks required to close it. We apply Ashby's Law not as a metaphor but as a formal analytical tool, across every domain where the compute transition is generating governance failures.
+            </p>
           </div>
         </div>
       </section>
 
-      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }} id="governance">
-        <div className="container">
-          <Reveal>
-            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Governance</p>
-            <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#111111", lineHeight: 1.15, marginBottom: "0.75rem" }}>Board & Scientific Advisory Council</h2>
-            <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.7, maxWidth: "560px", marginBottom: "3rem" }}>
-              TAI is governed by an independent Board of Directors and advised by a Scientific Advisory Council. Board and SAC appointments will be announced as the Institute is formally constituted.
-            </p>
-          </Reveal>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem" }} className="grid-cols-1 lg:grid-cols-2">
-            <Reveal>
-              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.25rem" }}>Board of Directors</p>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {BOARD.map(m => (
-                  <div key={m.name + m.role} style={{ background: "#FFFFFF", padding: "1.25rem 1.5rem", borderBottom: "1px solid #E5E4E0", display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
-                    <div style={{ flex: 1 }}>
-                      <p style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontSize: "0.9375rem", color: "#111111", marginBottom: "0.25rem" }}>{m.name}</p>
-                      <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.8125rem", color: "#888888" }}>{m.affiliation}</p>
-                    </div>
-                    <span style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#AAAAAA", whiteSpace: "nowrap", paddingTop: "0.2rem" }}>{m.role}</span>
-                  </div>
-                ))}
+      {/* MANDATE SCOPE — full-width grid */}
+      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Mandate</p>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 3rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            Eight Domains of Application
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1px", background: border }}>
+            {[
+              { n: "01", domain: "AI Alignment & Superintelligence", note: "V(C) ≫ V(H)" },
+              { n: "02", domain: "Cybersecurity & Adversarial Systems", note: "Attacker variety" },
+              { n: "03", domain: "Autonomous Systems & Robotics", note: "Edge deployment" },
+              { n: "04", domain: "Critical Infrastructure", note: "Grid, water, transport" },
+              { n: "05", domain: "Financial Systems", note: "Systemic risk" },
+              { n: "06", domain: "Healthcare & Biological Systems", note: "Diagnostic AI" },
+              { n: "07", domain: "Democratic Governance", note: "Institutional design" },
+              { n: "08", domain: "Climate & Earth Systems", note: "Planetary boundaries" },
+            ].map(d => (
+              <div key={d.n} style={{ background: "#FFFFFF", padding: "1.75rem 1.5rem", transition: "background 150ms" }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F8F8F8"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#FFFFFF"}
+              >
+                <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: slate, margin: "0 0 0.5rem" }}>{d.n}</p>
+                <p style={{ fontFamily: font, fontSize: "0.8rem", fontWeight: 600, color: black, margin: "0 0 0.375rem", lineHeight: 1.3 }}>{d.domain}</p>
+                <p style={{ fontFamily: font, fontSize: "0.55rem", color: light, margin: 0, letterSpacing: "0.06em" }}>{d.note}</p>
               </div>
-            </Reveal>
-            <Reveal delay={100}>
-              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.25rem" }}>Scientific Advisory Council</p>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {SAC.map(m => (
-                  <div key={m.name + m.field} style={{ background: "#FFFFFF", padding: "1.25rem 1.5rem", borderBottom: "1px solid #E5E4E0", display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
-                    <div style={{ flex: 1 }}>
-                      <p style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontSize: "0.9375rem", color: "#111111", marginBottom: "0.25rem" }}>{m.name}</p>
-                      <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.8125rem", color: "#888888" }}>{m.affiliation}</p>
-                    </div>
-                    <span style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#AAAAAA", whiteSpace: "nowrap", paddingTop: "0.2rem", textAlign: "right", maxWidth: "120px" }}>{m.field}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }} id="independence">
-        <div className="container">
-          <Reveal>
-            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Independence Policy</p>
-            <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#111111", lineHeight: 1.15, marginBottom: "0.75rem" }}>Structural Independence</h2>
-            <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.7, maxWidth: "560px", marginBottom: "3rem" }}>
-              TAI\'s independence is structural, not merely stated. The following policies are binding on all TAI staff, fellows, and Board members.
-            </p>
-          </Reveal>
-          <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "#E5E4E0" }}>
-            {INDEPENDENCE.map((item, i) => (
-              <Reveal key={item.label} delay={i * 40}>
-                <div style={{ background: "#FFFFFF", padding: "2rem 2.5rem", display: "grid", gridTemplateColumns: "220px 1fr", gap: "3rem", alignItems: "start" }} className="grid-cols-1 sm:grid-cols-[220px_1fr]">
-                  <p style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontSize: "1rem", color: "#111111", lineHeight: 1.3 }}>{item.label}</p>
-                  <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.9375rem", color: "#555555", lineHeight: 1.75 }}>{item.desc}</p>
-                </div>
-              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={{ background: "#F7F6F4", paddingTop: "4rem", paddingBottom: "4rem" }}>
-        <div className="container">
-          <Reveal>
-            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <Link href="/research" style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", fontWeight: 500, color: "#FFFFFF", background: "#A02D24", border: "1px solid #A02D24", padding: "0.75rem 1.5rem", textDecoration: "none", transition: "background 150ms" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#8B2520")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#A02D24")}
-              >Research Programs →</Link>
-              <Link href="/contact" style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555", border: "1px solid #CCCCCC", padding: "0.75rem 1.5rem", textDecoration: "none", transition: "border-color 150ms" }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "#555555")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "#CCCCCC")}
-              >Contact</Link>
+      {/* INDEPENDENCE POLICY — 50/50 SPLIT */}
+      <section style={{ borderBottom: `1px solid ${border}` }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "500px" }}>
+          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: `1px solid ${border}` }}>
+            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Independence</p>
+            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+              Structural Independence
+            </h2>
+            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: "0 0 1.5rem", fontWeight: 300 }}>
+              TAI's independence is structural, not aspirational. Our funding model, governance structure, and publication policies are designed to make capture — by commercial interests, governments, or ideological movements — structurally difficult rather than merely discouraged.
+            </p>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {[
+                { title: "No commercial funding", desc: "TAI does not accept funding from commercial AI developers, compute infrastructure providers, or any entity with a direct financial interest in the compute transition." },
+                { title: "No government contracts", desc: "TAI does not accept government contracts or classified research. All research is published openly and without restriction." },
+                { title: "Board independence", desc: "Board members serve fixed terms and are subject to conflict-of-interest policies that prohibit financial relationships with entities in TAI's research domains." },
+                { title: "Open access", desc: "All TAI research is published under Creative Commons Attribution 4.0. We do not charge for access to any research output." },
+              ].map((item, i) => (
+                <div key={i} style={{ padding: "1rem 0", borderBottom: i < 3 ? `1px solid ${border}` : "none" }}>
+                  <p style={{ fontFamily: font, fontSize: "0.7rem", fontWeight: 600, color: black, margin: "0 0 0.25rem" }}>{item.title}</p>
+                  <p style={{ fontFamily: font, fontSize: "0.72rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{item.desc}</p>
+                </div>
+              ))}
             </div>
-          </Reveal>
+          </div>
+          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "500px" }}>
+            <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
+              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Boids Flocking · Distributed Control</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GOVERNANCE */}
+      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem" }}>
+            <div>
+              <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Governance</p>
+              <h2 style={{ fontFamily: font, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em" }}>
+                Board of Directors
+              </h2>
+              <p style={{ fontFamily: font, fontSize: "0.78rem", color: mid, lineHeight: 1.75, margin: "0 0 2rem", fontWeight: 300 }}>
+                TAI's Board of Directors is responsible for organizational governance, financial oversight, and ensuring adherence to TAI's independence policy. Board members serve three-year terms and are subject to strict conflict-of-interest policies.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {[
+                  { role: "Chair", name: "To Be Announced", affil: "TAI Board" },
+                  { role: "Vice Chair", name: "To Be Announced", affil: "TAI Board" },
+                  { role: "Treasurer", name: "To Be Announced", affil: "TAI Board" },
+                  { role: "Director", name: "To Be Announced", affil: "TAI Board" },
+                  { role: "Director", name: "To Be Announced", affil: "TAI Board" },
+                ].map((m, i, arr) => (
+                  <div key={i} style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", padding: "1rem 0", borderBottom: i < arr.length - 1 ? `1px solid ${border}` : "none" }}>
+                    <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.14em", textTransform: "uppercase", color: light, margin: 0, paddingTop: "0.15rem" }}>{m.role}</p>
+                    <div>
+                      <p style={{ fontFamily: font, fontSize: "0.78rem", fontWeight: 600, color: black, margin: "0 0 0.1rem" }}>{m.name}</p>
+                      <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0 }}>{m.affil}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Advisory</p>
+              <h2 style={{ fontFamily: font, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em" }}>
+                Scientific Advisory Council
+              </h2>
+              <p style={{ fontFamily: font, fontSize: "0.78rem", color: mid, lineHeight: 1.75, margin: "0 0 2rem", fontWeight: 300 }}>
+                The Scientific Advisory Council provides guidance on TAI's research agenda, methodology, and quality standards. Members are selected for their expertise in systems theory, AI governance, and related disciplines.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {[
+                  { role: "Chair", field: "Systems Theory & Cybernetics" },
+                  { role: "Member", field: "AI Governance & Policy" },
+                  { role: "Member", field: "Compute Infrastructure" },
+                  { role: "Member", field: "Financial Regulation" },
+                  { role: "Member", field: "Democratic Theory" },
+                  { role: "Member", field: "Cybersecurity" },
+                ].map((m, i, arr) => (
+                  <div key={i} style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", padding: "1rem 0", borderBottom: i < arr.length - 1 ? `1px solid ${border}` : "none" }}>
+                    <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.14em", textTransform: "uppercase", color: light, margin: 0, paddingTop: "0.15rem" }}>{m.role}</p>
+                    <div>
+                      <p style={{ fontFamily: font, fontSize: "0.78rem", fontWeight: 600, color: black, margin: "0 0 0.1rem" }}>To Be Announced</p>
+                      <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0 }}>{m.field}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STAFFING MODEL */}
+      <section style={{ padding: "5rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Organization</p>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+            Staffing Model
+          </h2>
+          <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, maxWidth: "680px", margin: "0 0 3rem", fontWeight: 300 }}>
+            TAI operates with a lean permanent staff and a larger network of fellows, visiting researchers, and policy residents. This model is intentional: it maximizes intellectual diversity while maintaining the institutional coherence required for rigorous, sustained research programs.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1px", background: border }}>
+            {[
+              { title: "Permanent Staff", desc: "A small core team responsible for research coordination, publications, and institutional operations." },
+              { title: "Ashby Fellows", desc: "Competitive annual fellowship for early-career researchers. Two-year terms with full research support." },
+              { title: "Senior Research Fellows", desc: "Established researchers affiliated with TAI on a part-time basis. Contribute to specific research programs." },
+              { title: "Policy Residents", desc: "Mid-career policymakers and practitioners in residence for six to twelve months. Bridge research and policy." },
+            ].map(s => (
+              <div key={s.title} style={{ background: "#FFFFFF", padding: "2rem 1.75rem" }}>
+                <p style={{ fontFamily: font, fontSize: "0.7rem", fontWeight: 600, color: black, margin: "0 0 0.75rem", lineHeight: 1.3 }}>{s.title}</p>
+                <p style={{ fontFamily: font, fontSize: "0.72rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </Layout>

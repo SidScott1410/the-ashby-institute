@@ -1,130 +1,249 @@
 /*
- * Fellows.tsx — TAI Fellows v4 — Clean Institutional White
+ * Fellows.tsx — TAI Fellows v4
+ * Design: GI-clone — Chakra Petch, white background, black typography, slate blue accent
  */
-import { useEffect, useRef } from "react";
-import { Link } from "wouter";
 import Layout from "@/components/Layout";
+import AsciiCanvas from "@/components/AsciiCanvas";
+import { Link } from "wouter";
 
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } }, { threshold: 0.05 });
-    obs.observe(el); return () => obs.disconnect();
-  }, []);
-  return <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
-}
+const font = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const slate = "#2C3E6B";
+const black = "#111111";
+const mid = "#555555";
+const light = "#999999";
+const border = "#E0E0E0";
 
 const PROGRAMS = [
   {
-    code: "AF", title: "The Ashby Fellowship", type: "Flagship Competitive Fellowship",
-    duration: "12 months", cycle: "Annual — applications open September, decisions December", stipend: "Full stipend + research budget",
-    desc: "The Ashby Fellowship is TAI\'s flagship competitive fellowship for early-career researchers working at the intersection of systems theory, governance, and the compute transition. Fellows are selected for their ability to apply rigorous formal methods to consequential governance problems. The fellowship is designed to produce the next generation of researchers capable of applying the Law of Requisite Variety to the defining problems of the compute era.",
-    eligibility: ["Doctoral candidates or recent PhDs (within 5 years of degree)", "Demonstrated capacity for formal theoretical work", "Research agenda relevant to TAI\'s eight application domains", "No current affiliation with commercial AI developers or compute infrastructure providers"],
-    outputs: ["One major working paper or policy brief per fellowship year", "Participation in TAI\'s annual symposium", "Contribution to at least one cross-domain research project"],
+    label: "Flagship Program",
+    code: "AF",
+    title: "The Ashby Fellowship",
+    duration: "12 months",
+    cycle: "Annual",
+    applications: "Open September",
+    description: "TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original research applying Ashby's Law to a governance domain of their choosing — AI alignment, compute governance, financial regulation, democratic institutions, or any other domain where variety deficits are consequential.",
+    eligibility: [
+      "Doctoral candidates or recent PhDs (within 5 years of degree)",
+      "Demonstrated capacity for formal theoretical work",
+      "Research agenda relevant to TAI's eight application domains",
+      "No current affiliation with commercial AI developers or compute infrastructure providers",
+    ],
+    benefits: [
+      "Full stipend and research budget",
+      "Office space at TAI",
+      "Access to TAI's research networks and advisory council",
+      "Publication support and policy engagement",
+      "Pathway to Senior Research Fellow appointment",
+    ],
   },
   {
-    code: "SRF", title: "Senior Research Fellows", type: "Appointment",
-    duration: "3 years, renewable", cycle: "Rolling — by invitation and open application", stipend: "Part-time engagement + research support",
-    desc: "Senior Research Fellows are established scholars and practitioners who contribute to TAI\'s research programs on a part-time basis. Fellows bring deep expertise in one or more of TAI\'s eight application domains and contribute to the Institute\'s research agenda through publications, workshops, and advisory engagement. Senior Fellows maintain their primary institutional affiliation.",
-    eligibility: ["Established scholars with a significant publication record", "Practitioners with demonstrated policy or technical expertise", "Researchers working in one or more of TAI\'s eight application domains", "Commitment to TAI\'s independence and open access principles"],
-    outputs: ["At least one TAI publication per year", "Participation in TAI workshops and events", "Advisory engagement with TAI research programs"],
+    label: "Senior Appointment",
+    code: "SRF",
+    title: "Senior Research Fellows",
+    duration: "3 years, renewable",
+    cycle: "Rolling",
+    applications: "By invitation and open application",
+    description: "Established scholars and practitioners who contribute to TAI's research programs on a part-time basis. Senior Fellows bring deep expertise in one or more of TAI's eight application domains and contribute through publications, workshops, and advisory engagement. Senior Fellows maintain their primary institutional affiliation.",
+    eligibility: [
+      "Established scholars with a significant publication record",
+      "Practitioners with demonstrated policy or technical expertise",
+      "Researchers working in one or more of TAI's eight application domains",
+      "Commitment to TAI's independence and open access principles",
+    ],
+    benefits: [
+      "Part-time engagement and research support",
+      "TAI affiliation and publication platform",
+      "Access to TAI's research infrastructure",
+      "Participation in TAI workshops and events",
+    ],
   },
   {
-    code: "VF", title: "Visiting Fellows", type: "Short-term Residency",
-    duration: "3–6 months", cycle: "Rolling — applications accepted year-round", stipend: "Modest stipend + office access",
-    desc: "The Visiting Fellowship program provides short-term residencies for researchers who wish to spend a concentrated period working on a specific project in residence at TAI. Visiting Fellows have access to TAI\'s research infrastructure, library resources, and intellectual community. The program supports focused research that benefits from TAI\'s analytical framework and network.",
-    eligibility: ["Researchers at any career stage", "Clear project proposal relevant to TAI\'s research agenda", "Ability to be in residence for the fellowship period", "Commitment to producing a TAI working paper or policy brief"],
-    outputs: ["One working paper or policy brief", "One public seminar or lecture", "Participation in TAI\'s research community"],
+    label: "Short-Term Residency",
+    code: "VF",
+    title: "Visiting Fellows",
+    duration: "3–6 months",
+    cycle: "Rolling",
+    applications: "Accepted year-round",
+    description: "Short-term residencies for researchers who wish to spend a concentrated period working on a specific project in residence at TAI. Visiting Fellows have access to TAI's research infrastructure, library resources, and intellectual community. The program supports focused research that benefits from TAI's analytical framework and network.",
+    eligibility: [
+      "Researchers at any career stage",
+      "Clear project proposal relevant to TAI's research agenda",
+      "Ability to be in residence for the fellowship period",
+      "Commitment to producing a TAI working paper or policy brief",
+    ],
+    benefits: [
+      "Modest stipend and office access",
+      "Access to TAI's research community",
+      "Publication support",
+      "One public seminar or lecture",
+    ],
   },
   {
-    code: "PR", title: "Policy Residency", type: "Practice-Oriented Program",
-    duration: "6 months", cycle: "Biannual — applications open January and July", stipend: "Full stipend",
-    desc: "The Policy Residency is designed for practitioners — government officials, regulatory staff, legislative analysts, and policy professionals — who wish to develop a deeper analytical foundation for their work on AI governance, compute policy, or related domains. Residents work alongside TAI researchers and produce a policy-relevant output applying TAI\'s analytical framework to a specific governance problem.",
-    eligibility: ["Current or recent government officials, regulatory staff, or legislative analysts", "Policy professionals working on AI governance, compute policy, or related domains", "Demonstrated commitment to evidence-based policymaking", "No current affiliation with commercial AI developers"],
-    outputs: ["One policy brief or regulatory analysis", "Participation in TAI\'s Constitutional Period Workshop", "Engagement with TAI\'s policy network"],
+    label: "Policy Track",
+    code: "PR",
+    title: "Policy Residency",
+    duration: "6 months",
+    cycle: "Biannual",
+    applications: "Open January and July",
+    description: "Designed for practitioners — government officials, regulatory staff, legislative analysts, and policy professionals — who wish to develop a deeper analytical foundation for their work on AI governance, compute policy, or related domains. Residents work alongside TAI researchers and produce a policy-relevant output applying TAI's analytical framework to a specific governance problem.",
+    eligibility: [
+      "Current or recent government officials, regulatory staff, or legislative analysts",
+      "Policy professionals working on AI governance, compute policy, or related domains",
+      "Demonstrated commitment to evidence-based policymaking",
+      "No current affiliation with commercial AI developers",
+    ],
+    benefits: [
+      "Full stipend for the residency period",
+      "Access to TAI research and networks",
+      "Policy output publication support",
+      "Participation in TAI's Constitutional Period Workshop",
+    ],
   },
 ];
 
 export default function Fellows() {
   return (
     <Layout>
-      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "4rem" }}>
-        <div className="container">
-          <Reveal>
-            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Fellows & Residencies</p>
-            <h1 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(2rem, 4vw, 3.25rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1.5rem", maxWidth: "680px" }}>
-              Developing the next generation of systems governance researchers.
-            </h1>
-            <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.75, maxWidth: "600px" }}>
-              TAI\'s fellowship programs support researchers and practitioners who apply rigorous formal methods to the governance of complex systems. All programs are open to candidates who can demonstrate independence from commercial interests.
-            </p>
-          </Reveal>
+      {/* ── PAGE HEADER ── */}
+      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0 4rem" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1.25rem", marginTop: 0 }}>Fellowship Programs</p>
+          <h1 style={{ fontFamily: font, fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
+            Fellows
+          </h1>
+          <p style={{ fontFamily: font, fontSize: "0.95rem", color: mid, lineHeight: 1.8, maxWidth: "600px", fontWeight: 300, margin: 0 }}>
+            TAI's fellowship programs bring together researchers, practitioners, and policymakers to develop the analytical capacity required to govern complex systems. Every program is grounded in the same premise: understanding requires modeling, and modeling requires rigor.
+          </p>
         </div>
       </section>
 
-      {PROGRAMS.map((p, i) => (
-        <section key={p.code} style={{ background: i % 2 === 0 ? "#FFFFFF" : "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
-          <div className="container">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }} className="grid-cols-1 lg:grid-cols-2">
-              <Reveal>
-                <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.5rem" }}>{p.code}</p>
-                <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#111111", lineHeight: 1.15, marginBottom: "0.5rem" }}>{p.title}</h2>
-                <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#888888", fontStyle: "italic", marginBottom: "1.5rem" }}>{p.type}</p>
-                <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.5rem" }}>{p.desc}</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {[{ label: "Duration", value: p.duration }, { label: "Application Cycle", value: p.cycle }, { label: "Support", value: p.stipend }].map(item => (
-                    <div key={item.label} style={{ display: "flex", gap: "1rem" }}>
-                      <span style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#AAAAAA", minWidth: "130px", paddingTop: "0.15rem" }}>{item.label}</span>
-                      <span style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555" }}>{item.value}</span>
-                    </div>
-                  ))}
+      {/* ── ASHBY FELLOWSHIP: 50/50 SPLIT ── */}
+      <section style={{ borderBottom: `1px solid ${border}` }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "640px" }}>
+          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "640px" }}>
+            <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
+              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Boids · Distributed Control Without Central Regulator</span>
+            </div>
+          </div>
+          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Flagship · Annual</p>
+            <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+              The Ashby Fellowship
+            </h2>
+            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: "0 0 2rem", fontWeight: 300 }}>
+              TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original research applying Ashby's Law to a governance domain of their choosing — AI alignment, compute governance, financial regulation, democratic institutions, or any other domain where variety deficits are consequential.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: border, marginBottom: "2rem" }}>
+              {[
+                { label: "Duration", value: "12 months" },
+                { label: "Cycle", value: "Annual" },
+                { label: "Format", value: "Full residency" },
+                { label: "Applications", value: "Open September" },
+              ].map(item => (
+                <div key={item.label} style={{ background: "#FFFFFF", padding: "1rem 1.25rem" }}>
+                  <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: light, margin: "0 0 0.25rem" }}>{item.label}</p>
+                  <p style={{ fontFamily: font, fontSize: "0.8rem", fontWeight: 600, color: black, margin: 0 }}>{item.value}</p>
                 </div>
-              </Reveal>
-              <Reveal delay={100}>
-                <div style={{ border: "1px solid #E5E4E0", padding: "2rem", background: i % 2 === 0 ? "#FAFAF8" : "#FFFFFF", marginBottom: "1.5rem" }}>
-                  <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.25rem" }}>Eligibility</p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                    {p.eligibility.map(e => (
-                      <div key={e} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                        <span style={{ color: "#A02D24", fontSize: "0.75rem", paddingTop: "0.15rem", flexShrink: 0 }}>→</span>
-                        <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555", lineHeight: 1.65 }}>{e}</p>
+              ))}
+            </div>
+            <Link href="/contact" style={{
+              display: "inline-flex", alignItems: "center", gap: "0.5rem",
+              fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase",
+              color: "#fff", background: black, padding: "0.75rem 1.5rem", textDecoration: "none",
+              border: `1px solid ${black}`, transition: "background 150ms, border-color 150ms", width: "fit-content",
+            }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = slate; el.style.borderColor = slate; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = black; el.style.borderColor = black; }}
+            >Express Interest →</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OTHER PROGRAMS ── */}
+      {PROGRAMS.slice(1).map((prog) => (
+        <section key={prog.code} style={{ borderBottom: `1px solid ${border}` }}>
+          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "400px" }}>
+              <div style={{ padding: "4rem 3rem 4rem 0", borderRight: `1px solid ${border}`, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>{prog.label}</p>
+                  <h2 style={{ fontFamily: font, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", fontWeight: 700, color: black, margin: "0 0 1.25rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+                    {prog.title}
+                  </h2>
+                  <p style={{ fontFamily: font, fontSize: "0.82rem", color: mid, lineHeight: 1.85, margin: "0 0 1.75rem", fontWeight: 300 }}>
+                    {prog.description}
+                  </p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: border }}>
+                    {[
+                      { label: "Duration", value: prog.duration },
+                      { label: "Applications", value: prog.applications },
+                    ].map(item => (
+                      <div key={item.label} style={{ background: "#FFFFFF", padding: "0.875rem 1rem" }}>
+                        <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: light, margin: "0 0 0.2rem" }}>{item.label}</p>
+                        <p style={{ fontFamily: font, fontSize: "0.75rem", fontWeight: 600, color: black, margin: 0 }}>{item.value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div style={{ border: "1px solid #E5E4E0", padding: "2rem", background: i % 2 === 0 ? "#FAFAF8" : "#FFFFFF" }}>
-                  <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.25rem" }}>Expected Outputs</p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                    {p.outputs.map(o => (
-                      <div key={o} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                        <span style={{ color: "#A02D24", fontSize: "0.75rem", paddingTop: "0.15rem", flexShrink: 0 }}>→</span>
-                        <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555", lineHeight: 1.65 }}>{o}</p>
+              </div>
+              <div style={{ padding: "4rem 0 4rem 3rem", display: "flex", flexDirection: "column", gap: "2.5rem" }}>
+                <div>
+                  <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.2em", textTransform: "uppercase", color: light, marginBottom: "1rem", marginTop: 0 }}>Eligibility</p>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    {prog.eligibility.map((e, j) => (
+                      <div key={j} style={{ display: "flex", gap: "0.875rem", padding: "0.75rem 0", borderBottom: j < prog.eligibility.length - 1 ? `1px solid ${border}` : "none" }}>
+                        <span style={{ fontFamily: font, fontSize: "0.5rem", color: slate, paddingTop: "0.15rem", flexShrink: 0 }}>—</span>
+                        <p style={{ fontFamily: font, fontSize: "0.75rem", color: mid, lineHeight: 1.6, margin: 0, fontWeight: 300 }}>{e}</p>
                       </div>
                     ))}
                   </div>
                 </div>
-              </Reveal>
+                <div>
+                  <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.2em", textTransform: "uppercase", color: light, marginBottom: "1rem", marginTop: 0 }}>Benefits</p>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    {prog.benefits.map((b, j) => (
+                      <div key={j} style={{ display: "flex", gap: "0.875rem", padding: "0.75rem 0", borderBottom: j < prog.benefits.length - 1 ? `1px solid ${border}` : "none" }}>
+                        <span style={{ fontFamily: font, fontSize: "0.5rem", color: slate, paddingTop: "0.15rem", flexShrink: 0 }}>+</span>
+                        <p style={{ fontFamily: font, fontSize: "0.75rem", color: mid, lineHeight: 1.6, margin: 0, fontWeight: 300 }}>{b}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       ))}
 
-      <section style={{ background: "#FFFFFF", paddingTop: "4rem", paddingBottom: "4rem" }}>
-        <div className="container">
-          <Reveal>
-            <div style={{ maxWidth: "600px" }}>
-              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Apply</p>
-              <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", color: "#111111", lineHeight: 1.15, marginBottom: "1rem" }}>Interested in a fellowship or residency?</h2>
-              <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.7, marginBottom: "1.5rem" }}>
-                Applications for all programs are reviewed on a rolling basis except where noted. Contact us with a brief statement of interest and a CV to begin the process.
-              </p>
-              <Link href="/contact" style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", fontWeight: 500, color: "#FFFFFF", background: "#A02D24", border: "1px solid #A02D24", padding: "0.75rem 1.5rem", textDecoration: "none", display: "inline-block", transition: "background 150ms" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#8B2520")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#A02D24")}
-              >Contact Us →</Link>
-            </div>
-          </Reveal>
+      {/* ── CTA ── */}
+      <section style={{ padding: "4rem 0" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Inquiries</p>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: black, margin: "0 0 1rem", letterSpacing: "-0.02em" }}>
+            Interested in a Fellowship?
+          </h2>
+          <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.8, maxWidth: "520px", margin: "0 0 2rem", fontWeight: 300 }}>
+            Fellowship inquiries and expressions of interest are welcome year-round. Formal applications open on the cycles listed above.
+          </p>
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+            <Link href="/contact" style={{
+              fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase",
+              color: "#fff", background: black, padding: "0.75rem 1.5rem", textDecoration: "none",
+              border: `1px solid ${black}`, transition: "background 150ms, border-color 150ms",
+            }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = slate; el.style.borderColor = slate; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = black; el.style.borderColor = black; }}
+            >Contact TAI →</Link>
+            <Link href="/research" style={{
+              fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase",
+              color: black, background: "transparent", padding: "0.75rem 1.5rem", textDecoration: "none",
+              border: `1px solid ${border}`, transition: "border-color 150ms",
+            }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = black}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = border}
+            >Research Programs</Link>
+          </div>
         </div>
       </section>
     </Layout>
