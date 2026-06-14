@@ -1,233 +1,119 @@
-/**
- * Events.tsx — TAI Events page
- * Design: "Control Surface" — Post-Bauhaus Systems Functionalism
+/*
+ * Events.tsx — TAI Events v4 — Clean Institutional White
  */
 import { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
-function useReveal() {
+function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } },
-      { threshold: 0.06 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } }, { threshold: 0.05 });
+    obs.observe(el); return () => obs.disconnect();
   }, []);
-  return ref;
+  return <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useReveal();
-  return <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
-}
-
-const EVENTS = [
+const EVENTS_DATA = [
   {
-    code: "SYM",
+    code: "TAS",
     title: "The Ashby Symposium",
-    subtitle: "Annual Flagship Conference",
-    cadence: "Annual — rotating DC / London / Singapore",
-    nextEdition: "2027 (inaugural)",
-    audience: "Invitation-only for symposium sessions. GRT Lecture is open to the public.",
-    description: "The Ashby Symposium is TAI's flagship annual convening. It brings together researchers, policymakers, and practitioners working on the structural governance of complex systems — with particular emphasis on compute infrastructure, AI alignment, and the institutional design challenges posed by the compute transition.",
-    sessions: [
-      "Plenary: State of the Variety Constraint — annual structural assessment across TAI's research domains",
-      "Working Group I: Compute Governance — regulatory architecture for AI-native infrastructure",
-      "Working Group II: Alignment & Control — technical and institutional approaches to the control problem",
-      "Working Group III: Compute & Society — distributional and democratic implications of compute concentration",
-      "Public Evening Lecture: The GRT Lecture (open to all)",
+    cadence: "Annual",
+    locations: "Rotating — Washington DC / London / Singapore",
+    next: "Autumn 2026 — Washington DC",
+    format: "Two-day convening",
+    desc: "The Ashby Symposium is TAI\'s flagship annual convening. It brings together researchers, policymakers, and practitioners working on the governance of complex systems — with a particular focus on the compute transition and its structural implications. The Symposium is organized around TAI\'s four research programs and features keynote lectures, structured workshops, and working sessions on current research.",
+    features: [
+      "Keynote lecture by a leading researcher in systems governance",
+      "Four program workshops — one per TAI research program",
+      "Policy roundtable with government and regulatory participants",
+      "Ashby Fellowship cohort presentations",
+      "Working sessions on current TAI research projects",
     ],
-    format: "Two-day closed symposium with invited participants. Plenary sessions, working groups, and a public evening lecture. Proceedings published as a TAI working paper series.",
-    bg: "#0A0C0F",
-    textColor: "#E8E4DC",
-    mutedColor: "#5A5550",
-    borderColor: "#1E2228",
+    audience: "By invitation and open application. Approximately 80–120 participants.",
   },
   {
     code: "CPW",
     title: "Constitutional Period Workshop",
-    subtitle: "Biannual Working Workshop",
-    cadence: "Biannual — Washington, DC and London",
-    nextEdition: "Spring 2027 (inaugural)",
-    audience: "Invitation-only. Government, regulatory bodies, standards organizations, civil society. No commercial AI company representatives.",
-    description: "The Constitutional Period Workshop takes its name from the concept of a 'constitutional moment' — a period in which the foundational rules of a system are being written and can still be shaped. TAI convenes this workshop at the inflection points of the compute transition, bringing together the practitioners who are actually writing the rules: regulators, standards bodies, procurement officials, and senior technical staff.",
-    sessions: [
-      "Morning: Current state of compute governance — regulatory gaps, emerging frameworks, and enforcement challenges",
-      "Afternoon: Scenario stress-testing — how do current governance frameworks perform under each Compute 2030 scenario?",
-      "Closing: Structural recommendations — what changes to regulatory architecture would most improve variety matching?",
+    cadence: "Biannual",
+    locations: "Washington DC and Brussels (alternating)",
+    next: "Spring 2027 — Brussels",
+    format: "One-day intensive workshop",
+    desc: "The Constitutional Period Workshop is a focused, practitioner-oriented workshop on the governance of AI infrastructure during what TAI calls the \'constitutional period\' — the window in which the institutional frameworks governing AI-native compute are being established. The workshop applies TAI\'s analytical framework directly to current policy and regulatory questions, with a focus on actionable institutional design.",
+    features: [
+      "Structured analysis of current governance proposals using TAI\'s framework",
+      "Working sessions with government and regulatory participants",
+      "Presentation of TAI\'s current policy brief series",
+      "Closed working dinner for senior participants",
     ],
-    format: "One-day closed working workshop. Small group (15–25 participants). Chatham House rules apply. Designed for frank discussion among practitioners.",
-    bg: "#F5F2EC",
-    textColor: "#1A1410",
-    mutedColor: "#6A6560",
-    borderColor: "#D8D4CC",
+    audience: "Invitation-only. Approximately 30–40 senior participants from government, regulatory bodies, and research institutions.",
   },
   {
-    code: "GRT",
+    code: "GRTL",
     title: "GRT Lecture Series",
-    subtitle: "Public Lecture Series",
-    cadence: "Quarterly — DC (primary); London and Singapore annually",
-    nextEdition: "Autumn 2026 (inaugural)",
-    audience: "Open to the public. Free admission. Registration required for capacity management.",
-    description: "The Good Regulator Theorem Lecture Series is TAI's primary public engagement program. Each lecture applies Ashby's Law and the Good Regulator Theorem to a specific domain — from AI alignment to financial regulation, from democratic governance to autonomous systems. Lectures are designed to be accessible to a broad audience while maintaining intellectual rigor.",
-    sessions: [
-      "Inaugural Lecture: 'The Variety Deficit: Why Every Regulatory Failure Has the Same Root Cause'",
-      "Lecture II: 'The Alignment Problem as a Variety Problem: What Ashby Tells Us About Superintelligence'",
-      "Lecture III: 'The 2008 Financial Crisis as a Regulatory Variety Failure'",
-      "Lecture IV: 'Democratic Governance in the Age of Compute Concentration'",
+    cadence: "Annual",
+    locations: "Rotating — TAI partner institutions",
+    next: "Autumn 2026 — London",
+    format: "Public lecture + seminar",
+    desc: "The Good Regulator Theorem Lecture Series is an annual public lecture series on the theoretical foundations and contemporary applications of the Good Regulator Theorem. Each year, TAI invites a leading researcher to deliver a lecture on a topic at the intersection of systems theory and governance. The lecture is followed by a closed seminar for TAI fellows and invited researchers.",
+    features: [
+      "Public lecture by an invited researcher",
+      "Published lecture text in TAI\'s GRT Lecture Series",
+      "Closed seminar for TAI fellows and invited researchers",
+      "Reception for lecture attendees",
     ],
-    format: "Single public lecture followed by moderated Q&A. Lectures are recorded and published on the TAI website. Transcripts published as TAI lecture notes.",
-    bg: "#111318",
-    textColor: "#E8E4DC",
-    mutedColor: "#5A5550",
-    borderColor: "#1E2228",
+    audience: "Public lecture is open to all. Seminar is by invitation. Approximately 150–200 lecture attendees.",
   },
 ];
 
 export default function Events() {
   return (
     <Layout>
-      {/* ── PAGE HEADER ── */}
-      <section style={{ background: "#0A0C0F", borderBottom: "1px solid #1E2228", paddingTop: "8rem", paddingBottom: "4rem" }}>
+      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "4rem" }}>
         <div className="container">
           <Reveal>
-            <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
-              Events
-            </span>
-            <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
-            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(2rem, 4vw, 3.5rem)", color: "#F0EDE6", lineHeight: 1.05, marginBottom: "1.25rem" }}>
-              Convenings & Lectures
+            <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Events</p>
+            <h1 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(2rem, 4vw, 3.25rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1.5rem", maxWidth: "680px" }}>
+              Three convenings. One analytical framework.
             </h1>
-            <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1rem", color: "#5A5550", lineHeight: 1.7, maxWidth: "600px" }}>
-              TAI convenes three programs: an annual flagship symposium, a biannual practitioner workshop, and a quarterly public lecture series. All events are organized around the structural application of Ashby's Law to governance design.
+            <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.75, maxWidth: "600px" }}>
+              TAI\'s events are designed to translate rigorous structural analysis into policy-relevant engagement. Each convening applies TAI\'s analytical framework to current governance problems.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── EVENT OVERVIEW STRIP ── */}
-      <section style={{ background: "#F5F2EC", borderBottom: "1px solid #D8D4CC" }}>
-        <div className="container" style={{ paddingTop: "3rem", paddingBottom: "3rem" }}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: "#D8D4CC" }}>
-            {EVENTS.map((ev, i) => (
-              <Reveal key={ev.code} delay={i * 60}>
-                <div style={{ background: "#FDFBF7", padding: "1.5rem 1.75rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", border: "1px solid rgba(139,26,20,0.35)", padding: "0.2rem 0.5rem" }}>
-                      {ev.code}
-                    </span>
-                  </div>
-                  <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "1rem", color: "#1A1410", marginBottom: "0.35rem" }}>
-                    {ev.title}
-                  </p>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", color: "#8A8580", letterSpacing: "0.06em", marginBottom: "0.75rem" }}>
-                    {ev.cadence}
-                  </p>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", color: "#8B1A14", letterSpacing: "0.06em" }}>
-                    Next: {ev.nextEdition}
-                  </p>
-                </div>
+      {EVENTS_DATA.map((ev, i) => (
+        <section key={ev.code} style={{ background: i % 2 === 0 ? "#FFFFFF" : "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
+          <div className="container">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }} className="grid-cols-1 lg:grid-cols-2">
+              <Reveal>
+                <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.5rem" }}>{ev.code}</p>
+                <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#111111", lineHeight: 1.15, marginBottom: "1.5rem" }}>{ev.title}</h2>
+                <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.5rem" }}>{ev.desc}</p>
+                <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#888888", lineHeight: 1.7 }}><strong style={{ color: "#555555", fontWeight: 500 }}>Audience:</strong> {ev.audience}</p>
               </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── EVENTS DETAIL ── */}
-      {EVENTS.map((ev) => (
-        <section key={ev.code} style={{ background: ev.bg, borderBottom: `1px solid ${ev.borderColor}` }}>
-          <div className="container" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-
-              {/* Left metadata rail */}
-              <Reveal className="lg:col-span-4">
-                <div style={{ position: "sticky", top: "7rem" }}>
-                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", border: "1px solid rgba(139,26,20,0.35)", padding: "0.2rem 0.5rem", display: "inline-block", marginBottom: "1.5rem" }}>
-                    {ev.code}
-                  </span>
-                  <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)", color: ev.textColor, lineHeight: 1.2, marginBottom: "0.5rem" }}>
-                    {ev.title}
-                  </h2>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", color: "#8B1A14", textTransform: "uppercase", marginBottom: "2rem" }}>
-                    {ev.subtitle}
-                  </p>
-
-                  <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                    {[
-                      { label: "Cadence", value: ev.cadence },
-                      { label: "Next Edition", value: ev.nextEdition },
-                      { label: "Audience", value: ev.audience },
-                    ].map(item => (
-                      <div key={item.label}>
-                        <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "0.35rem" }}>
-                          {item.label}
-                        </p>
-                        <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: ev.mutedColor, lineHeight: 1.6 }}>
-                          {item.value}
-                        </p>
+              <Reveal delay={100}>
+                <div style={{ border: "1px solid #E5E4E0", padding: "2rem", background: i % 2 === 0 ? "#FAFAF8" : "#FFFFFF", marginBottom: "1.5rem" }}>
+                  <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.25rem" }}>Event Details</p>
+                  {[{ label: "Cadence", value: ev.cadence }, { label: "Locations", value: ev.locations }, { label: "Next Edition", value: ev.next }, { label: "Format", value: ev.format }].map(item => (
+                    <div key={item.label} style={{ display: "flex", gap: "1rem", paddingTop: "0.75rem", paddingBottom: "0.75rem", borderBottom: "1px solid #E5E4E0" }}>
+                      <span style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#AAAAAA", minWidth: "90px", paddingTop: "0.1rem" }}>{item.label}</span>
+                      <span style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555" }}>{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ border: "1px solid #E5E4E0", padding: "2rem", background: i % 2 === 0 ? "#FAFAF8" : "#FFFFFF" }}>
+                  <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.25rem" }}>Program Features</p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                    {ev.features.map(f => (
+                      <div key={f} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                        <span style={{ color: "#A02D24", fontSize: "0.75rem", paddingTop: "0.15rem", flexShrink: 0 }}>→</span>
+                        <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", color: "#555555", lineHeight: 1.65 }}>{f}</p>
                       </div>
                     ))}
                   </div>
-
-                  <div style={{ marginTop: "2rem" }}>
-                    <a
-                      href="mailto:events@theashbyinstitute.org"
-                      style={{
-                        fontFamily: "'Space Mono', monospace",
-                        fontSize: "0.62rem",
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: "#8B1A14",
-                        textDecoration: "none",
-                        borderBottom: "1px solid rgba(139,26,20,0.4)",
-                        paddingBottom: "1px",
-                      }}
-                      onMouseEnter={e => (e.currentTarget.style.borderColor = "#8B1A14")}
-                      onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(139,26,20,0.4)")}
-                    >
-                      Inquire about attendance →
-                    </a>
-                  </div>
-                </div>
-              </Reveal>
-
-              {/* Right content */}
-              <Reveal className="lg:col-span-8" delay={120}>
-                <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: ev.textColor, lineHeight: 1.78, marginBottom: "2.5rem", opacity: 0.85 }}>
-                  {ev.description}
-                </p>
-
-                <div style={{ marginBottom: "2rem" }}>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "1.25rem" }}>
-                    Program Structure
-                  </p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-                    {ev.sessions.map((session, i) => (
-                      <div key={i} style={{ display: "flex", gap: "1.25rem", paddingTop: "0.875rem", paddingBottom: "0.875rem", borderTop: `1px solid ${ev.borderColor}`, alignItems: "flex-start" }}>
-                        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", color: "#8B1A14", minWidth: "1.25rem", flexShrink: 0, marginTop: "0.2rem" }}>
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.9375rem", color: ev.mutedColor, lineHeight: 1.6 }}>
-                          {session}
-                        </p>
-                      </div>
-                    ))}
-                    <div style={{ borderTop: `1px solid ${ev.borderColor}` }} />
-                  </div>
-                </div>
-
-                <div style={{ borderLeft: "3px solid rgba(139,26,20,0.4)", paddingLeft: "1.5rem" }}>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "0.5rem" }}>
-                    Format
-                  </p>
-                  <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.9375rem", color: ev.mutedColor, lineHeight: 1.65 }}>
-                    {ev.format}
-                  </p>
                 </div>
               </Reveal>
             </div>
@@ -235,45 +121,19 @@ export default function Events() {
         </section>
       ))}
 
-      {/* ── CTA ── */}
-      <section style={{ background: "#F5F2EC", borderBottom: "1px solid #D8D4CC" }}>
-        <div className="container" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+      <section style={{ background: "#FFFFFF", paddingTop: "4rem", paddingBottom: "4rem" }}>
+        <div className="container">
           <Reveal>
-            <div style={{ maxWidth: "640px" }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
-                Stay Informed
-              </span>
-              <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
-              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#1A1410", lineHeight: 1.2, marginBottom: "1rem" }}>
-                Event Announcements & Registration
-              </h2>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1rem", color: "#6A6560", lineHeight: 1.7, marginBottom: "2rem" }}>
-                Subscribe to receive event announcements, registration information, and published lecture recordings. For invitation-only events, inquiries are handled through the contact page.
+            <div style={{ maxWidth: "600px" }}>
+              <p style={{ fontFamily: "\'IBM Plex Mono\', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Stay Informed</p>
+              <h2 style={{ fontFamily: "\'DM Serif Display\', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", color: "#111111", lineHeight: 1.15, marginBottom: "1rem" }}>Event announcements and registration.</h2>
+              <p style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.7, marginBottom: "1.5rem" }}>
+                Subscribe to TAI\'s newsletter for event announcements, registration information, and updates on upcoming convenings.
               </p>
-              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-                <Link href="/contact" style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: "#F0EDE6", background: "#8B1A14", border: "1px solid #8B1A14",
-                  padding: "0.875rem 1.75rem", textDecoration: "none", transition: "background 200ms",
-                  display: "inline-flex", alignItems: "center",
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "#6E1510")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "#8B1A14")}
-                >
-                  Subscribe to Updates
-                </Link>
-                <a href="mailto:events@theashbyinstitute.org" style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: "#2A2620", background: "transparent", border: "1px solid #2A2620",
-                  padding: "0.875rem 1.75rem", textDecoration: "none", transition: "background 200ms, color 200ms",
-                  display: "inline-flex", alignItems: "center",
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "#2A2620"; e.currentTarget.style.color = "#F5F2EC"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#2A2620"; }}
-                >
-                  Event Inquiries
-                </a>
-              </div>
+              <Link href="/contact" style={{ fontFamily: "\'DM Sans\', sans-serif", fontSize: "0.875rem", fontWeight: 500, color: "#FFFFFF", background: "#A02D24", border: "1px solid #A02D24", padding: "0.75rem 1.5rem", textDecoration: "none", display: "inline-block", transition: "background 150ms" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "#8B2520")}
+                onMouseLeave={e => (e.currentTarget.style.background = "#A02D24")}
+              >Subscribe to Newsletter →</Link>
             </div>
           </Reveal>
         </div>

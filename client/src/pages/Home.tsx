@@ -1,274 +1,147 @@
 /*
- * Home.tsx — TAI Homepage v3
- * Design: "Control Surface" — Post-Bauhaus Systems Functionalism
- * Expanded mandate: Ashby's Law across AI, compute, governance, society, cybersecurity,
- * healthcare, finance, robotics, critical infrastructure
+ * Home.tsx — TAI Homepage v4
+ * Design: Clean Institutional — white background, DM Serif Display headlines
+ * Reference: Redwood Research × General Intuition × RAND
  */
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 
-function useReveal() {
+function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } },
-      { threshold: 0.06 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const el = ref.current; if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("visible"); obs.disconnect(); } }, { threshold: 0.05 });
+    obs.observe(el); return () => obs.disconnect();
   }, []);
-  return ref;
-}
-
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useReveal();
-  return <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
+  return <div ref={ref} className="reveal" style={{ transitionDelay: `${delay}ms` }}>{children}</div>;
 }
 
 const DOMAINS = [
-  {
-    num: "01",
-    title: "AI Alignment & Superintelligence",
-    formula: "V(H) < V(AI) → Oversight fails",
-    desc: "A superintelligent AI operates with cognitive variety vastly exceeding human processing bounds. Human oversight hits a mathematical limit. This is not a policy failure — it is a mathematical certainty derived directly from Ashby's Law.",
-    tag: "The Control Problem",
-  },
-  {
-    num: "02",
-    title: "LLMs & Scaling Laws",
-    formula: "Parameters ∝ V(training distribution)",
-    desc: "Scaling laws are variety matching. An LLM's parameter count must scale proportionally to absorb the vocabulary, contextual nuance, and factual variety of human knowledge. Ashby's Law dictates design limits across every compute architecture.",
-    tag: "AI/ML Infrastructure",
-  },
-  {
-    num: "03",
-    title: "Governance & Regulatory Design",
-    formula: "V(regulator) ≥ V(regulated system)",
-    desc: "Regulatory bodies that do not maintain adequate internal models of the systems they oversee will be systematically inadequate — not because of bad faith, but because of a structural mismatch between regulatory model complexity and system complexity.",
-    tag: "Institutional Design",
-  },
-  {
-    num: "04",
-    title: "Cybersecurity & Threat Detection",
-    formula: "V(defense) ≥ V(attack surface)",
-    desc: "To protect against metamorphic malware and polymorphic zero-day exploits, a security stack must possess variety matching the threat landscape. XDR systems that fail to model attacker variety are mathematically guaranteed to be breached.",
-    tag: "Threat Modeling",
-  },
-  {
-    num: "05",
-    title: "Autonomous Systems & Robotics",
-    formula: "V(controller) ≥ V(environment)",
-    desc: "Self-driving compute stacks must maintain a continuous 3D tracking model of dynamic actors to regulate steering and velocity. The controller's internal model must match the full variety of the physical environment it navigates.",
-    tag: "Edge Computing",
-  },
-  {
-    num: "06",
-    title: "Critical Infrastructure",
-    formula: "V(grid operator) ≥ V(load variation)",
-    desc: "Smart grid operators use predictive AI to balance intermittent renewable energy inputs with fluctuating consumer demand. Fly-by-wire flight computers adjust control surfaces hundreds of times per second to absorb atmospheric turbulence.",
-    tag: "Physical Systems",
-  },
-  {
-    num: "07",
-    title: "Financial Systems & Markets",
-    formula: "V(oversight) < V(financial system) → Crisis",
-    desc: "The 2008 financial crisis was a variety failure. Regulators' internal models had insufficient variety to represent the actual state space of the system they were regulating. Every major financial crisis follows the same structural pattern.",
-    tag: "Systemic Risk",
-  },
-  {
-    num: "08",
-    title: "Healthcare & Biological Systems",
-    formula: "Homeostasis = continuous variety matching",
-    desc: "Homeostasis is the original regulator. Biological systems maintain internal models of their environments at every scale — from cellular feedback loops to immune system modeling of pathogen variety. Medicine fails when its models are insufficient.",
-    tag: "Biological Regulation",
-  },
+  { n: "01", label: "AI Alignment", short: "V(R) ≥ V(AI)" },
+  { n: "02", label: "Compute Governance", short: "Institutional design" },
+  { n: "03", label: "Financial Systems", short: "Regulatory deficits" },
+  { n: "04", label: "Cybersecurity", short: "Threat modeling" },
+  { n: "05", label: "Autonomous Systems", short: "Recursive control" },
+  { n: "06", label: "Critical Infrastructure", short: "Chokepoint analysis" },
+  { n: "07", label: "Democratic Governance", short: "Variety & representation" },
+  { n: "08", label: "Healthcare & Biology", short: "Adaptive regulation" },
 ];
 
-const SCENARIOS = [
-  { id: "I", title: "Concentrated Dominance", desc: "A single compute bloc achieves decisive advantage, restructuring global dependencies." },
-  { id: "II", title: "Multipolar Fragmentation", desc: "Competing compute blocs emerge, with governance frameworks diverging across jurisdictions." },
-  { id: "III", title: "Governed Transition", desc: "Multilateral bodies successfully coordinate compute governance, preserving institutional balance." },
-  { id: "IV", title: "Diffuse Proliferation", desc: "Compute capacity distributes broadly, with governance lagging rapid technological diffusion." },
+const PROGRAMS = [
+  { code: "CF", title: "Compute Futures", desc: "Structural scenario analysis of the global compute landscape through 2030 and beyond." },
+  { code: "CG", title: "Compute Governance", desc: "Institutional design for governing AI-native compute at national and multilateral levels." },
+  { code: "GRP", title: "The Good Regulator Project", desc: "Formal development of the GRT across AI oversight, financial regulation, and democratic institutions." },
+  { code: "CS", title: "Compute & Society", desc: "Distributional analysis of the compute transition — who benefits, who is displaced, and why." },
 ];
+
+function NewsletterInline() {
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+  return done ? (
+    <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.7rem", letterSpacing: "0.08em", color: "#2D7A3A" }}>Subscribed. Thank you.</p>
+  ) : (
+    <form onSubmit={e => { e.preventDefault(); if (email) setDone(true); }} style={{ display: "flex", gap: "0", maxWidth: "400px" }}>
+      <input
+        type="email" value={email} onChange={e => setEmail(e.target.value)} required
+        placeholder="your@email.com"
+        style={{ flex: 1, fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#111111", background: "#FFFFFF", border: "1px solid #CCCCCC", borderRight: "none", padding: "0.625rem 1rem", outline: "none" }}
+      />
+      <button type="submit" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#FFFFFF", background: "#A02D24", border: "1px solid #A02D24", padding: "0.625rem 1.25rem", cursor: "pointer", transition: "background 150ms", whiteSpace: "nowrap" }}
+        onMouseEnter={e => (e.currentTarget.style.background = "#8B2520")}
+        onMouseLeave={e => (e.currentTarget.style.background = "#A02D24")}
+      >Subscribe</button>
+    </form>
+  );
+}
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-
   return (
     <Layout>
+
       {/* ── HERO ── */}
-      <section style={{
-        background: "#0A0C0F",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        position: "relative",
-        overflow: "hidden",
-      }}>
-        {/* Control diagram background */}
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `url(https://d2xsxph8kpxj0f.cloudfront.net/310419663029926944/TLXgUMFr75EaJR9nBJmBKv/tai_hero_bg-UN2MhkvGmfg5j2j6PbBTDf.webp)`,
-          backgroundSize: "cover",
-          backgroundPosition: "center right",
-          opacity: 0.4,
-        }} />
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to right, rgba(10,12,15,0.98) 40%, rgba(10,12,15,0.25) 100%)",
-        }} />
-
-        <div className="container" style={{ position: "relative", zIndex: 10, paddingBottom: "8rem", paddingTop: "10rem" }}>
-          <div style={{ maxWidth: "800px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2rem" }}>
-              <div style={{ width: "2rem", height: "1px", background: "#8B1A14" }} />
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14" }}>
-                The Ashby Institute
-              </span>
-            </div>
-
-            <h1 style={{
-              fontFamily: "'Playfair Display', Georgia, serif",
-              fontWeight: 800,
-              fontSize: "clamp(2.75rem, 6vw, 5.75rem)",
-              lineHeight: 1.03,
-              letterSpacing: "-0.02em",
-              color: "#F0EDE6",
-              marginBottom: "2rem",
-            }}>
-              Every good regulator<br />
-              <em style={{ fontStyle: "italic", color: "#E8E4DC" }}>must be a model</em><br />
-              of its system.
-            </h1>
-
-            <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginBottom: "2rem", flexWrap: "wrap" }}>
-              <div style={{ width: "2rem", height: "2px", background: "#8B1A14" }} />
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "clamp(1rem, 2.5vw, 1.5rem)", color: "#8B1A14", letterSpacing: "0.04em" }}>
-                V(R) ≥ V(D)
-              </span>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", color: "#4A4540", textTransform: "uppercase" }}>
-                Law of Requisite Variety — Ashby, 1956
-              </span>
-            </div>
-
-            <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "clamp(1rem, 1.8vw, 1.125rem)", color: "#8A8580", lineHeight: 1.75, marginBottom: "3rem", maxWidth: "620px" }}>
-              An independent research organization applying Ashby's Law to the defining control problems of our era — AI alignment, compute governance, autonomous systems, critical infrastructure, financial regulation, and the structural limits of human oversight across every complex system.
-            </p>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-              <Link href="/theory" style={{
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: "#F0EDE6", background: "#8B1A14", border: "1px solid #8B1A14",
-                padding: "0.875rem 1.75rem", textDecoration: "none", transition: "background 200ms",
-              }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#6E1510")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#8B1A14")}
-              >
-                The Theory
-              </Link>
-              <Link href="/research" style={{
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: "#E8E4DC", background: "transparent", border: "1px solid rgba(232,228,220,0.3)",
-                padding: "0.875rem 1.75rem", textDecoration: "none", transition: "border-color 200ms",
-              }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.7)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.3)")}
-              >
-                Research Programs
-              </Link>
-              <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: "#6A6560", background: "transparent", border: "1px solid rgba(106,101,96,0.4)",
-                padding: "0.875rem 1.75rem", textDecoration: "none", transition: "border-color 200ms, color 200ms",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(232,228,220,0.4)"; e.currentTarget.style.color = "#E8E4DC"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(106,101,96,0.4)"; e.currentTarget.style.color = "#6A6560"; }}
-              >
-                Compute 2030 ↗
-              </a>
-            </div>
+      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", paddingTop: "6rem", paddingBottom: "6rem" }}>
+        <div className="container">
+          <div style={{ maxWidth: "820px" }}>
+            <Reveal>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1.5rem" }}>
+                The Ashby Institute — Independent Research
+              </p>
+              <h1 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "#111111", lineHeight: 1.05, letterSpacing: "-0.01em", marginBottom: "2rem" }}>
+                Every good regulator must be a model of its system.
+              </h1>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1.0625rem", color: "#555555", lineHeight: 1.8, maxWidth: "620px", marginBottom: "2.5rem" }}>
+                TAI is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era — from AI alignment to democratic institutions, from financial regulation to critical infrastructure.
+              </p>
+              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <Link href="/theory" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", fontWeight: 500, color: "#FFFFFF", background: "#A02D24", border: "1px solid #A02D24", padding: "0.75rem 1.5rem", textDecoration: "none", transition: "background 150ms" }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "#8B2520")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "#A02D24")}
+                >
+                  The Theory
+                </Link>
+                <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#333333", border: "1px solid #CCCCCC", padding: "0.75rem 1.5rem", textDecoration: "none", transition: "border-color 150ms" }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = "#555555")}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = "#CCCCCC")}
+                >
+                  Compute 2030 Report ↗
+                </a>
+              </div>
+            </Reveal>
           </div>
-        </div>
-
-        <div style={{ position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)" }}>
-          <div style={{ width: "1px", height: "3rem", background: "linear-gradient(to bottom, transparent, #3A3530)" }} />
         </div>
       </section>
 
       {/* ── THE LAW ── */}
-      <section style={{ background: "#F5F2EC", borderBottom: "1px solid #D8D4CC" }}>
-        <div className="container" style={{ paddingTop: "6rem", paddingBottom: "6rem" }}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <Reveal className="lg:col-span-4">
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
-                The Foundation
-              </span>
-              <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
-              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "#1A1410", lineHeight: 1.2, marginBottom: "1rem" }}>
+      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }} className="grid-cols-1 lg:grid-cols-2">
+            <Reveal>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>
+                Theoretical Foundation
+              </p>
+              <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1.5rem" }}>
                 Ashby's Law of Requisite Variety
               </h2>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", color: "#8A8580", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-                W. Ross Ashby, 1956
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.25rem" }}>
+                W. Ross Ashby proved in 1956 that a regulator can only effectively control a system if its internal variety — the number of distinguishable states it can occupy — is greater than or equal to the variety of the disturbances it must absorb.
               </p>
-              <Link href="/theory" style={{
-                fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: "#8B1A14", textDecoration: "none", borderBottom: "1px solid #8B1A14", paddingBottom: "1px",
-              }}>
-                Full theoretical exposition →
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "2rem" }}>
+                This is not a metaphor. It is a mathematical constraint that applies to any system attempting to govern any other system — from AI alignment to financial regulation, from cybersecurity to democratic governance. Every failure of regulation is, at its root, a variety deficit.
+              </p>
+              <Link href="/theory" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#A02D24", textDecoration: "none", borderBottom: "1px solid #A02D24", paddingBottom: "0.125rem", transition: "opacity 150ms" }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.7")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              >
+                Read the full theoretical exposition →
               </Link>
             </Reveal>
 
-            <Reveal className="lg:col-span-8" delay={120}>
-              <div style={{ borderLeft: "3px solid #8B1A14", paddingLeft: "2rem", marginBottom: "2.5rem" }}>
-                <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: "italic", fontSize: "clamp(1.25rem, 2.5vw, 1.625rem)", color: "#1A1410", lineHeight: 1.45, marginBottom: "0.75rem" }}>
-                  "Only variety can absorb variety."
+            <Reveal delay={100}>
+              <div style={{ border: "1px solid #E5E4E0", padding: "2.5rem", background: "#FFFFFF" }}>
+                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1.5rem" }}>
+                  The Constraint
                 </p>
-                <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", color: "#8A8580" }}>
-                  — The Law of Requisite Variety
-                </p>
-              </div>
-
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: "#3A3530", lineHeight: 1.78, marginBottom: "1.5rem" }}>
-                The Law of Requisite Variety is a mathematical law about managing information states. A regulator can only effectively control an environment if its internal variety — the number of distinguishable states it can occupy — is greater than or equal to the variety of the disturbances it must absorb.
-              </p>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: "#3A3530", lineHeight: 1.78, marginBottom: "2rem" }}>
-                This is not a metaphor. It is a mathematical constraint that applies to any system attempting to govern any other system — from AI alignment to financial regulation, from cybersecurity to democratic governance, from autonomous vehicles to smart grids. Every failure of regulation is, at its root, a variety deficit.
-              </p>
-
-              <div style={{ background: "#0A0C0F", padding: "2rem 2.5rem", display: "flex", alignItems: "center", gap: "2rem", flexWrap: "wrap" }}>
-                <div>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4A4540", marginBottom: "0.5rem" }}>
-                    The Constraint
-                  </p>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "#8B1A14", letterSpacing: "-0.01em" }}>
-                    V(R) ≥ V(D)
-                  </p>
+                <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "2.5rem", color: "#111111", textAlign: "center", padding: "2rem 0", borderTop: "1px solid #E5E4E0", borderBottom: "1px solid #E5E4E0", marginBottom: "1.5rem", letterSpacing: "0.05em" }}>
+                  V(R) ≥ V(D)
                 </div>
-                <div style={{ width: "1px", height: "3rem", background: "#1E2228" }} />
-                <div>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4A4540", marginBottom: "0.5rem" }}>
-                    The Failure Condition
-                  </p>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "#4A4540", letterSpacing: "-0.01em" }}>
-                    V(R) &lt; V(D)
-                  </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                  {[
+                    { sym: "V(R)", def: "Variety of the Regulator — the number of distinguishable states the governing system can occupy" },
+                    { sym: "V(D)", def: "Variety of the Disturbance — the number of distinguishable states the governed system can generate" },
+                  ].map(item => (
+                    <div key={item.sym} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.75rem", color: "#A02D24", minWidth: "3rem", paddingTop: "0.1rem" }}>{item.sym}</span>
+                      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#666666", lineHeight: 1.65 }}>{item.def}</p>
+                    </div>
+                  ))}
                 </div>
-                <div style={{ width: "1px", height: "3rem", background: "#1E2228" }} />
-                <div>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4A4540", marginBottom: "0.5rem" }}>
-                    Result
+                <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid #E5E4E0" }}>
+                  <p style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontStyle: "italic", fontSize: "0.9375rem", color: "#555555", lineHeight: 1.6 }}>
+                    "Only variety can destroy variety."
                   </p>
-                  <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#8B1A14", lineHeight: 1.5 }}>
-                    System fails.<br />Control is lost.
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.08em", color: "#AAAAAA", marginTop: "0.5rem" }}>
+                    — W. Ross Ashby, 1956
                   </p>
                 </div>
               </div>
@@ -277,232 +150,166 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── DOMAINS: ONE LAW, EVERY SYSTEM ── */}
-      <section style={{ background: "#111318", borderBottom: "1px solid #1E2228" }}>
-        <div className="container" style={{ paddingTop: "6rem", paddingBottom: "6rem" }}>
+      {/* ── APPLICATION DOMAINS ── */}
+      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
+        <div className="container">
           <Reveal>
-            <div style={{ marginBottom: "4rem" }}>
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
-                Application Domains
-              </span>
-              <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
-              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 3rem)", color: "#E8E4DC", lineHeight: 1.1 }}>
-                One Law.<br />
-                <em style={{ fontStyle: "italic" }}>Every System.</em>
-              </h2>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
+              <div>
+                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.75rem" }}>
+                  Application Domains
+                </p>
+                <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", color: "#111111", lineHeight: 1.1 }}>
+                  One Law. Eight Domains.
+                </h2>
+              </div>
+              <Link href="/theory" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#555555", textDecoration: "none", transition: "color 150ms" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#A02D24")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#555555")}
+              >
+                Full exposition →
+              </Link>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: "#1E2228" }}>
-            {DOMAINS.map((domain, i) => (
-              <Reveal key={domain.num} delay={i * 50}>
-                <div style={{
-                  background: "#111318",
-                  padding: "2rem",
-                  height: "100%",
-                  transition: "background 200ms",
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "#141820")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "#111318")}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0", border: "1px solid #E5E4E0" }} className="grid-cols-2 lg:grid-cols-4">
+            {DOMAINS.map((d, i) => (
+              <Reveal key={d.n} delay={i * 40}>
+                <Link href="/theory" style={{ display: "block", background: "#FFFFFF", padding: "2rem 1.75rem", textDecoration: "none", transition: "background 150ms, border-left-color 150ms", height: "100%", borderRight: i % 4 !== 3 ? "1px solid #E5E4E0" : "none", borderBottom: i < 4 ? "1px solid #E5E4E0" : "none", borderLeft: "3px solid transparent" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = "#F7F6F4"; e.currentTarget.style.borderLeftColor = "#A02D24"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.borderLeftColor = "transparent"; }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#8B1A14", border: "1px solid rgba(139,26,20,0.3)", padding: "0.2rem 0.5rem" }}>
-                      {domain.tag}
-                    </span>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "1.5rem", color: "#1E2228", fontWeight: 700, letterSpacing: "-0.04em" }}>
-                      {domain.num}
-                    </span>
-                  </div>
-                  <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: "1rem", color: "#E8E4DC", lineHeight: 1.3, marginBottom: "0.75rem" }}>
-                    {domain.title}
-                  </h3>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", color: "#8B1A14", letterSpacing: "0.04em", marginBottom: "1rem" }}>
-                    {domain.formula}
-                  </p>
-                  <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#5A5550", lineHeight: 1.65 }}>
-                    {domain.desc}
-                  </p>
-                </div>
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.875rem" }}>{d.n}</p>
+                  <p style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: "1.0625rem", color: "#111111", lineHeight: 1.25, marginBottom: "0.625rem" }}>{d.label}</p>
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", color: "#AAAAAA", letterSpacing: "0.05em", lineHeight: 1.5 }}>{d.short}</p>
+                </Link>
               </Reveal>
             ))}
           </div>
-
-          <Reveal delay={200}>
-            <div style={{ marginTop: "2.5rem", textAlign: "center" }}>
-              <Link href="/theory" style={{
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: "#E8E4DC", background: "transparent", border: "1px solid rgba(232,228,220,0.2)",
-                padding: "0.875rem 1.75rem", textDecoration: "none", transition: "border-color 200ms",
-              }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.6)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.2)")}
-              >
-                Full theoretical exposition →
-              </Link>
-            </div>
-          </Reveal>
         </div>
       </section>
 
-      {/* ── FEATURED RESEARCH: COMPUTE 2030 ── */}
-      <section style={{ background: "#F5F2EC", borderBottom: "1px solid #D8D4CC" }}>
-        <div className="container" style={{ paddingTop: "6rem", paddingBottom: "6rem" }}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <Reveal className="lg:col-span-7">
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
-                Inaugural Publication — June 2026
-              </span>
-              <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
-              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", color: "#1A1410", lineHeight: 1.1, marginBottom: "1.5rem" }}>
-                Compute 2030:<br />
-                <em style={{ fontStyle: "italic" }}>Four Structural Scenarios for the Global Compute Landscape</em>
+      {/* ── FEATURED: COMPUTE 2030 ── */}
+      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
+        <div className="container">
+          <Reveal>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>
+              Featured Publication
+            </p>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }} className="grid-cols-1 lg:grid-cols-2">
+            <Reveal>
+              <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1rem" }}>
+                Compute 2030
               </h2>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: "#3A3530", lineHeight: 1.78, marginBottom: "2rem" }}>
-                TAI's inaugural publication. Four structural scenarios for the global compute landscape through 2030, examining how the concentration, governance, and allocation of AI-native compute infrastructure will reshape economic power, geopolitical alignment, and institutional capacity.
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#888888", marginBottom: "1.5rem" }}>
+                Inaugural Edition — June 2026
               </p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.5rem" }}>
+                TAI's inaugural scenario report series. Four structural scenarios for how AI-native compute orchestration reshapes the global economy, governance, and strategic balance through 2030.
+              </p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "2rem" }}>
+                Applying Ashby's Law to compute governance: which institutions will have sufficient variety to regulate the systems they oversee? Which will not?
+              </p>
+              <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", fontWeight: 500, color: "#FFFFFF", background: "#A02D24", border: "1px solid #A02D24", padding: "0.75rem 1.5rem", textDecoration: "none", display: "inline-block", transition: "background 150ms" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "#8B2520")}
+                onMouseLeave={e => (e.currentTarget.style.background = "#A02D24")}
+              >
+                Read the Report ↗
+              </a>
+            </Reveal>
 
-              {/* Scenarios */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
-                {SCENARIOS.map((s, i) => (
-                  <div key={s.id} style={{ display: "flex", gap: "1.5rem", paddingTop: "1rem", paddingBottom: "1rem", borderTop: "1px solid #D8D4CC", alignItems: "flex-start" }}>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", color: "#8B1A14", minWidth: "1.5rem", flexShrink: 0, marginTop: "0.1rem" }}>
-                      {s.id}
-                    </span>
-                    <div>
-                      <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: "0.9375rem", color: "#1A1410", marginBottom: "0.25rem" }}>
-                        {s.title}
-                      </p>
-                      <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#6A6560", lineHeight: 1.55 }}>
-                        {s.desc}
-                      </p>
+            <Reveal delay={100}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "#E5E4E0" }}>
+                {[
+                  { label: "Scenario I", title: "Concentrated Dominance", desc: "A small number of actors control the majority of AI-native compute. Regulatory variety deficits become acute." },
+                  { label: "Scenario II", title: "Multilateral Fragmentation", desc: "Compute infrastructure fragments along geopolitical lines. Governance variety is distributed but incoherent." },
+                  { label: "Scenario III", title: "Governed Transition", desc: "International institutions develop sufficient variety to govern the compute transition. The GRT condition is met." },
+                  { label: "Scenario IV", title: "Diffuse Proliferation", desc: "Compute capabilities diffuse broadly. Governance variety is distributed but regulatory frameworks lag." },
+                ].map((s, i) => (
+                  <div key={s.label} style={{ background: "#FFFFFF", padding: "1.25rem 1.5rem" }}>
+                    <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#A02D24", minWidth: "80px", paddingTop: "0.15rem" }}>{s.label}</span>
+                      <div>
+                        <p style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: "0.9375rem", color: "#111111", marginBottom: "0.375rem" }}>{s.title}</p>
+                        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8125rem", color: "#888888", lineHeight: 1.6 }}>{s.desc}</p>
+                      </div>
                     </div>
                   </div>
                 ))}
-                <div style={{ borderTop: "1px solid #D8D4CC" }} />
               </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
-              <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
-                <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{
-                  display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                  fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: "#F0EDE6", background: "#8B1A14", border: "1px solid #8B1A14",
-                  padding: "0.875rem 1.75rem", textDecoration: "none", transition: "background 200ms",
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "#6E1510")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "#8B1A14")}
+      {/* ── RESEARCH PROGRAMS ── */}
+      <section style={{ background: "#FFFFFF", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
+        <div className="container">
+          <Reveal>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
+              <div>
+                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.75rem" }}>Research Programs</p>
+                <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", color: "#111111", lineHeight: 1.1 }}>Four Programs. One Premise.</h2>
+              </div>
+              <Link href="/research" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#555555", textDecoration: "none", transition: "color 150ms" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#A02D24")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#555555")}
+              >All programs →</Link>
+            </div>
+          </Reveal>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1px", background: "#E5E4E0" }} className="grid-cols-1 lg:grid-cols-2">
+            {PROGRAMS.map((p, i) => (
+              <Reveal key={p.code} delay={i * 50}>
+                <Link href="/research" style={{ display: "block", background: "#FFFFFF", padding: "2rem", textDecoration: "none", transition: "background 150ms", height: "100%" }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "#F7F6F4")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "#FFFFFF")}
                 >
-                  Read the Report ↗
-                </a>
-                <Link href="/publications" style={{
-                  display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                  fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: "#2A2620", background: "transparent", border: "1px solid #2A2620",
-                  padding: "0.875rem 1.75rem", textDecoration: "none", transition: "background 200ms, color 200ms",
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "#2A2620"; e.currentTarget.style.color = "#F5F2EC"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#2A2620"; }}
-                >
-                  All Publications
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.75rem" }}>{p.code}</p>
+                  <p style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: "1.125rem", color: "#111111", marginBottom: "0.75rem", lineHeight: 1.25 }}>{p.title}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#666666", lineHeight: 1.7 }}>{p.desc}</p>
                 </Link>
-              </div>
-            </Reveal>
-
-            <Reveal className="lg:col-span-5" delay={150}>
-              <div style={{ border: "1px solid #D8D4CC", overflow: "hidden", marginBottom: "1.5rem" }}>
-                <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029926944/TLXgUMFr75EaJR9nBJmBKv/tai_variety_diagram-oSmq5RYK4qmYKzHyf9vn8U.webp"
-                  alt="Law of Requisite Variety — Technical Diagram"
-                  style={{ width: "100%", display: "block" }}
-                />
-              </div>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.08em", color: "#8A8580", textTransform: "uppercase", marginBottom: "2rem" }}>
-                Fig. 1 — Law of Requisite Variety (Ashby, 1956)
-              </p>
-
-              <div style={{ border: "1px solid #D8D4CC", background: "#FDFBF7" }}>
-                <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid #D8D4CC" }}>
-                  <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#8B1A14" }}>
-                    Research Programs
-                  </p>
-                </div>
-                {["Compute Futures", "Compute Governance", "The Good Regulator Project", "Compute & Society"].map((prog, i) => (
-                  <div key={prog} style={{ padding: "0.875rem 1.5rem", borderBottom: i < 3 ? "1px solid #D8D4CC" : "none", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#3A3530" }}>{prog}</span>
-                    <Link href="/research" style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", color: "#8B1A14", textDecoration: "none", letterSpacing: "0.08em" }}>→</Link>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ── WHO WE ARE ── */}
-      <section style={{ background: "#111318", borderBottom: "1px solid #1E2228" }}>
-        <div className="container" style={{ paddingTop: "6rem", paddingBottom: "6rem" }}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <Reveal className="lg:col-span-4">
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "1rem" }}>
-                About TAI
-              </span>
-              <div style={{ width: "2rem", height: "2px", background: "#8B1A14", marginBottom: "1.5rem" }} />
-              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "#E8E4DC", lineHeight: 1.2, marginBottom: "1.5rem" }}>
-                Independent.<br />
-                <em style={{ fontStyle: "italic" }}>Rigorous.</em><br />
-                Structurally Focused.
+      <section style={{ background: "#F7F6F4", borderBottom: "1px solid #E5E4E0", paddingTop: "5rem", paddingBottom: "5rem" }}>
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }} className="grid-cols-1 lg:grid-cols-2">
+            <Reveal>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Who We Are</p>
+              <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1.5rem" }}>
+                Independent. Rigorous. Open Access.
               </h2>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2.5rem" }}>
-                {[
-                  { num: "4", label: "Research Programs" },
-                  { num: "8+", label: "Application Domains" },
-                  { num: "2026", label: "Founded" },
-                ].map(stat => (
-                  <div key={stat.num} style={{ display: "flex", alignItems: "baseline", gap: "1rem" }}>
-                    <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 800, fontSize: "2.5rem", color: "#8B1A14", lineHeight: 1 }}>{stat.num}</span>
-                    <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#4A4540" }}>{stat.label}</span>
-                  </div>
-                ))}
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "1.25rem" }}>
+                The Ashby Institute is an independent nonprofit research organization. We accept no funding from commercial AI developers, compute infrastructure providers, or any entity with a direct financial interest in the systems we analyze.
+              </p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#555555", lineHeight: 1.8, marginBottom: "2rem" }}>
+                Our name is drawn from W. Ross Ashby's Good Regulator Theorem (1970): "Every good regulator of a system must be a model of that system." TAI exists to be that model — a rigorous, independent analytical institution that maintains sufficient internal variety to understand and analyze the systems reshaping our world.
+              </p>
+              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <Link href="/about" style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#A02D24", textDecoration: "none", borderBottom: "1px solid #A02D24", paddingBottom: "0.125rem", transition: "opacity 150ms" }}
+                  onMouseEnter={e => (e.currentTarget.style.opacity = "0.7")}
+                  onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+                >About the Institute →</Link>
               </div>
-
-              <Link href="/about" style={{
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: "#E8E4DC", background: "transparent", border: "1px solid rgba(232,228,220,0.25)",
-                padding: "0.875rem 1.75rem", textDecoration: "none", transition: "border-color 200ms",
-              }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.6)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.25)")}
-              >
-                About the Institute
-              </Link>
             </Reveal>
 
-            <Reveal className="lg:col-span-8" delay={120}>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: "#8A8580", lineHeight: 1.78, marginBottom: "1.5rem" }}>
-                The Ashby Institute takes its name and mandate from a single theorem. In 1970, W. Ross Ashby and Roger Conant proved that any system capable of regulating another must maintain an internal model of the regulated system. The theorem is not a metaphor — it is a mathematical result with direct implications for governance design at every scale.
-              </p>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: "#8A8580", lineHeight: 1.78, marginBottom: "1.5rem" }}>
-                TAI applies Ashby's Law broadly — to AI alignment, compute governance, autonomous systems, critical infrastructure, financial regulation, healthcare, and democratic institutions. Wherever a regulator must govern a complex system, the Law of Requisite Variety sets the mathematical floor for what adequate governance requires.
-              </p>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1.0625rem", color: "#8A8580", lineHeight: 1.78, marginBottom: "2.5rem" }}>
-                TAI is a nonprofit research organization with no commercial affiliations, no government contracts, and no industry funding. Our independence is structural, not aspirational — encoded in our governance documents and enforced by our Board. We produce structural analysis, not advocacy. We build models; we do not lobby.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Reveal delay={100}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1px", background: "#E5E4E0" }}>
                 {[
-                  { title: "No Commercial Affiliations", desc: "No funding from AI companies, semiconductor manufacturers, or cloud infrastructure providers." },
-                  { title: "No Government Contracts", desc: "Funding accepted from foundations and individuals subject to publication independence conditions." },
-                  { title: "No Advocacy", desc: "TAI does not advocate for specific policy outcomes. We produce structural analysis." },
+                  { label: "Independence", value: "No commercial funding. No institutional affiliations. No conflicts of interest." },
+                  { label: "Open Access", value: "All research published open access. No paywalls. No embargoes." },
+                  { label: "Rigor", value: "Peer-reviewed methodology. Formal theoretical foundations. Transparent assumptions." },
+                  { label: "Scope", value: "Eight domains. One analytical framework. Consistent application of Ashby's Law." },
                 ].map(item => (
-                  <div key={item.title} style={{ borderLeft: "2px solid #1E2228", paddingLeft: "1.25rem" }}>
-                    <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#8B1A14", marginBottom: "0.5rem" }}>
-                      {item.title}
-                    </p>
-                    <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#5A5550", lineHeight: 1.65 }}>
-                      {item.desc}
-                    </p>
+                  <div key={item.label} style={{ background: "#FFFFFF", padding: "1.5rem 1.75rem" }}>
+                    <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#A02D24", marginBottom: "0.5rem" }}>{item.label}</p>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#555555", lineHeight: 1.65 }}>{item.value}</p>
                   </div>
                 ))}
               </div>
@@ -512,66 +319,23 @@ export default function Home() {
       </section>
 
       {/* ── NEWSLETTER ── */}
-      <section style={{ background: "#F5F2EC", borderBottom: "1px solid #D8D4CC" }}>
-        <div className="container" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <Reveal className="lg:col-span-7">
-              <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#8B1A14", display: "block", marginBottom: "0.75rem" }}>
-                Stay Informed
-              </span>
-              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "#1A1410", lineHeight: 1.2, marginBottom: "1rem" }}>
-                Receive TAI Research Updates
+      <section style={{ background: "#FFFFFF", paddingTop: "5rem", paddingBottom: "5rem" }}>
+        <div className="container">
+          <div style={{ maxWidth: "600px" }}>
+            <Reveal>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#A02D24", marginBottom: "1rem" }}>Newsletter</p>
+              <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontWeight: 400, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#111111", lineHeight: 1.1, marginBottom: "1rem" }}>
+                Research updates and new publications.
               </h2>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "1rem", color: "#6A6560", lineHeight: 1.7 }}>
-                New publications, event announcements, and fellowship opportunities. No promotional content.
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "1rem", color: "#666666", lineHeight: 1.7, marginBottom: "1.75rem" }}>
+                Occasional dispatches on new research, events, and publications. No promotional content. Unsubscribe at any time.
               </p>
-            </Reveal>
-            <Reveal className="lg:col-span-5" delay={100}>
-              <div style={{ display: "flex", gap: "0" }}>
-                <input
-                  type="email"
-                  placeholder="your@email.edu"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  style={{
-                    flex: 1,
-                    fontFamily: "'Source Serif 4', Georgia, serif",
-                    fontSize: "0.9rem",
-                    color: "#1A1410",
-                    background: "#FDFBF7",
-                    border: "1px solid #D8D4CC",
-                    borderRight: "none",
-                    padding: "0.875rem 1.25rem",
-                    outline: "none",
-                  }}
-                  onFocus={e => (e.currentTarget.style.borderColor = "#8B1A14")}
-                  onBlur={e => (e.currentTarget.style.borderColor = "#D8D4CC")}
-                />
-                <button
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "0.62rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "#F0EDE6",
-                    background: "#8B1A14",
-                    border: "1px solid #8B1A14",
-                    padding: "0.875rem 1.5rem",
-                    cursor: "pointer",
-                    whiteSpace: "nowrap",
-                    transition: "background 200ms",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "#6E1510")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "#8B1A14")}
-                  onClick={() => window.location.href = "/contact"}
-                >
-                  Subscribe →
-                </button>
-              </div>
+              <NewsletterInline />
             </Reveal>
           </div>
         </div>
       </section>
+
     </Layout>
   );
 }

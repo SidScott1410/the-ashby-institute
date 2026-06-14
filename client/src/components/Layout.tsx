@@ -1,9 +1,9 @@
 /*
- * Layout.tsx — TAI Site Layout v2
- * Design: "Control Surface" — Post-Bauhaus Systems Functionalism
- * Colors: #0A0C0F near-black | #F5F2EC warm parchment | #8B1A14 deep crimson
- * Fonts: Playfair Display (display) | Space Mono (labels) | Source Serif 4 (body)
- * No gradients. No border-radius. Sharp rules. Asymmetric editorial grid.
+ * Layout.tsx — TAI Site Layout v3
+ * Design: Clean Institutional — Redwood Research × General Intuition
+ * Background: #FFFFFF white throughout
+ * Nav: white, thin bottom border, logo left, links right
+ * Accent: #A02D24 crimson — logo, active link, primary CTA only
  */
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
@@ -18,24 +18,23 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-// Inline SVG: feedback loop — a continuous cycle with inner model square
-function LogoMark({ size = 28 }: { size?: number }) {
+// Minimal feedback-loop SVG mark — circle with inner square and directional arrows
+export function LogoMark({ size = 26, color = "#A02D24" }: { size?: number; color?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="16" cy="16" r="12.5" stroke="#8B1A14" strokeWidth="1.4" fill="none" />
-      <rect x="11.5" y="11.5" width="9" height="9" stroke="#8B1A14" strokeWidth="1.2" fill="none" />
-      {/* Top arrow right */}
-      <path d="M16 3.5 L20.5 3.5" stroke="#8B1A14" strokeWidth="1.3" strokeLinecap="square" />
-      <path d="M19 2 L21 3.5 L19 5" stroke="#8B1A14" strokeWidth="1.1" fill="none" strokeLinecap="square" />
-      {/* Bottom arrow left */}
-      <path d="M16 28.5 L11.5 28.5" stroke="#8B1A14" strokeWidth="1.3" strokeLinecap="square" />
-      <path d="M13 27 L11 28.5 L13 30" stroke="#8B1A14" strokeWidth="1.1" fill="none" strokeLinecap="square" />
-      <circle cx="16" cy="16" r="1.2" fill="#8B1A14" />
+      {/* Outer circle */}
+      <circle cx="16" cy="16" r="12" stroke={color} strokeWidth="1.5" fill="none" />
+      {/* Inner square — the model */}
+      <rect x="11" y="11" width="10" height="10" stroke={color} strokeWidth="1.2" fill="none" />
+      {/* Top arrow — environment to regulator */}
+      <path d="M16 4 L19 4" stroke={color} strokeWidth="1.3" strokeLinecap="square" />
+      <path d="M17.5 2.5 L19.5 4 L17.5 5.5" stroke={color} strokeWidth="1.1" fill="none" strokeLinecap="square" />
+      {/* Bottom arrow — regulator to environment */}
+      <path d="M16 28 L13 28" stroke={color} strokeWidth="1.3" strokeLinecap="square" />
+      <path d="M14.5 26.5 L12.5 28 L14.5 29.5" stroke={color} strokeWidth="1.1" fill="none" strokeLinecap="square" />
     </svg>
   );
 }
-
-export { LogoMark };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -51,57 +50,64 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => { setMenuOpen(false); }, [location]);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#F5F2EC" }}>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#FFFFFF" }}>
 
       {/* ── HEADER ── */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(10,12,15,0.96)" : "#0A0C0F",
-          borderBottom: "1px solid #1E2228",
-          backdropFilter: scrolled ? "blur(16px)" : "none",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          background: "#FFFFFF",
+          borderBottom: scrolled ? "1px solid #E5E4E0" : "1px solid #E5E4E0",
+          transition: "box-shadow 200ms ease",
+          boxShadow: scrolled ? "0 1px 8px rgba(0,0,0,0.06)" : "none",
         }}
       >
         <div className="container">
-          <div className="flex items-center justify-between" style={{ height: "60px" }}>
-            <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none" }}>
-              <LogoMark size={24} />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "60px" }}>
+
+            {/* Logo */}
+            <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none" }}>
+              <LogoMark size={22} color="#A02D24" />
               <span style={{
-                fontFamily: "'Space Mono', monospace",
+                fontFamily: "'IBM Plex Mono', monospace",
                 fontSize: "0.65rem",
-                letterSpacing: "0.14em",
+                letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: "#E8E4DC",
+                color: "#111111",
+                fontWeight: 500,
               }}>
                 The Ashby Institute
               </span>
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center" style={{ gap: "2rem" }}>
+            <nav style={{ display: "flex", alignItems: "center", gap: "2rem" }} className="hidden lg:flex">
               {NAV_LINKS.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}
                   style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: "0.62rem",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: location === link.href ? "#8B1A14" : "#7A7570",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "0.8125rem",
+                    fontWeight: 400,
+                    color: location === link.href ? "#A02D24" : "#555555",
                     textDecoration: "none",
-                    transition: "color 200ms ease",
-                    position: "relative",
+                    transition: "color 150ms ease",
+                    letterSpacing: "0.01em",
                   }}
-                  onMouseEnter={e => { if (location !== link.href) e.currentTarget.style.color = "#E8E4DC"; }}
-                  onMouseLeave={e => { if (location !== link.href) e.currentTarget.style.color = "#7A7570"; }}
+                  onMouseEnter={e => { if (location !== link.href) e.currentTarget.style.color = "#111111"; }}
+                  onMouseLeave={e => { if (location !== link.href) e.currentTarget.style.color = "#555555"; }}
                 >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Mobile button */}
+            {/* Mobile hamburger */}
             <button
               className="lg:hidden"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -109,9 +115,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               aria-label="Toggle menu"
             >
               <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                <span style={{ display: "block", width: "20px", height: "1px", background: "#E8E4DC", transition: "transform 200ms", transform: menuOpen ? "rotate(45deg) translate(4px, 4px)" : "none" }} />
-                <span style={{ display: "block", width: "20px", height: "1px", background: "#E8E4DC", opacity: menuOpen ? 0 : 1, transition: "opacity 200ms" }} />
-                <span style={{ display: "block", width: "20px", height: "1px", background: "#E8E4DC", transition: "transform 200ms", transform: menuOpen ? "rotate(-45deg) translate(4px, -4px)" : "none" }} />
+                <span style={{ display: "block", width: "20px", height: "1.5px", background: "#111111", transition: "transform 200ms", transform: menuOpen ? "rotate(45deg) translate(4.5px, 4.5px)" : "none" }} />
+                <span style={{ display: "block", width: "20px", height: "1.5px", background: "#111111", opacity: menuOpen ? 0 : 1, transition: "opacity 150ms" }} />
+                <span style={{ display: "block", width: "20px", height: "1.5px", background: "#111111", transition: "transform 200ms", transform: menuOpen ? "rotate(-45deg) translate(4.5px, -4.5px)" : "none" }} />
               </div>
             </button>
           </div>
@@ -119,16 +125,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div style={{ background: "#0A0C0F", borderTop: "1px solid #1E2228" }}>
-            <div className="container" style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <div style={{ background: "#FFFFFF", borderTop: "1px solid #E5E4E0" }}>
+            <div className="container" style={{ paddingTop: "1.25rem", paddingBottom: "1.25rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
               {NAV_LINKS.map(link => (
                 <Link key={link.href} href={link.href} style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: location === link.href ? "#8B1A14" : "#8A8580",
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: "0.9375rem",
+                  color: location === link.href ? "#A02D24" : "#333333",
                   textDecoration: "none",
+                  paddingBottom: "0.75rem",
+                  borderBottom: "1px solid #F0EFED",
                 }}>
                   {link.label}
                 </Link>
@@ -139,39 +145,39 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* ── MAIN ── */}
-      <main className="flex-1">
+      <main style={{ flex: 1, paddingTop: "60px" }}>
         {children}
       </main>
 
       {/* ── FOOTER ── */}
-      <footer style={{ background: "#0A0C0F", borderTop: "1px solid #1E2228" }}>
-        <div className="container" style={{ paddingTop: "5rem", paddingBottom: "4rem" }}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12" style={{ marginBottom: "4rem" }}>
+      <footer style={{ background: "#F7F6F4", borderTop: "1px solid #E5E4E0" }}>
+        <div className="container" style={{ paddingTop: "4rem", paddingBottom: "3rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "3rem", marginBottom: "3rem" }}>
 
             {/* Brand */}
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem" }}>
-                <LogoMark size={20} />
-                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#6A6560" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
+                <LogoMark size={18} color="#A02D24" />
+                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#888888" }}>
                   The Ashby Institute
                 </span>
               </div>
-              <p style={{ fontFamily: "'Playfair Display', Georgia, serif", fontStyle: "italic", fontSize: "0.875rem", color: "#5A5550", lineHeight: 1.65, marginBottom: "0.75rem" }}>
+              <p style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontStyle: "italic", fontSize: "0.9375rem", color: "#444444", lineHeight: 1.6, marginBottom: "0.5rem" }}>
                 "Every good regulator of a system must be a model of that system."
               </p>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.08em", color: "#3A3530" }}>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.06em", color: "#AAAAAA" }}>
                 — W. Ross Ashby & Roger Conant, 1970
               </p>
             </div>
 
             {/* Research */}
             <div>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4A4540", marginBottom: "1.25rem" }}>Research</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {["Compute Futures", "Compute Governance", "The Good Regulator Project", "Compute & Society", "AI Alignment"].map(item => (
-                  <Link key={item} href="/research" style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#5A5550", textDecoration: "none", transition: "color 200ms" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#E8E4DC")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "#5A5550")}
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1rem" }}>Research</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+                {["Compute Futures", "Compute Governance", "The Good Regulator Project", "Compute & Society"].map(item => (
+                  <Link key={item} href="/research" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#555555", textDecoration: "none", transition: "color 150ms" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "#111111")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "#555555")}
                   >{item}</Link>
                 ))}
               </div>
@@ -179,8 +185,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Institute */}
             <div>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4A4540", marginBottom: "1.25rem" }}>Institute</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1rem" }}>Institute</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
                 {[
                   { label: "The Theory", href: "/theory" },
                   { label: "Fellows", href: "/fellows" },
@@ -188,9 +194,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   { label: "Events", href: "/events" },
                   { label: "About", href: "/about" },
                 ].map(item => (
-                  <Link key={item.href} href={item.href} style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#5A5550", textDecoration: "none", transition: "color 200ms" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "#E8E4DC")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "#5A5550")}
+                  <Link key={item.href} href={item.href} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#555555", textDecoration: "none", transition: "color 150ms" }}
+                    onMouseEnter={e => (e.currentTarget.style.color = "#111111")}
+                    onMouseLeave={e => (e.currentTarget.style.color = "#555555")}
                   >{item.label}</Link>
                 ))}
               </div>
@@ -198,49 +204,35 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Newsletter */}
             <div>
-              <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4A4540", marginBottom: "1.25rem" }}>Newsletter</p>
-              <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "0.875rem", color: "#5A5550", lineHeight: 1.65, marginBottom: "1.25rem" }}>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAAAAA", marginBottom: "1rem" }}>Newsletter</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.875rem", color: "#666666", lineHeight: 1.6, marginBottom: "1rem" }}>
                 Research updates, event notices, and new publications. No promotional content.
               </p>
               <Link href="/contact" style={{
-                display: "inline-flex",
-                alignItems: "center",
-                fontFamily: "'Space Mono', monospace",
-                fontSize: "0.6rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "#E8E4DC",
-                border: "1px solid rgba(232,228,220,0.25)",
-                padding: "0.6rem 1.25rem",
-                textDecoration: "none",
-                transition: "border-color 200ms",
+                display: "inline-flex", alignItems: "center",
+                fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                color: "#A02D24", border: "1px solid #A02D24", padding: "0.5rem 1rem",
+                textDecoration: "none", transition: "background 150ms, color 150ms",
               }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.7)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(232,228,220,0.25)")}
+                onMouseEnter={e => { e.currentTarget.style.background = "#A02D24"; e.currentTarget.style.color = "#FFFFFF"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#A02D24"; }}
               >
                 Subscribe →
               </Link>
             </div>
           </div>
 
-          {/* Bottom */}
-          <div style={{ borderTop: "1px solid #1E2228", paddingTop: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }} className="md:flex-row md:items-center md:justify-between">
-            <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.58rem", letterSpacing: "0.08em", color: "#3A3530" }}>
+          {/* Bottom bar */}
+          <div style={{ borderTop: "1px solid #E5E4E0", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "space-between" }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8125rem", color: "#AAAAAA" }}>
               © 2026 The Ashby Institute. Independent nonprofit research organization.
             </p>
             <div style={{ display: "flex", gap: "1.5rem" }}>
-              {["Independence Policy", "Contact"].map(item => (
-                <Link key={item} href={item === "Contact" ? "/contact" : "/about"} style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: "0.58rem",
-                  letterSpacing: "0.08em",
-                  color: "#3A3530",
-                  textDecoration: "none",
-                  transition: "color 200ms",
-                }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "#7A7570")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "#3A3530")}
-                >{item}</Link>
+              {[{ label: "Independence Policy", href: "/about" }, { label: "Contact", href: "/contact" }].map(item => (
+                <Link key={item.href} href={item.href} style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.8125rem", color: "#AAAAAA", textDecoration: "none", transition: "color 150ms" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#555555")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#AAAAAA")}
+                >{item.label}</Link>
               ))}
             </div>
           </div>

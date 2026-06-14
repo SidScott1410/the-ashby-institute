@@ -1,21 +1,13 @@
-/*
- * TAI Design System v2 — "Control Surface"
- * Design Movement: Post-Bauhaus Systems Functionalism
- * Colors: #0A0C0F near-black hero | #F5F2EC warm parchment body | #8B1A14 deep crimson accent
- * Typography: Playfair Display (display) | Space Mono (labels/mono) | Source Serif 4 (body)
- * Principles: No gradients. No rounded corners. Sharp rules. Asymmetric editorial grid.
- */
-
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -38,26 +30,26 @@
 }
 
 :root {
-  --radius: 0px;
-  --background: oklch(0.97 0.008 80);
-  --foreground: oklch(0.12 0.005 60);
+  --radius: 0;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.13 0.005 50);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.12 0.005 60);
+  --card-foreground: oklch(0.13 0.005 50);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.12 0.005 60);
-  --primary: oklch(0.28 0.12 22);
-  --primary-foreground: oklch(0.97 0.008 80);
-  --secondary: oklch(0.93 0.006 80);
-  --secondary-foreground: oklch(0.25 0.008 60);
-  --muted: oklch(0.93 0.006 80);
-  --muted-foreground: oklch(0.48 0.012 60);
-  --accent: oklch(0.28 0.12 22);
-  --accent-foreground: oklch(0.97 0.008 80);
+  --popover-foreground: oklch(0.13 0.005 50);
+  --primary: oklch(0.35 0.1 25);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.97 0.005 80);
+  --secondary-foreground: oklch(0.13 0.005 50);
+  --muted: oklch(0.97 0.005 80);
+  --muted-foreground: oklch(0.5 0.01 50);
+  --accent: oklch(0.97 0.005 80);
+  --accent-foreground: oklch(0.13 0.005 50);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.84 0.008 80);
-  --input: oklch(0.84 0.008 80);
-  --ring: oklch(0.28 0.12 22);
+  --border: oklch(0.9 0.005 80);
+  --input: oklch(0.9 0.005 80);
+  --ring: oklch(0.35 0.1 25);
 }
 
 @layer base {
@@ -67,7 +59,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Source Serif 4', 'Georgia', serif;
+    font-family: 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -78,283 +70,6 @@
   }
 }
 
-/* ─── TAI DESIGN TOKENS ─────────────────────────────────────────────────── */
-
-/* Colors */
-.tai-ink        { color: #0A0C0F; }
-.tai-ink-2      { color: #111318; }
-.tai-parchment  { color: #F5F2EC; }
-.tai-warm-off   { color: #E8E4DC; }
-.tai-muted-dark { color: #8A8580; }
-.tai-muted-lt   { color: #6A6560; }
-.tai-crimson    { color: #8B1A14; }
-.tai-rule-dark  { border-color: #1E2228; }
-.tai-rule-lt    { border-color: #D8D4CC; }
-
-/* Backgrounds */
-.bg-tai-ink       { background-color: #0A0C0F; }
-.bg-tai-ink-2     { background-color: #111318; }
-.bg-tai-parchment { background-color: #F5F2EC; }
-.bg-tai-paper     { background-color: #FDFBF7; }
-.bg-tai-warm      { background-color: #F0EDE6; }
-.bg-tai-crimson   { background-color: #8B1A14; }
-
-/* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
-
-.tai-display {
-  font-family: 'Playfair Display', 'Georgia', serif;
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-
-.tai-display-italic {
-  font-family: 'Playfair Display', 'Georgia', serif;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.15;
-}
-
-.tai-mono {
-  font-family: 'Space Mono', 'Courier New', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.tai-label {
-  font-family: 'Space Mono', 'Courier New', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #8B1A14;
-}
-
-.tai-body {
-  font-family: 'Source Serif 4', 'Georgia', serif;
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  color: #2A2620;
-}
-
-.tai-body-sm {
-  font-family: 'Source Serif 4', 'Georgia', serif;
-  font-size: 0.9375rem;
-  line-height: 1.7;
-  color: #4A4640;
-}
-
-/* ─── SECTION NUMBERS ────────────────────────────────────────────────────── */
-
-.tai-section-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #1E2228;
-  letter-spacing: -0.04em;
-  user-select: none;
-}
-
-/* ─── THEOREM BOX ────────────────────────────────────────────────────────── */
-
-.tai-theorem {
-  border-left: 3px solid #8B1A14;
-  padding: 1.5rem 2rem;
-  background: transparent;
-}
-
-.tai-theorem-dark {
-  border-left: 3px solid #8B1A14;
-  padding: 1.5rem 2rem;
-  background: rgba(139, 26, 20, 0.06);
-}
-
-/* ─── BUTTONS ────────────────────────────────────────────────────────────── */
-
-.tai-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #E8E4DC;
-  background: #8B1A14;
-  border: 1px solid #8B1A14;
-  padding: 0.75rem 1.5rem;
-  transition: background 200ms ease, color 200ms ease;
-  text-decoration: none;
-}
-.tai-btn-primary:hover {
-  background: #6E1510;
-  border-color: #6E1510;
-}
-
-.tai-btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #E8E4DC;
-  background: transparent;
-  border: 1px solid rgba(232, 228, 220, 0.35);
-  padding: 0.75rem 1.5rem;
-  transition: border-color 200ms ease, color 200ms ease;
-  text-decoration: none;
-}
-.tai-btn-outline:hover {
-  border-color: #E8E4DC;
-  color: #FFFFFF;
-}
-
-.tai-btn-outline-dark {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #2A2620;
-  background: transparent;
-  border: 1px solid #2A2620;
-  padding: 0.75rem 1.5rem;
-  transition: background 200ms ease, color 200ms ease;
-  text-decoration: none;
-}
-.tai-btn-outline-dark:hover {
-  background: #2A2620;
-  color: #F5F2EC;
-}
-
-/* ─── CARDS ──────────────────────────────────────────────────────────────── */
-
-.tai-card {
-  border: 1px solid #D8D4CC;
-  background: #FDFBF7;
-  padding: 2rem;
-  transition: border-color 200ms ease;
-}
-.tai-card:hover {
-  border-color: #8B1A14;
-}
-
-.tai-card-dark {
-  border: 1px solid #1E2228;
-  background: #111318;
-  padding: 2rem;
-  transition: border-color 200ms ease;
-}
-.tai-card-dark:hover {
-  border-color: #8B1A14;
-}
-
-/* ─── HORIZONTAL RULES ───────────────────────────────────────────────────── */
-
-.tai-rule { border-top: 1px solid #D8D4CC; }
-.tai-rule-dark { border-top: 1px solid #1E2228; }
-.tai-rule-crimson { border-top: 2px solid #8B1A14; }
-
-/* ─── REVEAL ANIMATIONS ──────────────────────────────────────────────────── */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 600ms cubic-bezier(0.23, 1, 0.32, 1),
-              transform 600ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
-
-/* ─── NAVIGATION ─────────────────────────────────────────────────────────── */
-
-.tai-nav-link {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #8A8580;
-  text-decoration: none;
-  transition: color 200ms ease;
-  position: relative;
-}
-.tai-nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #8B1A14;
-  transition: width 200ms ease;
-}
-.tai-nav-link:hover {
-  color: #E8E4DC;
-}
-.tai-nav-link:hover::after {
-  width: 100%;
-}
-.tai-nav-link.active {
-  color: #8B1A14;
-}
-.tai-nav-link.active::after {
-  width: 100%;
-}
-
-/* ─── EQUATION DISPLAY ───────────────────────────────────────────────────── */
-
-.tai-equation {
-  font-family: 'Space Mono', monospace;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 700;
-  color: #8B1A14;
-  letter-spacing: -0.02em;
-}
-
-/* ─── PULL QUOTE ─────────────────────────────────────────────────────────── */
-
-.tai-pullquote {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  line-height: 1.4;
-  color: #E8E4DC;
-  border-left: 3px solid #8B1A14;
-  padding-left: 1.5rem;
-}
-
-/* ─── DOMAIN TAG ─────────────────────────────────────────────────────────── */
-
-.tai-tag {
-  display: inline-block;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid currentColor;
-  padding: 0.2rem 0.5rem;
-}
-
-/* ─── SCROLLBAR ──────────────────────────────────────────────────────────── */
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0A0C0F; }
-::-webkit-scrollbar-thumb { background: #2A2F36; }
-::-webkit-scrollbar-thumb:hover { background: #8B1A14; }
-
-/* ─── CONTAINER ──────────────────────────────────────────────────────────── */
-
 @layer components {
   .container {
     width: 100%;
@@ -362,12 +77,41 @@
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    max-width: 1200px;
   }
-  .flex { min-height: 0; min-width: 0; }
   @media (min-width: 768px) {
-    .container { padding-left: 2.5rem; padding-right: 2.5rem; }
+    .container {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
   }
   @media (min-width: 1280px) {
-    .container { padding-left: 4rem; padding-right: 4rem; max-width: 1400px; }
+    .container {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
   }
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+}
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s cubic-bezier(0.23, 1, 0.32, 1), transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Grid helpers ── */
+@media (max-width: 767px) {
+  .grid-cols-1 { grid-template-columns: 1fr !important; }
 }
