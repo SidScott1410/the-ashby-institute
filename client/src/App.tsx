@@ -12,6 +12,7 @@ import Events from "./pages/Events";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Theory from "./pages/Theory";
+import PublicationDetail from "./pages/PublicationDetail";
 
 function Router() {
   return (
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/theory" component={Theory} />
       <Route path="/fellows" component={Fellows} />
       <Route path="/publications" component={Publications} />
+      <Route path="/publications/:slug" component={PublicationDetail} />
       <Route path="/events" component={Events} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />

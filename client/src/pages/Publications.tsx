@@ -7,6 +7,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import AsciiCanvas from "@/components/AsciiCanvas";
 import { Link } from "wouter";
+import { PUBLICATIONS_DATA } from "@/lib/publications";
 
 const B = "1px solid #111";
 const SLATE = "#2C3E6B";
@@ -22,18 +23,20 @@ const SERIES = [
   { id: "policy-briefs", label: "POLICY BRIEFS" },
 ];
 
+// Merge the rich data from lib/publications with any legacy entries not yet in the lib
 const PUBLICATIONS = [
-  {
-    series: "compute-2030",
-    seriesLabel: "COMPUTE 2030",
-    date: "JUNE 2026",
-    title: "Compute 2030: Four Scenarios for the Compute Transition",
-    authors: "TAI Research Staff",
-    abstract: "Four structural scenarios for the compute transition through 2030, analyzed through the lens of Ashby's Law of Requisite Variety.",
-    href: "https://theashbyinstitute.manus.space",
-    external: true,
-    featured: true,
-  },
+  ...PUBLICATIONS_DATA.map(p => ({
+    series: p.series,
+    seriesLabel: p.seriesLabel,
+    date: p.date.toUpperCase(),
+    title: p.title,
+    authors: p.authors.map(a => a.name).join(", "),
+    abstract: p.abstract,
+    href: `/publications/${p.slug}`,
+    external: false,
+    featured: p.slug === "compute-2030-four-scenarios",
+    slug: p.slug,
+  })),
   {
     series: "grt-lectures",
     seriesLabel: "GRT LECTURE SERIES",
@@ -44,28 +47,7 @@ const PUBLICATIONS = [
     href: "/publications",
     external: false,
     featured: false,
-  },
-  {
-    series: "working-papers",
-    seriesLabel: "WORKING PAPER",
-    date: "FORTHCOMING 2026",
-    title: "Variety Deficits in AI Governance: A Structural Analysis",
-    authors: "TAI Research Staff",
-    abstract: "An application of Ashby's Law to current AI governance frameworks, identifying structural variety deficits in existing regulatory architectures.",
-    href: "/publications",
-    external: false,
-    featured: false,
-  },
-  {
-    series: "policy-briefs",
-    seriesLabel: "POLICY BRIEF",
-    date: "FORTHCOMING 2026",
-    title: "Compute Export Controls and the Good Regulator Theorem",
-    authors: "TAI Research Staff",
-    abstract: "Applies the GRT to the design of compute export control regimes, arguing that effective controls require regulatory bodies to model the full variety of compute applications.",
-    href: "/publications",
-    external: false,
-    featured: false,
+    slug: null,
   },
   {
     series: "equity-index",
@@ -77,6 +59,7 @@ const PUBLICATIONS = [
     href: "/publications",
     external: false,
     featured: false,
+    slug: null,
   },
   {
     series: "governance-annual",
@@ -88,6 +71,7 @@ const PUBLICATIONS = [
     href: "/publications",
     external: false,
     featured: false,
+    slug: null,
   },
 ];
 
@@ -198,7 +182,12 @@ export default function Publications() {
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#fff"}
             >
               <h3 style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#111", margin: "0 0 8px", lineHeight: 1.4 }}>
-                {pub.external ? (
+                {pub.slug ? (
+                  <Link href={`/publications/${pub.slug}`} style={{ color: "inherit", textDecoration: "none" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+                  >{pub.title}</Link>
+                ) : pub.external ? (
                   <a href={pub.href} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
@@ -207,8 +196,12 @@ export default function Publications() {
               </h3>
               <p style={{ fontFamily: FONT, fontSize: 10, color: "#888", margin: "0 0 12px" }}>{pub.authors}</p>
               <p style={{ fontFamily: FONT, fontSize: 12, color: "#555", lineHeight: 1.7, margin: "0 0 16px", fontWeight: 300 }}>{pub.abstract}</p>
-              {pub.external && (
-                <a href={pub.href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: SLATE, textDecoration: "none", borderBottom: "1px solid #2C3E6B" }}>READ →</a>
+              {pub.slug ? (
+                <Link href={`/publications/${pub.slug}`} style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: SLATE, textDecoration: "none", borderBottom: `1px solid ${SLATE}` }}>READ →</Link>
+              ) : pub.external ? (
+                <a href={pub.href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: SLATE, textDecoration: "none", borderBottom: `1px solid ${SLATE}` }}>READ →</a>
+              ) : (
+                <span style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: "#aaa" }}>FORTHCOMING</span>
               )}
             </div>
           </div>
