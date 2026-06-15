@@ -14,6 +14,7 @@
  */
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
+import { LogoMark } from "./LogoMark";
 
 const BORDER = "1px solid #111";
 const SLATE = "#2C3E6B";
@@ -28,18 +29,7 @@ const NAV_LINKS = [
   { href: "/about", label: "ABOUT" },
 ];
 
-export function LogoMark({ size = 24, color = SLATE }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
-      <circle cx="16" cy="16" r="11" stroke={color} strokeWidth="1.5" fill="none" />
-      <path d="M16 5 A11 11 0 0 1 27 16" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <path d="M27 16 A11 11 0 0 1 16 27" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <path d="M16 27 A11 11 0 0 1 5 16" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <path d="M5 16 A11 11 0 0 1 16 5" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <polygon points="16,3 18.2,7 13.8,7" fill={color}/>
-    </svg>
-  );
-}
+
 
 // Inline focus-visible style injected once
 const FOCUS_STYLE = `
@@ -141,10 +131,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           display: "flex", alignItems: "center", gap: 10,
           padding: "0 20px", borderRight: BORDER, textDecoration: "none", flexShrink: 0,
         }}>
-          <LogoMark size={22} color={SLATE} />
-          <span className="nav-logo-text" style={{ fontSize: 9, letterSpacing: "0.14em", fontWeight: 600, color: "#111" }}>
-            THE ASHBY INSTITUTE
-          </span>
+          <LogoMark size={32} color={SLATE} />
         </Link>
 
         {/* Desktop nav links */}
@@ -272,8 +259,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Brand */}
           <div style={{ padding: "40px 32px", borderRight: BORDER }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-              <LogoMark size={20} color={SLATE} />
-              <span style={{ fontSize: 8, letterSpacing: "0.14em", fontWeight: 600 }}>THE ASHBY INSTITUTE</span>
+              <LogoMark size={26} color={SLATE} />
             </div>
             <p style={{ fontSize: 12, lineHeight: 1.75, color: "#555", fontStyle: "italic", margin: "0 0 8px" }}>
               "Every good regulator of a system must be a model of that system."
