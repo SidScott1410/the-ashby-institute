@@ -1,10 +1,8 @@
 <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Top arc: left to right, clockwise -->
-  <path d="M 8 20 A 12 12 0 0 1 32 20" stroke="#A02D24" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <!-- Arrowhead at end of top arc -->
-  <polyline points="28,14 32,20 26,21" stroke="#A02D24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- Bottom arc: right to left, clockwise -->
-  <path d="M 32 20 A 12 12 0 0 1 8 20" stroke="#A02D24" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <!-- Arrowhead at end of bottom arc -->
-  <polyline points="12,26 8,20 14,19" stroke="#A02D24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Outer circle -->
+  <circle cx="20" cy="20" r="17" stroke="#2C3E6B" stroke-width="2.5" fill="none"/>
+  <!-- Inner concentric circle -->
+  <circle cx="20" cy="20" r="11.5" stroke="#2C3E6B" stroke-width="2" fill="none"/>
+  <!-- Small upward triangle at 12 o'clock -->
+  <polygon points="20,1.5 22.8,7 17.2,7" fill="#2C3E6B"/>
 </svg>

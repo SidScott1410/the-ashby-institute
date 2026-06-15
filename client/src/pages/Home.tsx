@@ -355,7 +355,7 @@ export default function Home() {
             Every good regulator must be a model of its system.
           </h1>
           <p style={{ fontSize: 13, lineHeight: 1.7, color: "#444", marginBottom: 28, maxWidth: 420 }}>
-            TAI is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era — and beyond.
+            Independent research on compute governance and AI regulatory design. We study why AI oversight systems fail — and how to build ones that don't.
           </p>
           <div className="hero-btns" style={{ display: "flex", gap: 0 }}>
             <Link href="/theory" style={{
