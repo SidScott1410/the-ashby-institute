@@ -195,15 +195,11 @@ export default function Home() {
           borderRight: scrolled ? BORDER : "1px solid transparent", textDecoration: "none",
           gap: 10, transition: "border-color 0.2s ease",
         }}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false">
-            <circle cx="14" cy="14" r="12" stroke={SLATE} strokeWidth="1.5" fill="none"/>
-            <path d="M14 6 A8 8 0 0 1 22 14" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-            <path d="M22 14 A8 8 0 0 1 14 22" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-            <path d="M14 22 A8 8 0 0 1 6 14" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-            <path d="M6 14 A8 8 0 0 1 14 6" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-            <polygon points="14,4 16,8 12,8" fill={SLATE}/>
-          </svg>
-          <span style={{ fontSize: 11, letterSpacing: "0.12em", fontWeight: 600, color: "#111" }}>THE ASHBY INSTITUTE</span>
+          <img
+            src="/manus-storage/tai-logo-final_8f614216.png"
+            alt="The Ashby Institute"
+            style={{ display: "block", height: 34, width: "auto", objectFit: "contain" }}
+          />
         </Link>
 
         {/* Desktop nav links */}
@@ -728,15 +724,11 @@ export default function Home() {
           {/* Brand */}
           <div style={{ padding: "40px 32px", borderRight: BORDER }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="12" stroke={SLATE} strokeWidth="1.5" fill="none"/>
-                <path d="M14 6 A8 8 0 0 1 22 14" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                <path d="M22 14 A8 8 0 0 1 14 22" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                <path d="M14 22 A8 8 0 0 1 6 14" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                <path d="M6 14 A8 8 0 0 1 14 6" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                <polygon points="14,4 16,8 12,8" fill={SLATE}/>
-              </svg>
-              <span style={{ fontSize: 10, letterSpacing: "0.12em", fontWeight: 600 }}>THE ASHBY INSTITUTE</span>
+              <img
+                src="/manus-storage/tai-logo-final_8f614216.png"
+                alt="The Ashby Institute"
+                style={{ display: "block", height: 30, width: "auto", objectFit: "contain" }}
+              />
             </div>
             <p style={{ fontSize: 11, lineHeight: 1.7, color: "#555", fontStyle: "italic" }}>
               "Every good regulator of a system must be a model of that system."
