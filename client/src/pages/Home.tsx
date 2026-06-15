@@ -31,7 +31,7 @@ const DOMAINS = [
   { label: "CRITICAL INFRASTRUCTURE", eq: "R ⊇ D",     desc: "The regulator's response set must contain every possible disturbance." },
   { label: "FINANCIAL SYSTEMS",   eq: "σ(R) ≥ σ(D)",   desc: "Regulatory bandwidth must exceed market volatility to prevent systemic failure." },
   { label: "HEALTHCARE",          eq: "I(R;S) = H(S)",  desc: "Complete information about the system is necessary for effective regulation." },
-  { label: "DEMOCRATIC GOVERNANCE", eq: "C(R) ≥ C(D)", desc: "Institutional complexity must scale with the complexity of governed systems." },
+  { label: "GOVERNANCE INSTITUTIONS", eq: "C(R) ≥ C(D)", desc: "Institutional complexity must scale with the complexity of governed systems." },
   { label: "CLIMATE & EARTH",     eq: "∇·J + ∂ρ/∂t = 0", desc: "Conservation laws constrain the variety of feasible regulatory interventions." },
 ];
 

@@ -220,23 +220,23 @@ export default function About() {
           {[
             {
               tier: "INSTITUTIONAL PARTNER",
-              range: "$250,000+",
-              period: "per year",
+              range: "Lead Funder",
+              period: "funding level discussed upon enquiry",
               description: "Lead support for a named TAI research program. Acknowledged in all program publications and in TAI's annual report.",
               items: ["Named program acknowledgement", "Annual research briefing", "Invitation to TAI symposia", "Early access to published reports"],
               highlight: false,
             },
             {
               tier: "RESEARCH SUPPORTER",
-              range: "$50,000 – $249,999",
-              period: "per year",
+              range: "General Supporter",
+              period: "funding level discussed upon enquiry",
               description: "General operating support for TAI's research agenda. Acknowledged in TAI's annual report and on this website.",
               items: ["Annual report acknowledgement", "Annual research briefing", "Invitation to TAI symposia", "Newsletter and publications"],
               highlight: true,
             },
             {
               tier: "INDIVIDUAL DONOR",
-              range: "Any amount",
+              range: "Individual Gift",
               period: "one-time or recurring",
               description: "Support TAI's mission as an individual. All donors acknowledged in the annual report unless anonymity is requested.",
               items: ["Annual report acknowledgement", "TAI newsletter", "Open access to all publications", "Invitation to public events"],
