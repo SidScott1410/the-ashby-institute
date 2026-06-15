@@ -293,6 +293,10 @@ export default function AsciiCanvas({ sim, cellSize = 11, opacity = 0.85, classN
       for (let s = 0; s < stepsPerFrame; s++) simulation.step();
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
 
+      // Fill white background
+      ctx!.fillStyle = "#ffffff";
+      ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const v = simulation.getValue(r, c);
@@ -300,12 +304,21 @@ export default function AsciiCanvas({ sim, cellSize = 11, opacity = 0.85, classN
           const charSet = v > 0.6 ? CHARS_DENSE : CHARS;
           const idx = Math.floor(v * (charSet.length - 1));
           const ch = charSet[Math.max(0, Math.min(charSet.length - 1, idx))];
-          // Color: dim crimson for high-value cells, muted white for low
-          const brightness = Math.floor(60 + v * 160);
-          const r_col = v > 0.5 ? Math.floor(120 + v * 80) : brightness;
-          const g_col = v > 0.5 ? Math.floor(20 + v * 20) : brightness;
-          const b_col = v > 0.5 ? Math.floor(15 + v * 15) : brightness;
-          ctx!.fillStyle = `rgba(${r_col},${g_col},${b_col},${opacity * (0.3 + v * 0.7)})`;
+          // Color: slate blue #2C3E6B for high-value cells, light grey for low
+          if (v > 0.55) {
+            // Slate blue — high density cells
+            ctx!.fillStyle = `rgba(44,62,107,${opacity * (0.5 + v * 0.5)})`;
+          } else if (v > 0.25) {
+            // Mid — interpolate between slate blue and black
+            const t = (v - 0.25) / 0.3;
+            const rr = Math.round(44 * t);
+            const gg = Math.round(62 * t);
+            const bb = Math.round(107 * t + (1 - t) * 20);
+            ctx!.fillStyle = `rgba(${rr},${gg},${bb},${opacity * (0.3 + v * 0.5)})`;
+          } else {
+            // Low density — near-black, very faint
+            ctx!.fillStyle = `rgba(15,20,30,${opacity * (0.1 + v * 0.4)})`;
+          }
           ctx!.fillText(ch, c * cellSize, r * cellSize);
         }
       }

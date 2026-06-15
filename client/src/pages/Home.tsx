@@ -80,7 +80,7 @@ export default function Home() {
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: "56px" }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none" }}>
             <LogoMark size={20} color="#A02D24" />
-            <span style={{ fontFamily: font, fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", color: scrolled ? "#111" : "#fff", fontWeight: 500, transition: "color 200ms" }}>
+            <span style={{ fontFamily: font, fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#111", fontWeight: 500, transition: "color 200ms" }}>
               The Ashby Institute
             </span>
           </Link>
@@ -97,12 +97,12 @@ export default function Home() {
             ))}
             <Link href="/contact" style={{
               fontFamily: font, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-              color: scrolled ? "#fff" : "#000", background: scrolled ? "#111" : "#fff",
+              color: "#fff", background: "#111",
               padding: "0.4rem 1rem", textDecoration: "none", transition: "background 200ms, color 200ms",
               border: "1px solid transparent",
             }}
               onMouseEnter={e => { e.currentTarget.style.background = "#2C3E6B"; e.currentTarget.style.color = "#fff"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = scrolled ? "#111" : "#fff"; e.currentTarget.style.color = scrolled ? "#fff" : "#000"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
             >Contact</Link>
           </nav>
         </div>
@@ -111,7 +111,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════
           SECTION 1: HERO — full viewport ASCII canvas
       ══════════════════════════════════════════════ */}
-      <section ref={heroRef} style={{ position: "relative", height: "100vh", background: "#0A0A0A", overflow: "hidden" }}>
+      <section ref={heroRef} style={{ position: "relative", height: "100vh", background: "#FFFFFF", overflow: "hidden", borderBottom: "1px solid #E0E0E0" }}>
         <AsciiCanvas sim="cellular" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
 
         {/* Sim selector — top right, like GI */}
@@ -136,7 +136,7 @@ export default function Home() {
         }}>
           <h1 style={{
             fontFamily: font, fontSize: "clamp(1.5rem, 2.8vw, 2.25rem)",
-            fontWeight: 700, lineHeight: 1.2, color: "#0A0A0A",
+            fontWeight: 700, lineHeight: 1.2, color: "#111",
             margin: "0 0 1.5rem 0", letterSpacing: "-0.01em",
           }}>
             Every good regulator must be a model of its system.
@@ -147,21 +147,21 @@ export default function Home() {
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link href="/theory" style={{
               fontFamily: font, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-              background: "#0A0A0A", color: "#fff", padding: "0.75rem 1.75rem",
+              background: "#111", color: "#fff", padding: "0.75rem 1.75rem",
               textDecoration: "none", fontWeight: 500,
               transition: "background 150ms",
             }}
               onMouseEnter={e => e.currentTarget.style.background = "#2C3E6B"}
-              onMouseLeave={e => e.currentTarget.style.background = "#0A0A0A"}
+              onMouseLeave={e => e.currentTarget.style.background = "#111"}
             >The Theory</Link>
             <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{
               fontFamily: font, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-              background: "transparent", color: "#0A0A0A", padding: "0.75rem 1.75rem",
-              textDecoration: "none", fontWeight: 500, border: "1px solid #0A0A0A",
+              background: "transparent", color: "#111", padding: "0.75rem 1.75rem",
+              textDecoration: "none", fontWeight: 500, border: "1px solid #111",
               transition: "background 150ms, color 150ms",
             }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#0A0A0A"; e.currentTarget.style.color = "#fff"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#0A0A0A"; }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#111"; }}
             >Compute 2030 Report ↗</a>
           </div>
         </div>
@@ -174,7 +174,7 @@ export default function Home() {
       ══════════════════════════════════════════════ */}
       <section style={{ display: "flex", minHeight: "600px" }}>
         {/* Left: ASCII canvas */}
-        <div style={{ flex: "0 0 50%", background: "#0A0A0A", position: "relative", minHeight: "600px" }}>
+        <div style={{ flex: "0 0 50%", background: "#FFFFFF", position: "relative", minHeight: "600px" }}>
           <AsciiCanvas sim="reaction-diffusion" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
           {/* Label overlay */}
           <div style={{ position: "absolute", bottom: "2rem", left: "2rem" }}>
@@ -188,7 +188,7 @@ export default function Home() {
           <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#2C3E6B", marginBottom: "1.5rem", display: "block" }}>
             Theoretical Foundation
           </span>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.15, color: "#0A0A0A", margin: "0 0 2rem 0", letterSpacing: "-0.02em" }}>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, lineHeight: 1.15, color: "#111", margin: "0 0 2rem 0", letterSpacing: "-0.02em" }}>
             Ashby's Law of<br />Requisite Variety
           </h2>
           <p style={{ fontFamily: font, fontSize: "0.9rem", color: "#444", lineHeight: 1.8, margin: "0 0 1.5rem 0", fontWeight: 300 }}>
@@ -216,11 +216,11 @@ export default function Home() {
             <div style={{ marginTop: "2rem" }}>
               <Link href="/theory" style={{
                 fontFamily: font, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
-                color: "#0A0A0A", textDecoration: "none", borderBottom: "1px solid #0A0A0A", paddingBottom: "2px",
+                color: "#111", textDecoration: "none", borderBottom: "1px solid #0A0A0A", paddingBottom: "2px",
                 transition: "color 150ms, border-color 150ms",
               }}
                 onMouseEnter={e => { e.currentTarget.style.color = "#2C3E6B"; e.currentTarget.style.borderColor = "#2C3E6B"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "#0A0A0A"; e.currentTarget.style.borderColor = "#0A0A0A"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = "#111"; e.currentTarget.style.borderColor = "#111"; }}
               >Read the Full Theoretical Exposition →</Link>
             </div>
           </div>
@@ -238,7 +238,7 @@ export default function Home() {
             <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#2C3E6B", display: "block", marginBottom: "0.75rem" }}>
               Application Domains
             </span>
-            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#0A0A0A", margin: 0, letterSpacing: "-0.02em" }}>
+            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.02em" }}>
               One Law. Eight Domains.
             </h2>
           </div>
@@ -268,7 +268,7 @@ export default function Home() {
                 <span style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.14em", color: "#BBB", fontWeight: 400 }}>{d.id}</span>
                 <span style={{ fontFamily: font, fontSize: "0.7rem", color: "#2C3E6B", fontWeight: 600, letterSpacing: "0.02em" }}>{d.eq}</span>
               </div>
-              <h3 style={{ fontFamily: font, fontSize: "0.9rem", fontWeight: 700, color: "#0A0A0A", margin: "0 0 0.5rem", letterSpacing: "-0.01em" }}>{d.label}</h3>
+              <h3 style={{ fontFamily: font, fontSize: "0.9rem", fontWeight: 700, color: "#111", margin: "0 0 0.5rem", letterSpacing: "-0.01em" }}>{d.label}</h3>
               <p style={{ fontFamily: font, fontSize: "0.75rem", color: "#777", lineHeight: 1.6, margin: 0, fontWeight: 300 }}>{d.desc}</p>
             </div>
           ))}
@@ -289,7 +289,7 @@ export default function Home() {
           <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#AAA", marginBottom: "2rem", display: "block" }}>
             Ashby Report Series · June 2026
           </span>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 700, color: "#0A0A0A", margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 700, color: "#111", margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
             Compute 2030
           </h2>
           <p style={{ fontFamily: font, fontSize: "0.9rem", color: "#444", lineHeight: 1.8, margin: "0 0 2rem", fontWeight: 300 }}>
@@ -306,16 +306,16 @@ export default function Home() {
           <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{
             display: "inline-flex", alignItems: "center",
             fontFamily: font, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-            background: "#0A0A0A", color: "#fff", padding: "0.75rem 1.75rem",
+            background: "#111", color: "#fff", padding: "0.75rem 1.75rem",
             textDecoration: "none", fontWeight: 500, alignSelf: "flex-start",
             transition: "background 150ms",
           }}
             onMouseEnter={e => e.currentTarget.style.background = "#2C3E6B"}
-            onMouseLeave={e => e.currentTarget.style.background = "#0A0A0A"}
+            onMouseLeave={e => e.currentTarget.style.background = "#111"}
           >Read the Report ↗</a>
         </div>
         {/* Right: ASCII canvas */}
-        <div style={{ flex: "0 0 50%", background: "#0A0A0A", position: "relative", minHeight: "600px" }}>
+        <div style={{ flex: "0 0 50%", background: "#FFFFFF", position: "relative", minHeight: "600px" }}>
           <AsciiCanvas sim="lorenz" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
           <div style={{ position: "absolute", bottom: "2rem", left: "2rem" }}>
             <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
@@ -336,7 +336,7 @@ export default function Home() {
               <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#2C3E6B", display: "block", marginBottom: "0.75rem" }}>
                 Research Programs
               </span>
-              <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#0A0A0A", margin: 0, letterSpacing: "-0.02em" }}>
+              <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.02em" }}>
                 Four Programs. One Premise.
               </h2>
             </div>
@@ -372,7 +372,7 @@ export default function Home() {
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "1.5rem", marginBottom: "0.5rem" }}>
                   <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#2C3E6B" }}>{p.code}</span>
-                  <h3 style={{ fontFamily: font, fontSize: "1rem", fontWeight: 700, color: "#0A0A0A", margin: 0, letterSpacing: "-0.01em" }}>{p.name}</h3>
+                  <h3 style={{ fontFamily: font, fontSize: "1rem", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.01em" }}>{p.name}</h3>
                 </div>
                 <p style={{ fontFamily: font, fontSize: "0.8rem", color: "#666", lineHeight: 1.7, margin: 0, fontWeight: 300 }}>{p.desc}</p>
               </div>
@@ -389,7 +389,7 @@ export default function Home() {
       ══════════════════════════════════════════════ */}
       <section style={{ display: "flex", minHeight: "560px", borderTop: "1px solid #E0E0E0" }}>
         {/* Left: ASCII canvas */}
-        <div style={{ flex: "0 0 50%", background: "#0A0A0A", position: "relative", minHeight: "560px" }}>
+        <div style={{ flex: "0 0 50%", background: "#FFFFFF", position: "relative", minHeight: "560px" }}>
           <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
           <div style={{ position: "absolute", bottom: "2rem", left: "2rem" }}>
             <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>
@@ -402,7 +402,7 @@ export default function Home() {
           <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#2C3E6B", marginBottom: "1.5rem", display: "block" }}>
             Who We Are
           </span>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#0A0A0A", margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#111", margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
             Independent.<br />Rigorous.<br />Open Access.
           </h2>
           <p style={{ fontFamily: font, fontSize: "0.9rem", color: "#444", lineHeight: 1.8, margin: "0 0 1.5rem", fontWeight: 300 }}>
@@ -428,10 +428,10 @@ export default function Home() {
           <div style={{ marginTop: "2rem" }}>
             <Link href="/about" style={{
               fontFamily: font, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
-              color: "#0A0A0A", textDecoration: "none", borderBottom: "1px solid #0A0A0A", paddingBottom: "2px",
+              color: "#111", textDecoration: "none", borderBottom: "1px solid #0A0A0A", paddingBottom: "2px",
             }}
               onMouseEnter={e => { e.currentTarget.style.color = "#2C3E6B"; e.currentTarget.style.borderColor = "#2C3E6B"; }}
-              onMouseLeave={e => { e.currentTarget.style.color = "#0A0A0A"; e.currentTarget.style.borderColor = "#0A0A0A"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "#111"; e.currentTarget.style.borderColor = "#111"; }}
             >About the Institute →</Link>
           </div>
         </div>
@@ -445,7 +445,7 @@ export default function Home() {
           <span style={{ fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#2C3E6B", display: "block", marginBottom: "1rem" }}>
             Newsletter
           </span>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#0A0A0A", margin: "0 0 1rem", letterSpacing: "-0.02em" }}>
+          <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 1rem", letterSpacing: "-0.02em" }}>
             Research updates and new publications.
           </h2>
           <p style={{ fontFamily: font, fontSize: "0.875rem", color: "#666", lineHeight: 1.7, margin: "0 0 2rem", fontWeight: 300 }}>
@@ -466,17 +466,17 @@ export default function Home() {
                   fontFamily: font, fontSize: "0.8rem",
                   border: "1px solid #E0E0E0", borderRight: "none",
                   outline: "none", background: "#FAFAFA",
-                  color: "#0A0A0A",
+                  color: "#111",
                 }}
               />
               <button type="submit" style={{
                 fontFamily: font, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                background: "#0A0A0A", color: "#fff", padding: "0.75rem 1.5rem",
-                border: "1px solid #0A0A0A", cursor: "pointer",
+                background: "#111", color: "#fff", padding: "0.75rem 1.5rem",
+                border: "1px solid #111", cursor: "pointer",
                 transition: "background 150ms",
               }}
                 onMouseEnter={e => e.currentTarget.style.background = "#2C3E6B"}
-                onMouseLeave={e => e.currentTarget.style.background = "#0A0A0A"}
+                onMouseLeave={e => e.currentTarget.style.background = "#111"}
               >Subscribe</button>
             </form>
           )}
@@ -486,7 +486,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════
           FOOTER — black, like GI
       ══════════════════════════════════════════════ */}
-      <footer style={{ background: "#0A0A0A", borderTop: "1px solid #1A1A1A" }}>
+      <footer style={{ background: "#111", borderTop: "1px solid #1A1A1A" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "4rem 4rem 3rem", display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "3rem" }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1.5rem" }}>
