@@ -66,6 +66,7 @@ export default function Home() {
   const [activeSim, setActiveSim] = useState<SimType>("cellular");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -73,26 +74,61 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setMenuOpen(false); hamburgerRef.current?.focus(); }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [menuOpen]);
+
+  const NAV_ITEMS = [
+    { href: "/theory", label: "THEORY" },
+    { href: "/research", label: "RESEARCH" },
+    { href: "/fellows", label: "FELLOWS" },
+    { href: "/publications", label: "PUBLICATIONS" },
+    { href: "/events", label: "EVENTS" },
+    { href: "/about", label: "ABOUT" },
+  ];
+
   return (
     <div style={{ fontFamily: "'Chakra Petch', monospace", background: "#fff", color: "#111" }}>
+      <style>{`
+        :focus-visible { outline: 2px solid #2C3E6B !important; outline-offset: 2px !important; }
+        @media (max-width: 768px) { .desktop-nav { display: none !important; } .hamburger-btn { display: flex !important; } .hamburger-menu { display: block !important; } }
+        @media (min-width: 769px) { .hamburger-btn { display: none !important; } #home-mobile-nav { display: none !important; } }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+      `}</style>
+
+      {/* Skip to content */}
+      <a href="#main-content" style={{
+        position: "fixed", top: -60, left: 16, zIndex: 9999,
+        background: "#111", color: "#fff",
+        padding: "8px 16px", fontSize: 11, letterSpacing: "0.1em",
+        textDecoration: "none", border: BORDER, transition: "top 0.15s",
+      }}
+        onFocus={e => { (e.currentTarget as HTMLElement).style.top = "8px"; }}
+        onBlur={e => { (e.currentTarget as HTMLElement).style.top = "-60px"; }}
+      >SKIP TO CONTENT</a>
 
       {/* ── NAV ── */}
-      <nav style={{
+      <header role="banner" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", alignItems: "stretch",
         borderBottom: scrolled ? BORDER : "1px solid transparent",
-        background: scrolled ? "rgba(255,255,255,0.97)" : "transparent",
+        background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.0)",
         backdropFilter: scrolled ? "blur(8px)" : "none",
-        transition: "all 0.2s ease",
+        transition: "background 0.2s ease, border-color 0.2s ease, backdrop-filter 0.2s ease",
         height: 56,
       }}>
         {/* Logo cell */}
-        <Link href="/" style={{
+        <Link href="/" aria-label="The Ashby Institute — Home" style={{
           display: "flex", alignItems: "center", padding: "0 20px",
-          borderRight: BORDER, textDecoration: "none",
-          gap: 10,
+          borderRight: scrolled ? BORDER : "1px solid transparent", textDecoration: "none",
+          gap: 10, transition: "border-color 0.2s ease",
         }}>
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false">
             <circle cx="14" cy="14" r="12" stroke={SLATE} strokeWidth="1.5" fill="none"/>
             <path d="M14 6 A8 8 0 0 1 22 14" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
             <path d="M22 14 A8 8 0 0 1 14 22" stroke={SLATE} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
@@ -103,21 +139,14 @@ export default function Home() {
           <span style={{ fontSize: 11, letterSpacing: "0.12em", fontWeight: 600, color: "#111" }}>THE ASHBY INSTITUTE</span>
         </Link>
 
-        {/* Nav links */}
-        <div style={{ display: "flex", alignItems: "stretch", marginLeft: "auto" }}>
-          {[
-            { href: "/theory", label: "THEORY" },
-            { href: "/research", label: "RESEARCH" },
-            { href: "/fellows", label: "FELLOWS" },
-            { href: "/publications", label: "PUBLICATIONS" },
-            { href: "/events", label: "EVENTS" },
-            { href: "/about", label: "ABOUT" },
-          ].map((item) => (
+        {/* Desktop nav links */}
+        <nav aria-label="Primary navigation" style={{ display: "flex", alignItems: "stretch", marginLeft: "auto" }} className="desktop-nav">
+          {NAV_ITEMS.map((item) => (
             <Link key={item.href} href={item.href} style={{
               display: "flex", alignItems: "center", padding: "0 18px",
-              borderLeft: BORDER, fontSize: 10, letterSpacing: "0.12em",
+              borderLeft: scrolled ? BORDER : "1px solid transparent", fontSize: 10, letterSpacing: "0.12em",
               textDecoration: "none", color: "#111",
-              transition: "color 0.15s",
+              transition: "color 0.15s, border-color 0.2s ease",
             }}
               onMouseEnter={e => (e.currentTarget.style.color = SLATE)}
               onMouseLeave={e => (e.currentTarget.style.color = "#111")}
@@ -136,13 +165,67 @@ export default function Home() {
           >
             CONTACT
           </Link>
-        </div>
-      </nav>
+        </nav>
+
+        {/* Hamburger — mobile only */}
+        <button
+          ref={hamburgerRef}
+          type="button"
+          className="hamburger-btn"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="home-mobile-nav"
+          onClick={() => setMenuOpen(o => !o)}
+          style={{
+            marginLeft: "auto", display: "none",
+            alignItems: "center", justifyContent: "center",
+            width: 56, height: 56,
+            borderLeft: BORDER,
+            background: "transparent", cursor: "pointer", flexShrink: 0,
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            {menuOpen ? (
+              <><line x1="2" y1="2" x2="16" y2="16" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/><line x1="16" y1="2" x2="2" y2="16" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/></>
+            ) : (
+              <><line x1="2" y1="5" x2="16" y2="5" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/><line x1="2" y1="9" x2="16" y2="9" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/><line x1="2" y1="13" x2="16" y2="13" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/></>
+            )}
+          </svg>
+        </button>
+      </header>
+
+      {/* Mobile nav drawer */}
+      <div
+        id="home-mobile-nav"
+        role="navigation"
+        aria-label="Mobile navigation"
+        style={{
+          position: "fixed", top: 56, left: 0, right: 0, zIndex: 99,
+          background: "#fff", borderBottom: BORDER,
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
+          transition: "opacity 0.18s cubic-bezier(0.23,1,0.32,1), transform 0.18s cubic-bezier(0.23,1,0.32,1)",
+          pointerEvents: menuOpen ? "auto" : "none",
+          display: "none",
+        }}
+        className="hamburger-menu"
+      >
+        {[...NAV_ITEMS, { href: "/contact", label: "CONTACT" }].map((item, i) => (
+          <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)} style={{
+            display: "block", padding: "14px 20px",
+            borderBottom: i < NAV_ITEMS.length ? BORDER : "none",
+            fontSize: 10, letterSpacing: "0.12em",
+            textDecoration: "none",
+            color: item.href === "/contact" ? "#fff" : "#111",
+            background: item.href === "/contact" ? "#111" : "transparent",
+          }}>{item.label}</Link>
+        ))}
+      </div>
 
       {/* ══════════════════════════════════════════
           HERO — full-screen ASCII canvas
       ══════════════════════════════════════════ */}
-      <section style={{
+      <section id="main-content" style={{
         position: "relative",
         width: "100vw",
         height: "100vh",
@@ -167,6 +250,9 @@ export default function Home() {
           {SIMS.map((s) => (
             <button
               key={s.id}
+              type="button"
+              aria-label={`Switch to ${s.label} simulation`}
+              aria-pressed={activeSim === s.id}
               onClick={() => setActiveSim(s.id)}
               style={{
                 display: "block", padding: "11px 16px",

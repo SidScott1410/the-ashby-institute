@@ -2,7 +2,15 @@
  * AsciiCanvas.tsx — TAI Procedural ASCII Art Engine
  * Design: Full-screen dark hero canvas rendering live mathematical/systems simulations
  * as ASCII characters. Character palette drawn from systems theory notation.
- * Five simulation types: cellular-automaton, reaction-diffusion, lorenz, network, boids
+ * Five simulation types: cellular, reaction-diffusion, lorenz, network, boids
+ *
+ * Optimizations applied:
+ * - FPS throttled to 24fps (canvas text is CPU-bound; 60fps wastes cycles)
+ * - IntersectionObserver: animation pauses when canvas is off-screen
+ * - ResizeObserver debounced via rAF to prevent loop notifications
+ * - prefers-reduced-motion: static first frame only, no animation
+ * - will-change: transform hint for GPU compositing layer
+ * - aria-hidden: canvas is decorative, hidden from screen readers
  */
 
 import { useEffect, useRef } from "react";
@@ -62,7 +70,6 @@ function createReactionDiffusionSim(cols: number, rows: number) {
   let A = Array.from({ length: rows }, () => Array(cols).fill(1.0));
   let B = Array.from({ length: rows }, () => Array(cols).fill(0.0));
 
-  // Seed with a few spots
   for (let i = 0; i < 8; i++) {
     const sr = Math.floor(Math.random() * rows);
     const sc = Math.floor(Math.random() * cols);
@@ -136,7 +143,6 @@ function createLorenzSim(cols: number, rows: number) {
         t.z = 20 + Math.random() * 10;
         t.age = 0;
       }
-      // Map Lorenz space to grid
       const px = Math.floor(((t.x + 25) / 50) * cols);
       const py = Math.floor(((t.z - 0) / 50) * rows);
       if (px >= 0 && px < cols && py >= 0 && py < rows) {
@@ -254,9 +260,14 @@ function createBoidsSim(cols: number, rows: number) {
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
+const TARGET_FPS = 24;
+const FRAME_INTERVAL = 1000 / TARGET_FPS;
+
 export default function AsciiCanvas({ sim, cellSize = 11, opacity = 0.85, className = "", style = {} }: AsciiCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>(0);
+  const visibleRef = useRef<boolean>(true);
+  const lastFrameRef = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -264,16 +275,38 @@ export default function AsciiCanvas({ sim, cellSize = 11, opacity = 0.85, classN
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Check prefers-reduced-motion — if set, render one static frame only
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Debounce resize via rAF to prevent ResizeObserver loop notifications
+    let resizeRaf = 0;
     const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => {
+        if (!canvas) return;
+        const w = canvas.offsetWidth;
+        const h = canvas.offsetHeight;
+        if (w !== canvas.width || h !== canvas.height) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+      });
     };
     resize();
-    const ro = new ResizeObserver(resize);
+    const ro = new ResizeObserver(() => resize());
     ro.observe(canvas);
 
-    const cols = Math.floor(canvas.width / cellSize);
-    const rows = Math.floor(canvas.height / cellSize);
+    // IntersectionObserver — pause animation when canvas is off-screen
+    const io = new IntersectionObserver(
+      (entries) => {
+        visibleRef.current = entries[0]?.isIntersecting ?? true;
+      },
+      { threshold: 0.01 }
+    );
+    io.observe(canvas);
+
+    const cols = Math.floor(canvas.offsetWidth / cellSize);
+    const rows = Math.floor(canvas.offsetHeight / cellSize);
     if (cols < 2 || rows < 2) return;
 
     let simulation: { step: () => void; getValue: (r: number, c: number) => number };
@@ -286,14 +319,10 @@ export default function AsciiCanvas({ sim, cellSize = 11, opacity = 0.85, classN
     ctx.font = `${cellSize - 1}px "IBM Plex Mono", monospace`;
     ctx.textBaseline = "top";
 
-    let frame = 0;
     const stepsPerFrame = sim === "reaction-diffusion" ? 3 : 1;
 
-    function draw() {
+    function renderFrame() {
       for (let s = 0; s < stepsPerFrame; s++) simulation.step();
-      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
-
-      // Fill white background
       ctx!.fillStyle = "#ffffff";
       ctx!.fillRect(0, 0, canvas!.width, canvas!.height);
 
@@ -304,40 +333,73 @@ export default function AsciiCanvas({ sim, cellSize = 11, opacity = 0.85, classN
           const charSet = v > 0.6 ? CHARS_DENSE : CHARS;
           const idx = Math.floor(v * (charSet.length - 1));
           const ch = charSet[Math.max(0, Math.min(charSet.length - 1, idx))];
-          // Color: slate blue #2C3E6B for high-value cells, light grey for low
           if (v > 0.55) {
-            // Slate blue — high density cells
             ctx!.fillStyle = `rgba(44,62,107,${opacity * (0.5 + v * 0.5)})`;
           } else if (v > 0.25) {
-            // Mid — interpolate between slate blue and black
             const t = (v - 0.25) / 0.3;
             const rr = Math.round(44 * t);
             const gg = Math.round(62 * t);
             const bb = Math.round(107 * t + (1 - t) * 20);
             ctx!.fillStyle = `rgba(${rr},${gg},${bb},${opacity * (0.3 + v * 0.5)})`;
           } else {
-            // Low density — near-black, very faint
             ctx!.fillStyle = `rgba(15,20,30,${opacity * (0.1 + v * 0.4)})`;
           }
           ctx!.fillText(ch, c * cellSize, r * cellSize);
         }
       }
-      frame++;
+    }
+
+    // Render one frame immediately (also serves as the static frame for reduced-motion)
+    renderFrame();
+
+    if (prefersReduced) {
+      // Static only — no animation loop
+      return () => {
+        cancelAnimationFrame(resizeRaf);
+        ro.disconnect();
+        io.disconnect();
+      };
+    }
+
+    function draw(timestamp: number) {
+      // Skip frame if off-screen to save CPU
+      if (!visibleRef.current) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      // Throttle to TARGET_FPS
+      if (timestamp - lastFrameRef.current < FRAME_INTERVAL) {
+        animRef.current = requestAnimationFrame(draw);
+        return;
+      }
+      lastFrameRef.current = timestamp;
+      renderFrame();
       animRef.current = requestAnimationFrame(draw);
     }
 
     animRef.current = requestAnimationFrame(draw);
     return () => {
       cancelAnimationFrame(animRef.current);
+      cancelAnimationFrame(resizeRaf);
       ro.disconnect();
+      io.disconnect();
     };
   }, [sim, cellSize, opacity]);
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
+      role="presentation"
       className={className}
-      style={{ display: "block", width: "100%", height: "100%", background: "transparent", ...style }}
+      style={{
+        display: "block",
+        width: "100%",
+        height: "100%",
+        background: "transparent",
+        willChange: "transform",
+        ...style,
+      }}
     />
   );
 }

@@ -3,8 +3,16 @@
  * Design: GI-clone border grid system
  * White background, 1px solid #111 borders, Chakra Petch, slate blue #2C3E6B accent
  * No crimson. No gradients. No rounded corners.
+ *
+ * Accessibility & UX improvements:
+ * - Skip-to-content link for keyboard users
+ * - Mobile hamburger menu with proper aria-expanded / aria-controls
+ * - Focus-visible ring on all interactive elements
+ * - Semantic <nav> with aria-label
+ * - Footer links use <nav> with aria-label
+ * - prefers-reduced-motion respected for menu transitions
  */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 
 const BORDER = "1px solid #111";
@@ -22,7 +30,7 @@ const NAV_LINKS = [
 
 export function LogoMark({ size = 24, color = SLATE }: { size?: number; color?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
       <circle cx="16" cy="16" r="11" stroke={color} strokeWidth="1.5" fill="none" />
       <path d="M16 5 A11 11 0 0 1 27 16" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
       <path d="M27 16 A11 11 0 0 1 16 27" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
@@ -33,25 +41,95 @@ export function LogoMark({ size = 24, color = SLATE }: { size?: number; color?: 
   );
 }
 
+// Inline focus-visible style injected once
+const FOCUS_STYLE = `
+  :focus-visible {
+    outline: 2px solid ${SLATE} !important;
+    outline-offset: 2px !important;
+  }
+  /* Mobile menu transition */
+  #mobile-nav {
+    transition: opacity 0.18s cubic-bezier(0.23,1,0.32,1), transform 0.18s cubic-bezier(0.23,1,0.32,1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #mobile-nav { transition: none !important; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+  /* Hide desktop nav on mobile */
+  @media (max-width: 768px) {
+    .desktop-nav { display: none !important; }
+    .hamburger-btn { display: flex !important; }
+  }
+  @media (min-width: 769px) {
+    .hamburger-btn { display: none !important; }
+    #mobile-nav { display: none !important; }
+  }
+  /* Footer responsive */
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr !important; }
+  }
+`;
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [location] = useLocation();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
 
+  // Close menu on route change
   useEffect(() => { setMenuOpen(false); }, [location]);
+
+  // Close menu on Escape key; trap focus within menu when open
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [menuOpen]);
 
   return (
     <div style={{ fontFamily: FONT, background: "#fff", color: "#111", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
+      {/* Inject focus + responsive styles once */}
+      <style>{FOCUS_STYLE}</style>
+
+      {/* Skip to main content — visible on focus for keyboard users */}
+      <a
+        href="#main-content"
+        style={{
+          position: "fixed", top: -60, left: 16, zIndex: 9999,
+          background: "#111", color: "#fff",
+          padding: "8px 16px", fontSize: 11, letterSpacing: "0.1em",
+          textDecoration: "none", border: BORDER,
+          transition: "top 0.15s",
+        }}
+        onFocus={e => { (e.currentTarget as HTMLElement).style.top = "8px"; }}
+        onBlur={e => { (e.currentTarget as HTMLElement).style.top = "-60px"; }}
+      >
+        SKIP TO CONTENT
+      </a>
+
       {/* ── NAV — GI-style border grid ── */}
-      <header style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        display: "flex", alignItems: "stretch",
-        height: 52,
-        borderBottom: BORDER,
-        background: "#fff",
-      }}>
+      <header
+        role="banner"
+        style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+          display: "flex", alignItems: "stretch",
+          height: 52,
+          borderBottom: BORDER,
+          background: "#fff",
+        }}
+      >
         {/* Logo cell */}
-        <Link href="/" style={{
+        <Link href="/" aria-label="The Ashby Institute — Home" style={{
           display: "flex", alignItems: "center", gap: 10,
           padding: "0 20px", borderRight: BORDER, textDecoration: "none", flexShrink: 0,
         }}>
@@ -61,20 +139,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </span>
         </Link>
 
-        {/* Nav links — right side */}
-        <div style={{ display: "flex", alignItems: "stretch", marginLeft: "auto" }}>
+        {/* Desktop nav links */}
+        <nav aria-label="Primary navigation" className="desktop-nav" style={{ display: "flex", alignItems: "stretch", marginLeft: "auto" }}>
           {NAV_LINKS.map((item) => {
             const isActive = location === item.href || location.startsWith(item.href + "/");
             return (
-              <Link key={item.href} href={item.href} style={{
-                display: "flex", alignItems: "center", padding: "0 16px",
-                borderLeft: BORDER,
-                fontSize: 9, letterSpacing: "0.12em", fontWeight: isActive ? 600 : 400,
-                textDecoration: "none",
-                color: isActive ? SLATE : "#555",
-                borderBottom: isActive ? `2px solid ${SLATE}` : "2px solid transparent",
-                transition: "color 0.15s, border-color 0.15s",
-              }}
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive ? "page" : undefined}
+                style={{
+                  display: "flex", alignItems: "center", padding: "0 16px",
+                  borderLeft: BORDER,
+                  fontSize: 9, letterSpacing: "0.12em", fontWeight: isActive ? 600 : 400,
+                  textDecoration: "none",
+                  color: isActive ? SLATE : "#555",
+                  borderBottom: isActive ? `2px solid ${SLATE}` : "2px solid transparent",
+                  transition: "color 0.15s, border-color 0.15s",
+                }}
                 onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = "#111"; }}
                 onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = "#555"; }}
               >
@@ -82,8 +164,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             );
           })}
-
-          {/* Contact CTA — filled cell */}
           <Link href="/contact" style={{
             display: "flex", alignItems: "center", padding: "0 20px",
             borderLeft: BORDER,
@@ -96,17 +176,90 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           >
             CONTACT
           </Link>
-        </div>
+        </nav>
+
+        {/* Hamburger — mobile only */}
+        <button
+          ref={hamburgerRef}
+          type="button"
+          className="hamburger-btn"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
+          onClick={() => setMenuOpen(o => !o)}
+          style={{
+            marginLeft: "auto",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            width: 52, height: 52,
+            borderLeft: BORDER,
+            background: "transparent", cursor: "pointer",
+            flexShrink: 0,
+          }}
+        >
+          {/* Hamburger / X icon */}
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            {menuOpen ? (
+              <>
+                <line x1="2" y1="2" x2="16" y2="16" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/>
+                <line x1="16" y1="2" x2="2" y2="16" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/>
+              </>
+            ) : (
+              <>
+                <line x1="2" y1="5" x2="16" y2="5" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/>
+                <line x1="2" y1="9" x2="16" y2="9" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/>
+                <line x1="2" y1="13" x2="16" y2="13" stroke="#111" strokeWidth="1.5" strokeLinecap="round"/>
+              </>
+            )}
+          </svg>
+        </button>
       </header>
 
+      {/* Mobile nav drawer */}
+      <div
+        id="mobile-nav"
+        ref={menuRef}
+        role="navigation"
+        aria-label="Mobile navigation"
+        style={{
+          position: "fixed", top: 52, left: 0, right: 0, zIndex: 99,
+          background: "#fff", borderBottom: BORDER,
+          opacity: menuOpen ? 1 : 0,
+          transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
+          pointerEvents: menuOpen ? "auto" : "none",
+        }}
+      >
+        {[...NAV_LINKS, { href: "/contact", label: "CONTACT" }].map((item, i) => {
+          const isActive = location === item.href;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
+              style={{
+                display: "block", padding: "14px 20px",
+                borderBottom: i < NAV_LINKS.length ? BORDER : "none",
+                fontSize: 10, letterSpacing: "0.12em",
+                textDecoration: "none",
+                color: isActive ? SLATE : "#111",
+                fontWeight: isActive ? 600 : 400,
+                background: item.href === "/contact" ? "#111" : "transparent",
+                ...(item.href === "/contact" ? { color: "#fff" } : {}),
+              }}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+
       {/* ── MAIN — offset for fixed nav ── */}
-      <main style={{ flex: 1, paddingTop: 52 }}>
+      <main id="main-content" style={{ flex: 1, paddingTop: 52 }}>
         {children}
       </main>
 
       {/* ── FOOTER — border grid ── */}
-      <footer style={{ borderTop: BORDER }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr" }}>
+      <footer role="contentinfo" style={{ borderTop: BORDER }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr" }}>
 
           {/* Brand */}
           <div style={{ padding: "40px 32px", borderRight: BORDER }}>
@@ -125,7 +278,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Research */}
-          <div style={{ padding: "40px 28px", borderRight: BORDER }}>
+          <nav aria-label="Research programs" style={{ padding: "40px 28px", borderRight: BORDER }}>
             <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>RESEARCH</p>
             {["Compute Futures", "Compute Governance", "Good Regulator Project", "Compute & Society"].map(item => (
               <Link key={item} href="/research" style={{
@@ -137,10 +290,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#555"}
               >{item}</Link>
             ))}
-          </div>
+          </nav>
 
           {/* Institute */}
-          <div style={{ padding: "40px 28px", borderRight: BORDER }}>
+          <nav aria-label="Institute pages" style={{ padding: "40px 28px", borderRight: BORDER }}>
             <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>INSTITUTE</p>
             {[
               { label: "The Theory", href: "/theory" },
@@ -158,17 +311,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#555"}
               >{item.label}</Link>
             ))}
-          </div>
+          </nav>
 
           {/* Contact */}
           <div style={{ padding: "40px 28px" }}>
             <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>CONTACT</p>
             {[
-              "research@theashbyinstitute.org",
-              "fellows@theashbyinstitute.org",
-              "press@theashbyinstitute.org",
-            ].map(email => (
-              <a key={email} href={`mailto:${email}`} style={{
+              { email: "research@theashbyinstitute.org", label: "Research inquiries" },
+              { email: "fellows@theashbyinstitute.org", label: "Fellowship inquiries" },
+              { email: "press@theashbyinstitute.org", label: "Press inquiries" },
+            ].map(({ email, label }) => (
+              <a key={email} href={`mailto:${email}`} aria-label={`${label}: ${email}`} style={{
                 display: "block", fontSize: 10, color: "#555",
                 textDecoration: "none", marginBottom: 8,
                 transition: "color 0.15s",
@@ -194,7 +347,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div style={{
           borderTop: BORDER,
           display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "14px 32px",
+          padding: "14px 32px", flexWrap: "wrap", gap: 8,
         }}>
           <span style={{ fontSize: 9, color: "#888", letterSpacing: "0.06em" }}>
             © 2026 THE ASHBY INSTITUTE · INDEPENDENT NONPROFIT RESEARCH
