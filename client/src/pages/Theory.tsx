@@ -1,18 +1,16 @@
-/*
- * Theory.tsx — The Theory v4
- * Design: GI-clone — Chakra Petch, white background, black typography, slate blue accent
- * 50/50 splits with ASCII canvas panels
+/**
+ * Theory.tsx — The Theory
+ * Design: GI-clone border grid system
+ * White background, 1px solid #111 borders, Chakra Petch, slate blue accent
+ * ASCII canvases: white bg, black/slate chars
  */
 import Layout from "@/components/Layout";
 import AsciiCanvas from "@/components/AsciiCanvas";
 import { Link } from "wouter";
 
-const font = "'Chakra Petch', 'IBM Plex Mono', monospace";
-const slate = "#2C3E6B";
-const black = "#111111";
-const mid = "#555555";
-const light = "#999999";
-const border = "#E0E0E0";
+const B = "1px solid #111";
+const SLATE = "#2C3E6B";
+const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
 const DOMAINS = [
   { label: "AI Alignment", eq: "V(AI) ≫ V(H)", desc: "A superintelligent AI operates with variety vastly exceeding human regulatory capacity. Human oversight hits a mathematical ceiling — not a political one." },
@@ -27,161 +25,187 @@ export default function Theory() {
   return (
     <Layout>
       {/* ── PAGE HEADER ── */}
-      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0 4rem" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1.25rem", marginTop: 0 }}>Theoretical Foundation</p>
-          <h1 style={{ fontFamily: font, fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
-            The Theory
-          </h1>
-          <p style={{ fontFamily: font, fontSize: "0.95rem", color: mid, lineHeight: 1.8, maxWidth: "600px", fontWeight: 300, margin: 0 }}>
-            W. Ross Ashby's Law of Requisite Variety (1956) and the Good Regulator Theorem (Conant & Ashby, 1970) are not metaphors. They are mathematical results with direct implications for every governance problem of the compute era.
-          </p>
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>
+              THEORETICAL FOUNDATION
+            </p>
+            <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
+              The Theory
+            </h1>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
+              W. Ross Ashby's Law of Requisite Variety (1956) and the Good Regulator Theorem (Conant & Ashby, 1970) are not metaphors. They are mathematical results with direct implications for every governance problem of the compute era.
+            </p>
+          </div>
+          <div style={{ position: "relative", minHeight: 280 }}>
+            <AsciiCanvas sim="network" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", bottom: 20, left: 24 }}>
+              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REGULATORY NETWORK · FEEDBACK DYNAMICS</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ── ASHBY'S LAW: 50/50 SPLIT ── */}
-      <section style={{ borderBottom: `1px solid ${border}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "600px" }}>
+      {/* ── ASHBY'S LAW ── */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Left: ASCII canvas */}
-          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "600px" }}>
+          <div style={{ position: "relative", minHeight: 560, borderRight: B }}>
             <AsciiCanvas sim="cellular" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
-              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Cellular Automaton · Emergent Variety</span>
+            <div style={{ position: "absolute", bottom: 20, left: 24 }}>
+              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>CELLULAR AUTOMATON · EMERGENT VARIETY</span>
             </div>
           </div>
 
           {/* Right: content */}
-          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Ashby · 1956</p>
-            <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>ASHBY · 1956</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Law of Requisite Variety
             </h2>
-            <div style={{ border: `1px solid ${border}`, padding: "1.5rem 2rem", marginBottom: "1.75rem", background: "#F8F8F8" }}>
-              <p style={{ fontFamily: font, fontSize: "2rem", fontWeight: 700, color: slate, margin: "0 0 0.5rem", letterSpacing: "-0.01em" }}>V(R) ≥ V(D)</p>
-              <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0, fontWeight: 300, letterSpacing: "0.08em" }}>
-                Variety of Regulator ≥ Variety of Disturbance
+            <div style={{ border: B, padding: "24px 28px", marginBottom: 28, background: "#F9F9F9" }}>
+              <p style={{ fontFamily: FONT, fontSize: "2.25rem", fontWeight: 700, color: SLATE, margin: "0 0 8px", letterSpacing: "-0.01em" }}>V(R) ≥ V(D)</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, letterSpacing: "0.1em" }}>
+                VARIETY OF REGULATOR ≥ VARIETY OF DISTURBANCE
               </p>
             </div>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: "0 0 1rem", fontWeight: 300 }}>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
               Only variety can absorb variety. A regulator can reduce the variety of outcomes in a system only to the extent that it possesses at least as much variety as the disturbances it must absorb.
             </p>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: "0 0 1rem", fontWeight: 300 }}>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
               This is not a design principle — it is a mathematical constraint. It applies to thermostats, immune systems, financial regulators, AI oversight architectures, and democratic institutions alike.
             </p>
-            <p style={{ fontFamily: font, fontSize: "0.75rem", color: light, fontStyle: "italic", margin: 0, fontWeight: 300 }}>
+            <p style={{ fontFamily: FONT, fontSize: 12, color: "#888", fontStyle: "italic", margin: 0 }}>
               "Only variety can destroy variety." — W. Ross Ashby, 1956
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── GOOD REGULATOR THEOREM: 50/50 SPLIT (reversed) ── */}
-      <section style={{ borderBottom: `1px solid ${border}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "600px" }}>
+      {/* ── GOOD REGULATOR THEOREM ── */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Left: content */}
-          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Conant & Ashby · 1970</p>
-            <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>CONANT & ASHBY · 1970</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               The Good Regulator Theorem
             </h2>
-            <div style={{ border: `1px solid ${border}`, padding: "1.5rem 2rem", marginBottom: "1.75rem", background: "#F8F8F8" }}>
-              <p style={{ fontFamily: font, fontSize: "1.1rem", fontWeight: 700, color: slate, margin: "0 0 0.5rem", letterSpacing: "-0.01em" }}>∀S ∃R: R ≡ model(S)</p>
-              <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0, fontWeight: 300, letterSpacing: "0.08em" }}>
-                Every good regulator of a system must be a model of that system
+            <div style={{ border: B, padding: "24px 28px", marginBottom: 28, background: "#F9F9F9" }}>
+              <p style={{ fontFamily: FONT, fontSize: "1.2rem", fontWeight: 700, color: SLATE, margin: "0 0 8px" }}>∀S ∃R: R ≡ model(S)</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, letterSpacing: "0.1em" }}>
+                EVERY GOOD REGULATOR MUST BE A MODEL OF ITS SYSTEM
               </p>
             </div>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: "0 0 1rem", fontWeight: 300 }}>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
               The GRT is a stronger result than Ashby's Law. It proves that any regulator achieving good regulation must, necessarily, contain an internal model of the regulated system. Model-building is not optional — it is the mechanism of regulation itself.
             </p>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              A regulatory body that lacks an adequate internal model of the system it governs cannot regulate it effectively — not because of insufficient effort or political will, but because of a structural impossibility. The theorem's name gives TAI its name.
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
+              A regulatory body that lacks an adequate internal model of the system it governs cannot regulate it effectively — not because of insufficient effort or political will, but because of a structural impossibility.
             </p>
           </div>
 
           {/* Right: ASCII canvas */}
-          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "600px" }}>
+          <div style={{ position: "relative", minHeight: 560 }}>
             <AsciiCanvas sim="reaction-diffusion" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
-              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Reaction-Diffusion · Turing Patterns</span>
+            <div style={{ position: "absolute", bottom: 20, left: 24 }}>
+              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REACTION-DIFFUSION · TURING PATTERNS</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── AI ALIGNMENT: 50/50 SPLIT ── */}
-      <section style={{ borderBottom: `1px solid ${border}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "520px" }}>
+      {/* ── AI ALIGNMENT ── */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Left: ASCII canvas */}
-          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "520px" }}>
+          <div style={{ position: "relative", minHeight: 500, borderRight: B }}>
             <AsciiCanvas sim="lorenz" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
-              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Lorenz Attractor · Deterministic Chaos</span>
+            <div style={{ position: "absolute", bottom: 20, left: 24 }}>
+              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>LORENZ ATTRACTOR · DETERMINISTIC CHAOS</span>
             </div>
           </div>
 
           {/* Right: content */}
-          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>The Ultimate Application</p>
-            <h2 style={{ fontFamily: font, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>THE ULTIMATE APPLICATION</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               AI Alignment as a Variety Problem
             </h2>
-            <div style={{ border: `1px solid ${border}`, padding: "1.5rem 2rem", marginBottom: "1.75rem", background: "#F8F8F8" }}>
-              <p style={{ fontFamily: font, fontSize: "1.5rem", fontWeight: 700, color: slate, margin: "0 0 0.5rem" }}>V(AI) ≫ V(H)</p>
-              <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0, fontWeight: 300, letterSpacing: "0.08em" }}>
-                AI variety vastly exceeds human regulatory variety
+            <div style={{ border: B, padding: "24px 28px", marginBottom: 28, background: "#F9F9F9" }}>
+              <p style={{ fontFamily: FONT, fontSize: "1.75rem", fontWeight: 700, color: SLATE, margin: "0 0 8px" }}>V(AI) ≫ V(H)</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, letterSpacing: "0.1em" }}>
+                AI VARIETY VASTLY EXCEEDS HUMAN REGULATORY VARIETY
               </p>
             </div>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: "0 0 1rem", fontWeight: 300 }}>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
               As AI systems grow in capability, their variety — the range of states they can occupy and outputs they can produce — will exceed the variety of any human oversight system. This is not a prediction about malevolence. It is a mathematical constraint on the possibility of control.
             </p>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              The GRT adds a second constraint: any system that successfully aligns an AI must model that AI. As AI systems become more capable, the model required for alignment becomes more complex — potentially as complex as the AI itself. This is the formal core of the alignment challenge.
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
+              The GRT adds a second constraint: any system that successfully aligns an AI must model that AI. As AI systems become more capable, the model required for alignment becomes more complex — potentially as complex as the AI itself.
             </p>
           </div>
         </div>
       </section>
 
       {/* ── DOMAIN APPLICATIONS GRID ── */}
-      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Applications</p>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 3rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
-            The Law Applied
+      <section style={{ borderBottom: B }}>
+        <div style={{ borderBottom: B, padding: "40px 48px", display: "flex", alignItems: "baseline", gap: 32 }}>
+          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>APPLICATIONS</p>
+          <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.02em" }}>
+            The Law Applied Across Domains
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1px", background: border }}>
-            {DOMAINS.map((d) => (
-              <div key={d.label} style={{ background: "#FFFFFF", padding: "2rem", transition: "background 150ms" }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F8F8F8"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#FFFFFF"}
-              >
-                <p style={{ fontFamily: font, fontSize: "0.78rem", fontWeight: 600, color: black, margin: "0 0 0.375rem" }}>{d.label}</p>
-                <p style={{ fontFamily: font, fontSize: "0.65rem", color: slate, fontWeight: 300, margin: "0 0 0.625rem" }}>{d.eq}</p>
-                <p style={{ fontFamily: font, fontSize: "0.72rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{d.desc}</p>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+          {DOMAINS.map((d, i) => (
+            <div key={d.label} style={{
+              padding: "36px 40px",
+              borderRight: i % 3 !== 2 ? B : "none",
+              borderBottom: i < 3 ? B : "none",
+              transition: "background 0.15s",
+            }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F9F9F9"}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#fff"}
+            >
+              <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#111", margin: "0 0 6px" }}>{d.label}</p>
+              <p style={{ fontFamily: FONT, fontSize: 13, color: SLATE, fontWeight: 400, margin: "0 0 12px", letterSpacing: "0.02em" }}>{d.eq}</p>
+              <p style={{ fontFamily: FONT, fontSize: 12, color: "#555", lineHeight: 1.7, margin: 0, fontWeight: 300 }}>{d.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ padding: "4rem 0" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "flex" }}>
           <Link href="/research" style={{
-            fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase",
-            color: "#fff", background: black, padding: "0.75rem 1.5rem", textDecoration: "none",
-            border: `1px solid ${black}`, transition: "background 150ms, border-color 150ms",
+            fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
+            color: "#fff", background: "#111", padding: "20px 32px",
+            textDecoration: "none", borderRight: B,
+            transition: "background 0.15s",
           }}
-            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = slate; el.style.borderColor = slate; }}
-            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = black; el.style.borderColor = black; }}
-          >Research Programs →</Link>
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
+          >RESEARCH PROGRAMS →</Link>
           <Link href="/publications" style={{
-            fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.14em", textTransform: "uppercase",
-            color: black, background: "transparent", padding: "0.75rem 1.5rem", textDecoration: "none",
-            border: `1px solid ${border}`, transition: "border-color 150ms",
+            fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
+            color: "#111", background: "#fff", padding: "20px 32px",
+            textDecoration: "none", borderRight: B,
+            transition: "color 0.15s",
           }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = black}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = border}
-          >Publications</Link>
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+          >PUBLICATIONS</Link>
+          <Link href="/fellows" style={{
+            fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
+            color: "#111", background: "#fff", padding: "20px 32px",
+            textDecoration: "none",
+            transition: "color 0.15s",
+          }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+          >FELLOWS</Link>
         </div>
       </section>
     </Layout>

@@ -1,209 +1,220 @@
-/*
- * About.tsx — TAI About v4
- * Design: GI-clone — Chakra Petch, white background, black typography, slate blue accent
+/**
+ * About.tsx — About TAI
+ * Design: GI-clone border grid system
  */
 import Layout from "@/components/Layout";
 import AsciiCanvas from "@/components/AsciiCanvas";
+import { Link } from "wouter";
 
-const font = "'Chakra Petch', 'IBM Plex Mono', monospace";
-const slate = "#2C3E6B";
-const black = "#111111";
-const mid = "#555555";
-const light = "#999999";
-const border = "#E0E0E0";
+const B = "1px solid #111";
+const SLATE = "#2C3E6B";
+const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
+
+const BOARD = [
+  { name: "To Be Announced", role: "Board Chair", affiliation: "TBA" },
+  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
+  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
+  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
+  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
+];
+
+const SAC = [
+  { name: "To Be Announced", role: "SAC Member", domain: "AI Alignment" },
+  { name: "To Be Announced", role: "SAC Member", domain: "Compute Governance" },
+  { name: "To Be Announced", role: "SAC Member", domain: "Financial Systems" },
+  { name: "To Be Announced", role: "SAC Member", domain: "Democratic Governance" },
+  { name: "To Be Announced", role: "SAC Member", domain: "Critical Infrastructure" },
+  { name: "To Be Announced", role: "SAC Member", domain: "Systems Theory" },
+];
 
 export default function About() {
   return (
     <Layout>
       {/* PAGE HEADER */}
-      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0 4rem" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1.25rem", marginTop: 0 }}>About</p>
-          <h1 style={{ fontFamily: font, fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
-            The Ashby Institute
-          </h1>
-          <p style={{ fontFamily: font, fontSize: "0.95rem", color: mid, lineHeight: 1.8, maxWidth: "640px", fontWeight: 300, margin: 0 }}>
-            An independent nonprofit research organization applying Ashby's Law of Requisite Variety to the most consequential governance challenges of the compute transition and beyond.
-          </p>
-        </div>
-      </section>
-
-      {/* FOUNDING STORY — 50/50 SPLIT */}
-      <section style={{ borderBottom: `1px solid ${border}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "560px" }}>
-          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "560px" }}>
-            <AsciiCanvas sim="reaction-diffusion" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
-              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Reaction-Diffusion · Turing Patterns</span>
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>ABOUT TAI</p>
+            <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
+              About
+            </h1>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
+              The Ashby Institute is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era. We are not affiliated with any technology company, government, or commercial interest.
+            </p>
+          </div>
+          <div style={{ position: "relative", minHeight: 280 }}>
+            <AsciiCanvas sim="network" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", bottom: 20, left: 24 }}>
+              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REGULATORY NETWORK · FEEDBACK DYNAMICS</span>
             </div>
           </div>
-          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Founding</p>
-            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+        </div>
+      </section>
+
+      {/* FOUNDING STORY */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ padding: "56px 48px", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>FOUNDING</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Why TAI Exists
             </h2>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: "0 0 1.25rem", fontWeight: 300 }}>
-              W. Ross Ashby's Law of Requisite Variety — formalized in 1956 — states that only variety can absorb variety. A regulator can only control a system if its internal model is at least as complex as the system it governs. This is not a policy preference. It is a mathematical constraint.
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
+              The compute transition is the most consequential structural shift of our era. Within a decade, AI-native compute systems will reshape every sector of the global economy — and the governance institutions designed to manage that transition will either have sufficient variety to do so, or they will not.
             </p>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: "0 0 1.25rem", fontWeight: 300 }}>
-              The compute transition — the period in which AI-native compute orchestration reshapes the global economy, governance, and strategic balance — is generating variety at a rate that existing regulatory institutions were not designed to absorb. The variety gap is widening. The consequences are structural, not incidental.
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
+              TAI was founded on a simple premise: W. Ross Ashby's Law of Requisite Variety — and its corollary, the Good Regulator Theorem — are the most important analytical tools available for understanding governance in complex systems. They are not metaphors. They are mathematical results.
             </p>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: 0, fontWeight: 300 }}>
-              TAI was founded to produce rigorous, independent structural analysis of this gap — and to develop the institutional frameworks required to close it. We apply Ashby's Law not as a metaphor but as a formal analytical tool, across every domain where the compute transition is generating governance failures.
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
+              The Institute exists to apply these tools rigorously, to produce research that is structurally grounded rather than politically convenient, and to do so without commercial entanglement.
             </p>
+          </div>
+          <div style={{ padding: "56px 48px" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>THE THEOREM</p>
+            <div style={{ border: B, padding: "32px", marginBottom: 24, background: "#F9F9F9" }}>
+              <p style={{ fontFamily: FONT, fontSize: "2rem", fontWeight: 700, color: SLATE, margin: "0 0 8px", letterSpacing: "-0.01em" }}>V(R) ≥ V(D)</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: "0 0 20px", letterSpacing: "0.1em" }}>ASHBY'S LAW OF REQUISITE VARIETY · 1956</p>
+              <p style={{ fontFamily: FONT, fontSize: 12, color: "#555", lineHeight: 1.7, margin: 0, fontWeight: 300 }}>
+                The variety of a regulator must be at least as great as the variety of the disturbances it is designed to control. This is not a design principle — it is a mathematical constraint.
+              </p>
+            </div>
+            <Link href="/theory" style={{
+              display: "inline-block",
+              fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
+              color: "#111", padding: "12px 20px",
+              textDecoration: "none", border: B,
+              transition: "background 0.15s, color 0.15s",
+            }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#111"; el.style.color = "#fff"; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.color = "#111"; }}
+            >READ THE FULL THEORY →</Link>
           </div>
         </div>
       </section>
 
-      {/* MANDATE SCOPE — full-width grid */}
-      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Mandate</p>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 3rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
-            Eight Domains of Application
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1px", background: border }}>
-            {[
-              { n: "01", domain: "AI Alignment & Superintelligence", note: "V(C) ≫ V(H)" },
-              { n: "02", domain: "Cybersecurity & Adversarial Systems", note: "Attacker variety" },
-              { n: "03", domain: "Autonomous Systems & Robotics", note: "Edge deployment" },
-              { n: "04", domain: "Critical Infrastructure", note: "Grid, water, transport" },
-              { n: "05", domain: "Financial Systems", note: "Systemic risk" },
-              { n: "06", domain: "Healthcare & Biological Systems", note: "Diagnostic AI" },
-              { n: "07", domain: "Democratic Governance", note: "Institutional design" },
-              { n: "08", domain: "Climate & Earth Systems", note: "Planetary boundaries" },
-            ].map(d => (
-              <div key={d.n} style={{ background: "#FFFFFF", padding: "1.75rem 1.5rem", transition: "background 150ms" }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F8F8F8"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#FFFFFF"}
-              >
-                <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.16em", textTransform: "uppercase", color: slate, margin: "0 0 0.5rem" }}>{d.n}</p>
-                <p style={{ fontFamily: font, fontSize: "0.8rem", fontWeight: 600, color: black, margin: "0 0 0.375rem", lineHeight: 1.3 }}>{d.domain}</p>
-                <p style={{ fontFamily: font, fontSize: "0.55rem", color: light, margin: 0, letterSpacing: "0.06em" }}>{d.note}</p>
-              </div>
-            ))}
+      {/* INDEPENDENCE POLICY */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ position: "relative", minHeight: 400, borderRight: B }}>
+            <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
+            <div style={{ position: "absolute", bottom: 20, left: 24 }}>
+              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>BOIDS FLOCKING · DISTRIBUTED CONTROL</span>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* INDEPENDENCE POLICY — 50/50 SPLIT */}
-      <section style={{ borderBottom: `1px solid ${border}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "500px" }}>
-          <div style={{ background: "#FFFFFF", padding: "4rem 3.5rem", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: `1px solid ${border}` }}>
-            <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "1rem", marginTop: 0 }}>Independence</p>
-            <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
-              Structural Independence
+          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>INDEPENDENCE POLICY</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+              No Affiliations.<br />No Exceptions.
             </h2>
-            <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, margin: "0 0 1.5rem", fontWeight: 300 }}>
-              TAI's independence is structural, not aspirational. Our funding model, governance structure, and publication policies are designed to make capture — by commercial interests, governments, or ideological movements — structurally difficult rather than merely discouraged.
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 24px", fontWeight: 300 }}>
+              TAI accepts no funding from technology companies, governments, or any entity with a direct commercial interest in the compute transition. Our independence is structural, not aspirational.
             </p>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
               {[
-                { title: "No commercial funding", desc: "TAI does not accept funding from commercial AI developers, compute infrastructure providers, or any entity with a direct financial interest in the compute transition." },
-                { title: "No government contracts", desc: "TAI does not accept government contracts or classified research. All research is published openly and without restriction." },
-                { title: "Board independence", desc: "Board members serve fixed terms and are subject to conflict-of-interest policies that prohibit financial relationships with entities in TAI's research domains." },
-                { title: "Open access", desc: "All TAI research is published under Creative Commons Attribution 4.0. We do not charge for access to any research output." },
+                "No corporate funding",
+                "No government contracts",
+                "Open access publications",
+                "Public governance records",
+                "No consulting arrangements",
+                "Disclosed funding sources",
               ].map((item, i) => (
-                <div key={i} style={{ padding: "1rem 0", borderBottom: i < 3 ? `1px solid ${border}` : "none" }}>
-                  <p style={{ fontFamily: font, fontSize: "0.7rem", fontWeight: 600, color: black, margin: "0 0 0.25rem" }}>{item.title}</p>
-                  <p style={{ fontFamily: font, fontSize: "0.72rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{item.desc}</p>
+                <div key={item} style={{ padding: "10px 0", borderBottom: i < 4 ? B : "none", borderRight: i % 2 === 0 ? B : "none", paddingRight: i % 2 === 0 ? 20 : 0, paddingLeft: i % 2 !== 0 ? 20 : 0 }}>
+                  <span style={{ fontFamily: FONT, fontSize: 9, color: SLATE, marginRight: 8 }}>—</span>
+                  <span style={{ fontFamily: FONT, fontSize: 11, color: "#555", fontWeight: 300 }}>{item}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{ background: "#0A0A0A", position: "relative", minHeight: "500px" }}>
-            <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
-            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "2.5rem" }}>
-              <span style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)" }}>Boids Flocking · Distributed Control</span>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* GOVERNANCE */}
-      <section style={{ borderBottom: `1px solid ${border}`, padding: "5rem 0" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem" }}>
-            <div>
-              <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Governance</p>
-              <h2 style={{ fontFamily: font, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em" }}>
-                Board of Directors
-              </h2>
-              <p style={{ fontFamily: font, fontSize: "0.78rem", color: mid, lineHeight: 1.75, margin: "0 0 2rem", fontWeight: 300 }}>
-                TAI's Board of Directors is responsible for organizational governance, financial oversight, and ensuring adherence to TAI's independence policy. Board members serve three-year terms and are subject to strict conflict-of-interest policies.
-              </p>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {[
-                  { role: "Chair", name: "To Be Announced", affil: "TAI Board" },
-                  { role: "Vice Chair", name: "To Be Announced", affil: "TAI Board" },
-                  { role: "Treasurer", name: "To Be Announced", affil: "TAI Board" },
-                  { role: "Director", name: "To Be Announced", affil: "TAI Board" },
-                  { role: "Director", name: "To Be Announced", affil: "TAI Board" },
-                ].map((m, i, arr) => (
-                  <div key={i} style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", padding: "1rem 0", borderBottom: i < arr.length - 1 ? `1px solid ${border}` : "none" }}>
-                    <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.14em", textTransform: "uppercase", color: light, margin: 0, paddingTop: "0.15rem" }}>{m.role}</p>
-                    <div>
-                      <p style={{ fontFamily: font, fontSize: "0.78rem", fontWeight: 600, color: black, margin: "0 0 0.1rem" }}>{m.name}</p>
-                      <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0 }}>{m.affil}</p>
-                    </div>
-                  </div>
-                ))}
+      {/* GOVERNANCE: BOARD */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ borderBottom: B, padding: "40px 48px" }}>
+          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>GOVERNANCE · BOARD OF DIRECTORS</p>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
+          {BOARD.map((member, i) => (
+            <div key={i} style={{ padding: "32px 28px", borderRight: i < 4 ? B : "none" }}>
+              <div style={{ width: 40, height: 40, border: B, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: FONT, fontSize: 8, color: "#888" }}>TBA</span>
               </div>
+              <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#111", margin: "0 0 4px" }}>{member.name}</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: SLATE, margin: "0 0 4px" }}>{member.role}</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, fontWeight: 300 }}>{member.affiliation}</p>
             </div>
-            <div>
-              <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Advisory</p>
-              <h2 style={{ fontFamily: font, fontSize: "clamp(1.25rem, 2vw, 1.75rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em" }}>
-                Scientific Advisory Council
-              </h2>
-              <p style={{ fontFamily: font, fontSize: "0.78rem", color: mid, lineHeight: 1.75, margin: "0 0 2rem", fontWeight: 300 }}>
-                The Scientific Advisory Council provides guidance on TAI's research agenda, methodology, and quality standards. Members are selected for their expertise in systems theory, AI governance, and related disciplines.
-              </p>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {[
-                  { role: "Chair", field: "Systems Theory & Cybernetics" },
-                  { role: "Member", field: "AI Governance & Policy" },
-                  { role: "Member", field: "Compute Infrastructure" },
-                  { role: "Member", field: "Financial Regulation" },
-                  { role: "Member", field: "Democratic Theory" },
-                  { role: "Member", field: "Cybersecurity" },
-                ].map((m, i, arr) => (
-                  <div key={i} style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: "1rem", padding: "1rem 0", borderBottom: i < arr.length - 1 ? `1px solid ${border}` : "none" }}>
-                    <p style={{ fontFamily: font, fontSize: "0.45rem", letterSpacing: "0.14em", textTransform: "uppercase", color: light, margin: 0, paddingTop: "0.15rem" }}>{m.role}</p>
-                    <div>
-                      <p style={{ fontFamily: font, fontSize: "0.78rem", fontWeight: 600, color: black, margin: "0 0 0.1rem" }}>To Be Announced</p>
-                      <p style={{ fontFamily: font, fontSize: "0.6rem", color: light, margin: 0 }}>{m.field}</p>
-                    </div>
-                  </div>
-                ))}
+          ))}
+        </div>
+      </section>
+
+      {/* GOVERNANCE: SAC */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ borderBottom: B, padding: "40px 48px" }}>
+          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>GOVERNANCE · SCIENTIFIC ADVISORY COUNCIL</p>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+          {SAC.map((member, i) => (
+            <div key={i} style={{ padding: "32px 36px", borderRight: i % 3 !== 2 ? B : "none", borderBottom: i < 3 ? B : "none" }}>
+              <div style={{ width: 40, height: 40, border: B, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: FONT, fontSize: 8, color: "#888" }}>TBA</span>
               </div>
+              <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#111", margin: "0 0 4px" }}>{member.name}</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: SLATE, margin: "0 0 4px" }}>{member.role}</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, fontWeight: 300 }}>{member.domain}</p>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* STAFFING MODEL */}
-      <section style={{ padding: "5rem 0" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
-          <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.2em", textTransform: "uppercase", color: slate, marginBottom: "0.75rem", marginTop: 0 }}>Organization</p>
-          <h2 style={{ fontFamily: font, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: black, margin: "0 0 1.5rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
-            Staffing Model
-          </h2>
-          <p style={{ fontFamily: font, fontSize: "0.85rem", color: mid, lineHeight: 1.9, maxWidth: "680px", margin: "0 0 3rem", fontWeight: 300 }}>
-            TAI operates with a lean permanent staff and a larger network of fellows, visiting researchers, and policy residents. This model is intentional: it maximizes intellectual diversity while maintaining the institutional coherence required for rigorous, sustained research programs.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1px", background: border }}>
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div style={{ padding: "56px 48px", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>STAFFING MODEL</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+              Small. Rigorous. Independent.
+            </h2>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
+              TAI operates with a deliberately small permanent staff. Research is conducted primarily by fellows — Ashby Fellows, Senior Research Fellows, Visiting Fellows, and Policy Residents — supported by a lean operational team.
+            </p>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
+              This model keeps overhead low, maintains intellectual flexibility, and ensures that TAI's research agenda is driven by the questions that matter, not by the institutional imperatives of a large organization.
+            </p>
+          </div>
+          <div style={{ padding: "56px 48px" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>LOCATIONS</p>
             {[
-              { title: "Permanent Staff", desc: "A small core team responsible for research coordination, publications, and institutional operations." },
-              { title: "Ashby Fellows", desc: "Competitive annual fellowship for early-career researchers. Two-year terms with full research support." },
-              { title: "Senior Research Fellows", desc: "Established researchers affiliated with TAI on a part-time basis. Contribute to specific research programs." },
-              { title: "Policy Residents", desc: "Mid-career policymakers and practitioners in residence for six to twelve months. Bridge research and policy." },
-            ].map(s => (
-              <div key={s.title} style={{ background: "#FFFFFF", padding: "2rem 1.75rem" }}>
-                <p style={{ fontFamily: font, fontSize: "0.7rem", fontWeight: 600, color: black, margin: "0 0 0.75rem", lineHeight: 1.3 }}>{s.title}</p>
-                <p style={{ fontFamily: font, fontSize: "0.72rem", color: mid, lineHeight: 1.65, margin: 0, fontWeight: 300 }}>{s.desc}</p>
+              { city: "Washington, D.C.", role: "Primary Office · Policy Engagement", status: "ACTIVE" },
+              { city: "London", role: "European Research Hub", status: "FORTHCOMING" },
+              { city: "Singapore", role: "Asia-Pacific Research Hub", status: "FORTHCOMING" },
+            ].map((loc, i) => (
+              <div key={loc.city} style={{ padding: "20px 0", borderBottom: i < 2 ? B : "none" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 4 }}>
+                  <p style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: "#111", margin: 0 }}>{loc.city}</p>
+                  <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.1em", color: loc.status === "ACTIVE" ? SLATE : "#888" }}>{loc.status}</span>
+                </div>
+                <p style={{ fontFamily: FONT, fontSize: 11, color: "#555", margin: 0, fontWeight: 300 }}>{loc.role}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "flex" }}>
+          <Link href="/contact" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
+          >CONTACT TAI →</Link>
+          <Link href="/research" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#111", background: "#fff", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "color 0.15s" }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+          >RESEARCH</Link>
+          <Link href="/fellows" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#111", background: "#fff", padding: "20px 32px", textDecoration: "none", transition: "color 0.15s" }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+          >FELLOWS</Link>
         </div>
       </section>
     </Layout>

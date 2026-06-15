@@ -1,33 +1,34 @@
-/*
- * Layout.tsx — TAI Shared Layout v4
- * Design: GI-clone — Chakra Petch geometric mono, white background, black typography
- * Accent: #2C3E6B slate blue — active nav, labels, CTAs
- * Logo: crimson #A02D24 only
- * No serif fonts. No rounded corners. No gradients.
+/**
+ * Layout.tsx — TAI Inner Page Shell
+ * Design: GI-clone border grid system
+ * White background, 1px solid #111 borders, Chakra Petch, slate blue #2C3E6B accent
+ * No crimson. No gradients. No rounded corners.
  */
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 
-const font = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const BORDER = "1px solid #111";
+const SLATE = "#2C3E6B";
+const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
 const NAV_LINKS = [
-  { href: "/research", label: "Research" },
-  { href: "/theory", label: "Theory" },
-  { href: "/fellows", label: "Fellows" },
-  { href: "/publications", label: "Publications" },
-  { href: "/events", label: "Events" },
-  { href: "/about", label: "About" },
+  { href: "/theory", label: "THEORY" },
+  { href: "/research", label: "RESEARCH" },
+  { href: "/fellows", label: "FELLOWS" },
+  { href: "/publications", label: "PUBLICATIONS" },
+  { href: "/events", label: "EVENTS" },
+  { href: "/about", label: "ABOUT" },
 ];
 
-export function LogoMark({ size = 22, color = "#A02D24" }: { size?: number; color?: string }) {
+export function LogoMark({ size = 24, color = SLATE }: { size?: number; color?: string }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="16" cy="16" r="12" stroke={color} strokeWidth="1.5" fill="none" />
-      <rect x="11" y="11" width="10" height="10" stroke={color} strokeWidth="1.2" fill="none" />
-      <path d="M16 4 L19 4" stroke={color} strokeWidth="1.3" strokeLinecap="square" />
-      <path d="M17.5 2.5 L19.5 4 L17.5 5.5" stroke={color} strokeWidth="1.1" fill="none" strokeLinecap="square" />
-      <path d="M16 28 L13 28" stroke={color} strokeWidth="1.3" strokeLinecap="square" />
-      <path d="M14.5 26.5 L12.5 28 L14.5 29.5" stroke={color} strokeWidth="1.1" fill="none" strokeLinecap="square" />
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="11" stroke={color} strokeWidth="1.5" fill="none" />
+      <path d="M16 5 A11 11 0 0 1 27 16" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+      <path d="M27 16 A11 11 0 0 1 16 27" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+      <path d="M16 27 A11 11 0 0 1 5 16" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+      <path d="M5 16 A11 11 0 0 1 16 5" stroke={color} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+      <polygon points="16,3 18.2,7 13.8,7" fill={color}/>
     </svg>
   );
 }
@@ -39,171 +40,166 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => { setMenuOpen(false); }, [location]);
 
   return (
-    <div style={{ fontFamily: font, background: "#FFFFFF", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ fontFamily: FONT, background: "#fff", color: "#111", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
-      {/* ── HEADER ── */}
+      {/* ── NAV — GI-style border grid ── */}
       <header style={{
-        position: "sticky", top: 0, zIndex: 100,
-        background: "#FFFFFF",
-        borderBottom: "1px solid #E0E0E0",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        display: "flex", alignItems: "stretch",
+        height: 52,
+        borderBottom: BORDER,
+        background: "#fff",
       }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: "56px" }}>
+        {/* Logo cell */}
+        <Link href="/" style={{
+          display: "flex", alignItems: "center", gap: 10,
+          padding: "0 20px", borderRight: BORDER, textDecoration: "none", flexShrink: 0,
+        }}>
+          <LogoMark size={22} color={SLATE} />
+          <span style={{ fontSize: 9, letterSpacing: "0.14em", fontWeight: 600, color: "#111" }}>
+            THE ASHBY INSTITUTE
+          </span>
+        </Link>
 
-          {/* Logo */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none" }}>
-            <LogoMark size={20} color="#A02D24" />
-            <span style={{ fontFamily: font, fontSize: "0.6rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#111", fontWeight: 600 }}>
-              The Ashby Institute
-            </span>
+        {/* Nav links — right side */}
+        <div style={{ display: "flex", alignItems: "stretch", marginLeft: "auto" }}>
+          {NAV_LINKS.map((item) => {
+            const isActive = location === item.href || location.startsWith(item.href + "/");
+            return (
+              <Link key={item.href} href={item.href} style={{
+                display: "flex", alignItems: "center", padding: "0 16px",
+                borderLeft: BORDER,
+                fontSize: 9, letterSpacing: "0.12em", fontWeight: isActive ? 600 : 400,
+                textDecoration: "none",
+                color: isActive ? SLATE : "#555",
+                borderBottom: isActive ? `2px solid ${SLATE}` : "2px solid transparent",
+                transition: "color 0.15s, border-color 0.15s",
+              }}
+                onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = "#111"; }}
+                onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = "#555"; }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+
+          {/* Contact CTA — filled cell */}
+          <Link href="/contact" style={{
+            display: "flex", alignItems: "center", padding: "0 20px",
+            borderLeft: BORDER,
+            fontSize: 9, letterSpacing: "0.12em",
+            textDecoration: "none", color: "#fff", background: "#111",
+            transition: "background 0.15s",
+          }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
+          >
+            CONTACT
           </Link>
-
-          {/* Desktop nav */}
-          <nav style={{ display: "flex", alignItems: "center", gap: "1.75rem" }}>
-            {NAV_LINKS.map(l => {
-              const active = location === l.href || location.startsWith(l.href + "/");
-              return (
-                <Link key={l.href} href={l.href} style={{
-                  fontFamily: font, fontSize: "0.62rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: active ? "#2C3E6B" : "#666",
-                  textDecoration: "none",
-                  borderBottom: active ? "1px solid #2C3E6B" : "1px solid transparent",
-                  paddingBottom: "2px",
-                  transition: "color 150ms, border-color 150ms",
-                }}
-                  onMouseEnter={e => { if (!active) { (e.currentTarget as HTMLElement).style.color = "#111"; } }}
-                  onMouseLeave={e => { if (!active) { (e.currentTarget as HTMLElement).style.color = "#666"; } }}
-                >{l.label}</Link>
-              );
-            })}
-            <Link href="/contact" style={{
-              fontFamily: font, fontSize: "0.58rem", letterSpacing: "0.12em", textTransform: "uppercase",
-              color: "#fff", background: "#111",
-              padding: "0.375rem 0.875rem", textDecoration: "none",
-              border: "1px solid #111",
-              transition: "background 150ms, color 150ms, border-color 150ms",
-            }}
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#2C3E6B"; el.style.borderColor = "#2C3E6B"; }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#111"; el.style.borderColor = "#111"; }}
-            >Contact</Link>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              style={{ display: "none", background: "none", border: "none", padding: "0.5rem", cursor: "pointer", flexDirection: "column", gap: "5px" }}
-              className="mobile-menu-btn"
-              aria-label="Toggle menu"
-            >
-              <span style={{ display: "block", width: "20px", height: "1.5px", background: "#111", transition: "transform 200ms", transform: menuOpen ? "rotate(45deg) translate(4.5px, 4.5px)" : "none" }} />
-              <span style={{ display: "block", width: "20px", height: "1.5px", background: "#111", opacity: menuOpen ? 0 : 1, transition: "opacity 150ms" }} />
-              <span style={{ display: "block", width: "20px", height: "1.5px", background: "#111", transition: "transform 200ms", transform: menuOpen ? "rotate(-45deg) translate(4.5px, -4.5px)" : "none" }} />
-            </button>
-          </nav>
         </div>
-
-        {/* Mobile menu */}
-        {menuOpen && (
-          <div style={{ background: "#FFFFFF", borderTop: "1px solid #E0E0E0" }}>
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "1.25rem 2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-              {[...NAV_LINKS, { href: "/contact", label: "Contact" }].map(l => (
-                <Link key={l.href} href={l.href} style={{
-                  fontFamily: font, fontSize: "0.875rem", color: location === l.href ? "#2C3E6B" : "#333",
-                  textDecoration: "none", paddingBottom: "0.75rem", borderBottom: "1px solid #F0F0F0",
-                }}>{l.label}</Link>
-              ))}
-            </div>
-          </div>
-        )}
       </header>
 
-      {/* ── MAIN ── */}
-      <main style={{ flex: 1 }}>
+      {/* ── MAIN — offset for fixed nav ── */}
+      <main style={{ flex: 1, paddingTop: 52 }}>
         {children}
       </main>
 
-      {/* ── FOOTER ── */}
-      <footer style={{ background: "#0A0A0A", borderTop: "1px solid #1A1A1A" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "3.5rem 2rem 0" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: "3rem", paddingBottom: "3rem" }}>
+      {/* ── FOOTER — border grid ── */}
+      <footer style={{ borderTop: BORDER }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 1fr" }}>
 
-            {/* Brand */}
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "1.5rem" }}>
-                <LogoMark size={18} color="#A02D24" />
-                <span style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>The Ashby Institute</span>
-              </div>
-              <p style={{ fontFamily: font, fontSize: "0.8rem", fontStyle: "italic", color: "rgba(255,255,255,0.45)", lineHeight: 1.75, margin: "0 0 0.5rem", fontWeight: 300 }}>
-                "Every good regulator of a system must be a model of that system."
-              </p>
-              <p style={{ fontFamily: font, fontSize: "0.52rem", letterSpacing: "0.08em", color: "rgba(255,255,255,0.2)", margin: 0 }}>— W. Ross Ashby & Roger Conant, 1970</p>
+          {/* Brand */}
+          <div style={{ padding: "40px 32px", borderRight: BORDER }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+              <LogoMark size={20} color={SLATE} />
+              <span style={{ fontSize: 8, letterSpacing: "0.14em", fontWeight: 600 }}>THE ASHBY INSTITUTE</span>
             </div>
+            <p style={{ fontSize: 12, lineHeight: 1.75, color: "#555", fontStyle: "italic", margin: "0 0 8px" }}>
+              "Every good regulator of a system must be a model of that system."
+            </p>
+            <p style={{ fontSize: 10, color: "#888", margin: 0 }}>— W. Ross Ashby & Roger Conant, 1970</p>
+            <p style={{ fontSize: 10, color: "#888", marginTop: 20, lineHeight: 1.6 }}>
+              Independent nonprofit research organization.<br />
+              Washington D.C. · London · Singapore
+            </p>
+          </div>
 
-            {/* Research */}
-            <div>
-              <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "1.25rem", marginTop: 0 }}>Research</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-                {["Compute Futures", "Compute Governance", "Good Regulator Project", "Compute & Society"].map(item => (
-                  <Link key={item} href="/research" style={{ fontFamily: font, fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", textDecoration: "none", fontWeight: 300, transition: "color 150ms" }}
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.4)"}
-                  >{item}</Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Institute */}
-            <div>
-              <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "1.25rem", marginTop: 0 }}>Institute</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-                {[
-                  { label: "The Theory", href: "/theory" },
-                  { label: "Fellows", href: "/fellows" },
-                  { label: "Publications", href: "/publications" },
-                  { label: "Events", href: "/events" },
-                  { label: "About", href: "/about" },
-                ].map(item => (
-                  <Link key={item.href} href={item.href} style={{ fontFamily: font, fontSize: "0.75rem", color: "rgba(255,255,255,0.4)", textDecoration: "none", fontWeight: 300, transition: "color 150ms" }}
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.4)"}
-                  >{item.label}</Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Connect */}
-            <div>
-              <p style={{ fontFamily: font, fontSize: "0.5rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: "1.25rem", marginTop: 0 }}>Connect</p>
-              <p style={{ fontFamily: font, fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", lineHeight: 1.7, marginBottom: "1.25rem", fontWeight: 300 }}>
-                Research updates, event notices, and new publications. No promotional content.
-              </p>
-              <Link href="/contact" style={{
-                display: "inline-flex", alignItems: "center",
-                fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase",
-                color: "#fff", border: "1px solid rgba(255,255,255,0.25)", padding: "0.4rem 0.875rem",
-                textDecoration: "none", transition: "border-color 150ms, color 150ms",
+          {/* Research */}
+          <div style={{ padding: "40px 28px", borderRight: BORDER }}>
+            <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>RESEARCH</p>
+            {["Compute Futures", "Compute Governance", "Good Regulator Project", "Compute & Society"].map(item => (
+              <Link key={item} href="/research" style={{
+                display: "block", fontSize: 11, color: "#555",
+                textDecoration: "none", marginBottom: 10, lineHeight: 1.4,
+                transition: "color 0.15s",
               }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#2C3E6B"; el.style.color = "#8BA3D4"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(255,255,255,0.25)"; el.style.color = "#fff"; }}
-              >Subscribe →</Link>
-            </div>
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#555"}
+              >{item}</Link>
+            ))}
           </div>
 
-          {/* Bottom bar */}
-          <div style={{ borderTop: "1px solid #1A1A1A", padding: "1.5rem 0 2rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontFamily: font, fontSize: "0.58rem", color: "rgba(255,255,255,0.18)", fontWeight: 300 }}>
-              © 2026 The Ashby Institute. Independent nonprofit research organization.
-            </span>
-            <div style={{ display: "flex", gap: "1.5rem" }}>
-              {[{ label: "Independence Policy", href: "/about" }, { label: "Contact", href: "/contact" }].map(l => (
-                <Link key={l.href} href={l.href} style={{
-                  fontFamily: font, fontSize: "0.55rem", letterSpacing: "0.06em", color: "rgba(255,255,255,0.18)",
-                  textDecoration: "none", transition: "color 150ms",
-                }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.5)"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.18)"}
-                >{l.label}</Link>
-              ))}
-            </div>
+          {/* Institute */}
+          <div style={{ padding: "40px 28px", borderRight: BORDER }}>
+            <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>INSTITUTE</p>
+            {[
+              { label: "The Theory", href: "/theory" },
+              { label: "Fellows", href: "/fellows" },
+              { label: "Publications", href: "/publications" },
+              { label: "Events", href: "/events" },
+              { label: "About TAI", href: "/about" },
+            ].map(item => (
+              <Link key={item.href} href={item.href} style={{
+                display: "block", fontSize: 11, color: "#555",
+                textDecoration: "none", marginBottom: 10,
+                transition: "color 0.15s",
+              }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#555"}
+              >{item.label}</Link>
+            ))}
           </div>
+
+          {/* Contact */}
+          <div style={{ padding: "40px 28px" }}>
+            <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>CONTACT</p>
+            {[
+              "research@theashbyinstitute.org",
+              "fellows@theashbyinstitute.org",
+              "press@theashbyinstitute.org",
+            ].map(email => (
+              <a key={email} href={`mailto:${email}`} style={{
+                display: "block", fontSize: 10, color: "#555",
+                textDecoration: "none", marginBottom: 8,
+                transition: "color 0.15s",
+              }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#111"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#555"}
+              >{email}</a>
+            ))}
+            <Link href="/contact" style={{
+              display: "inline-block", marginTop: 20,
+              fontSize: 9, letterSpacing: "0.12em",
+              color: "#fff", background: "#111",
+              padding: "8px 16px", textDecoration: "none",
+              transition: "background 0.15s",
+            }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
+            >NEWSLETTER →</Link>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div style={{
+          borderTop: BORDER,
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          padding: "14px 32px",
+        }}>
+          <span style={{ fontSize: 9, color: "#888", letterSpacing: "0.06em" }}>
+            © 2026 THE ASHBY INSTITUTE · INDEPENDENT NONPROFIT RESEARCH
+          </span>
+          <span style={{ fontSize: 9, color: SLATE, letterSpacing: "0.1em" }}>V(R) ≥ V(D)</span>
         </div>
       </footer>
     </div>
