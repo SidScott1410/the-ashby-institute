@@ -64,7 +64,7 @@ export function LogoMark({ size = 32, color = SLATE, iconOnly = false }: LogoMar
       {!iconOnly && (
         <span
           style={{
-            fontFamily: "'Barlow Condensed', 'Chakra Petch', sans-serif",
+            fontFamily: "'Chakra Petch', monospace",
             fontSize,
             fontWeight: 600,
             letterSpacing: "0.18em",
