@@ -45,6 +45,10 @@ export default function About() {
           .ab-header-row { padding: 24px 20px !important; }
           .ab-cta { flex-direction: column !important; }
           .ab-cta a { border-right: none !important; border-bottom: 1px solid #111 !important; }
+          /* Partner section */
+          .ab-partner-tiers { grid-template-columns: 1fr !important; }
+          .ab-partner-tiers > div { border-right: none !important; border-bottom: 1px solid #222; }
+          .ab-partner-tiers > div:last-child { border-bottom: none !important; }
         }
       `}</style>
       {/* PAGE HEADER */}
@@ -145,6 +149,141 @@ export default function About() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* PARTNER WITH US */}
+      <section style={{ borderBottom: B, background: "#111" }}>
+        {/* Section header */}
+        <div style={{ borderBottom: "1px solid #333", padding: "40px 48px", display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 12 }}>
+          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>PARTNER WITH US</p>
+          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: "#555", margin: 0 }}>FUNDING ENQUIRIES · research@ashbyinstitute.org</p>
+        </div>
+
+        {/* Hero statement */}
+        <div className="ab-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "1px solid #333" }}>
+          <div className="ab-text" style={{ padding: "56px 48px", borderRight: "1px solid #333" }}>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#fff", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
+              Fund the research<br />the field needs.
+            </h2>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#aaa", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
+              The governance of advanced compute systems is one of the most consequential and least-funded research problems of our era. TAI exists to close that gap — with rigorous, structurally grounded work that no commercially entangled institution can produce.
+            </p>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#aaa", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
+              We welcome support from foundations, technology companies, governments, and individuals who share that priority — under a single, non-negotiable condition: your funding does not purchase influence over our findings.
+            </p>
+            <Link href="/contact" style={{
+              display: "inline-block",
+              fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
+              color: "#111", background: "#fff",
+              padding: "14px 28px",
+              textDecoration: "none",
+              transition: "background 0.15s, color 0.15s",
+            }}
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = SLATE; el.style.color = "#fff"; }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#fff"; el.style.color = "#111"; }}
+            >DISCUSS FUNDING →</Link>
+          </div>
+          {/* Three structural commitments */}
+          <div className="ab-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.16em", color: "#555", marginBottom: 28, marginTop: 0 }}>WHAT EVERY FUNDER RECEIVES</p>
+            {[
+              {
+                num: "01",
+                title: "Unrestricted Grant Agreement",
+                body: "A formal grant agreement confirming that TAI's Research Council retains sole authority over all research outputs. No deliverable tied to a policy outcome.",
+              },
+              {
+                num: "02",
+                title: "Annual Transparency Report",
+                body: "Public disclosure of your organisation's name and funding range in TAI's annual report, published on this website. No exceptions, no anonymity.",
+              },
+              {
+                num: "03",
+                title: "Funder Briefings",
+                body: "Annual private briefings on TAI's research agenda and findings — the same briefings available to all funders, with no preferential access to unpublished work.",
+              },
+            ].map((item, i) => (
+              <div key={item.num} style={{ display: "grid", gridTemplateColumns: "36px 1fr", gap: 16, paddingBottom: i < 2 ? 24 : 0, marginBottom: i < 2 ? 24 : 0, borderBottom: i < 2 ? "1px solid #222" : "none" }}>
+                <span style={{ fontFamily: FONT, fontSize: 9, color: SLATE, paddingTop: 2 }}>{item.num}</span>
+                <div>
+                  <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#fff", margin: "0 0 6px" }}>{item.title}</p>
+                  <p style={{ fontFamily: FONT, fontSize: 11, color: "#888", margin: 0, lineHeight: 1.7, fontWeight: 300 }}>{item.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Funding tiers */}
+        <div className="ab-partner-tiers" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+          {[
+            {
+              tier: "INSTITUTIONAL PARTNER",
+              range: "$250,000+",
+              period: "per year",
+              description: "Lead support for a named TAI research program. Acknowledged in all program publications and in TAI's annual report.",
+              items: ["Named program acknowledgement", "Annual research briefing", "Invitation to TAI symposia", "Early access to published reports"],
+              highlight: false,
+            },
+            {
+              tier: "RESEARCH SUPPORTER",
+              range: "$50,000 – $249,999",
+              period: "per year",
+              description: "General operating support for TAI's research agenda. Acknowledged in TAI's annual report and on this website.",
+              items: ["Annual report acknowledgement", "Annual research briefing", "Invitation to TAI symposia", "Newsletter and publications"],
+              highlight: true,
+            },
+            {
+              tier: "INDIVIDUAL DONOR",
+              range: "Any amount",
+              period: "one-time or recurring",
+              description: "Support TAI's mission as an individual. All donors acknowledged in the annual report unless anonymity is requested.",
+              items: ["Annual report acknowledgement", "TAI newsletter", "Open access to all publications", "Invitation to public events"],
+              highlight: false,
+            },
+          ].map((tier, i) => (
+            <div key={tier.tier} style={{
+              padding: "40px 36px",
+              borderRight: i < 2 ? "1px solid #222" : "none",
+              background: tier.highlight ? "#1a1a1a" : "transparent",
+              position: "relative",
+            }}>
+              {tier.highlight && (
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: SLATE }} />
+              )}
+              <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: tier.highlight ? SLATE : "#555", margin: "0 0 12px" }}>{tier.tier}</p>
+              <p style={{ fontFamily: FONT, fontSize: "clamp(1.25rem, 2vw, 1.6rem)", fontWeight: 700, color: "#fff", margin: "0 0 4px", letterSpacing: "-0.01em" }}>{tier.range}</p>
+              <p style={{ fontFamily: FONT, fontSize: 9, color: "#555", margin: "0 0 20px", letterSpacing: "0.08em" }}>{tier.period}</p>
+              <p style={{ fontFamily: FONT, fontSize: 11, color: "#888", lineHeight: 1.7, margin: "0 0 24px", fontWeight: 300 }}>{tier.description}</p>
+              <div style={{ borderTop: "1px solid #222", paddingTop: 20 }}>
+                {tier.items.map((item) => (
+                  <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
+                    <span style={{ fontFamily: FONT, fontSize: 9, color: SLATE, flexShrink: 0, marginTop: 1 }}>—</span>
+                    <span style={{ fontFamily: FONT, fontSize: 10, color: "#777", fontWeight: 300, lineHeight: 1.5 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom note */}
+        <div style={{ borderTop: "1px solid #222", padding: "24px 48px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+          <p style={{ fontFamily: FONT, fontSize: 10, color: "#555", margin: 0, fontWeight: 300, maxWidth: 600, lineHeight: 1.7 }}>
+            All funding arrangements are subject to TAI's Independence Policy. No funder receives preferential access to unpublished findings, influence over research conclusions, or governance rights. Funding amounts are disclosed publicly in TAI's annual report.
+          </p>
+          <Link href="/contact" style={{
+            fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
+            color: "#fff", textDecoration: "none",
+            borderBottom: "1px solid #555",
+            paddingBottom: 2,
+            transition: "border-color 0.15s",
+            flexShrink: 0,
+          }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = "#fff"}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = "#555"}
+          >ENQUIRE ABOUT FUNDING →</Link>
         </div>
       </section>
 
