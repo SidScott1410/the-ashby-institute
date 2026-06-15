@@ -97,3 +97,78 @@
     min-width: 0;
   }
 }
+
+/* ─── Global Mobile Overflow Guard ──────────────────────────────────────────
+ * Prevents any element from causing horizontal scroll on mobile.
+ * The root cause is inline style grids with fixed column counts that don't
+ * have @media overrides. We address each page individually, but this guard
+ * catches anything missed.
+ */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* ─── Responsive Grid Utility ────────────────────────────────────────────────
+ * Applied via className on grid wrappers that need to collapse on mobile.
+ * Usage: className="tai-grid-2" collapses 2-col to 1-col at ≤640px
+ */
+@media (max-width: 640px) {
+  .tai-grid-2,
+  .tai-grid-3,
+  .tai-grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hide ASCII canvas panels on mobile — they render as empty tall boxes */
+  .tai-canvas-panel {
+    display: none !important;
+  }
+
+  /* Reduce section padding on mobile */
+  .tai-section-pad {
+    padding: 32px 20px !important;
+  }
+
+  /* Ensure all inline-style grids collapse */
+  [style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Remove right borders that create phantom columns */
+  [style*="borderRight"] {
+    border-right: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .tai-grid-3,
+  .tai-grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Reduce large padding on tablet */
+  [style*="padding: \"56px 48px\""],
+  [style*="padding: \"64px 48px\""] {
+    padding: 40px 28px !important;
+  }
+}
+
+/* ─── Focus ring for keyboard nav ────────────────────────────────────────────
+ * Visible focus ring for all interactive elements.
+ */
+:focus-visible {
+  outline: 2px solid #2C3E6B;
+  outline-offset: 2px;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────────
+ * Suppress all transitions and animations for users who prefer reduced motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

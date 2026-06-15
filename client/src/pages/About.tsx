@@ -30,10 +30,27 @@ const SAC = [
 export default function About() {
   return (
     <Layout>
+      <style>{`
+        @media (max-width: 640px) {
+          .ab-2col { grid-template-columns: 1fr !important; }
+          .ab-canvas { display: none !important; }
+          .ab-text { padding: 32px 20px !important; border-right: none !important; }
+          .ab-header-pad { padding: 40px 20px 32px !important; border-right: none !important; }
+          .ab-board { grid-template-columns: 1fr 1fr !important; }
+          .ab-board > div:nth-child(2n) { border-right: none !important; }
+          .ab-sac { grid-template-columns: 1fr 1fr !important; }
+          .ab-sac > div:nth-child(2n) { border-right: none !important; }
+          .ab-policy-grid { grid-template-columns: 1fr !important; }
+          .ab-policy-grid > div { border-right: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+          .ab-header-row { padding: 24px 20px !important; }
+          .ab-cta { flex-direction: column !important; }
+          .ab-cta a { border-right: none !important; border-bottom: 1px solid #111 !important; }
+        }
+      `}</style>
       {/* PAGE HEADER */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+        <div className="ab-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ab-header-pad" style={{ padding: "64px 48px 56px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>ABOUT TAI</p>
             <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
               About
@@ -42,7 +59,7 @@ export default function About() {
               The Ashby Institute is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era. We are not affiliated with any technology company, government, or commercial interest.
             </p>
           </div>
-          <div style={{ position: "relative", minHeight: 280 }}>
+          <div className="ab-canvas" style={{ position: "relative", minHeight: 280 }}>
             <AsciiCanvas sim="network" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REGULATORY NETWORK · FEEDBACK DYNAMICS</span>
@@ -53,8 +70,8 @@ export default function About() {
 
       {/* FOUNDING STORY */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+        <div className="ab-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ab-text" style={{ padding: "56px 48px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>FOUNDING</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Why TAI Exists
@@ -69,7 +86,7 @@ export default function About() {
               The Institute exists to apply these tools rigorously, to produce research that is structurally grounded rather than politically convenient, and to do so without commercial entanglement.
             </p>
           </div>
-          <div style={{ padding: "56px 48px" }}>
+          <div className="ab-text" style={{ padding: "56px 48px" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>THE THEOREM</p>
             <div style={{ border: B, padding: "32px", marginBottom: 24, background: "#F9F9F9" }}>
               <p style={{ fontFamily: FONT, fontSize: "2rem", fontWeight: 700, color: SLATE, margin: "0 0 8px", letterSpacing: "-0.01em" }}>V(R) ≥ V(D)</p>
@@ -94,14 +111,14 @@ export default function About() {
 
       {/* INDEPENDENCE POLICY */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ position: "relative", minHeight: 400, borderRight: B }}>
+        <div className="ab-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ab-canvas" style={{ position: "relative", minHeight: 400, borderRight: B }}>
             <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>BOIDS FLOCKING · DISTRIBUTED CONTROL</span>
             </div>
           </div>
-          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="ab-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>INDEPENDENCE POLICY</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               No Affiliations.<br />No Exceptions.
@@ -109,7 +126,7 @@ export default function About() {
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 24px", fontWeight: 300 }}>
               TAI accepts no funding from technology companies, governments, or any entity with a direct commercial interest in the compute transition. Our independence is structural, not aspirational.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+            <div className="ab-policy-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
               {[
                 "No corporate funding",
                 "No government contracts",
@@ -130,10 +147,10 @@ export default function About() {
 
       {/* GOVERNANCE: BOARD */}
       <section style={{ borderBottom: B }}>
-        <div style={{ borderBottom: B, padding: "40px 48px" }}>
+        <div className="ab-header-row" style={{ borderBottom: B, padding: "40px 48px" }}>
           <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>GOVERNANCE · BOARD OF DIRECTORS</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
+        <div className="ab-board" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
           {BOARD.map((member, i) => (
             <div key={i} style={{ padding: "32px 28px", borderRight: i < 4 ? B : "none" }}>
               <div style={{ width: 40, height: 40, border: B, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -149,10 +166,10 @@ export default function About() {
 
       {/* GOVERNANCE: SAC */}
       <section style={{ borderBottom: B }}>
-        <div style={{ borderBottom: B, padding: "40px 48px" }}>
+        <div className="ab-header-row" style={{ borderBottom: B, padding: "40px 48px" }}>
           <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>GOVERNANCE · SCIENTIFIC ADVISORY COUNCIL</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div className="ab-sac" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
           {SAC.map((member, i) => (
             <div key={i} style={{ padding: "32px 36px", borderRight: i % 3 !== 2 ? B : "none", borderBottom: i < 3 ? B : "none" }}>
               <div style={{ width: 40, height: 40, border: B, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -168,8 +185,8 @@ export default function About() {
 
       {/* STAFFING MODEL */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+        <div className="ab-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ab-text" style={{ padding: "56px 48px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>STAFFING MODEL</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Small. Rigorous. Independent.
@@ -181,7 +198,7 @@ export default function About() {
               This model keeps overhead low, maintains intellectual flexibility, and ensures that TAI's research agenda is driven by the questions that matter, not by the institutional imperatives of a large organization.
             </p>
           </div>
-          <div style={{ padding: "56px 48px" }}>
+          <div className="ab-text" style={{ padding: "56px 48px" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>LOCATIONS</p>
             {[
               { city: "Washington, D.C.", role: "Primary Office · Policy Engagement", status: "ACTIVE" },
@@ -202,7 +219,7 @@ export default function About() {
 
       {/* CTA */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="ab-cta" style={{ display: "flex" }}>
           <Link href="/contact" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}

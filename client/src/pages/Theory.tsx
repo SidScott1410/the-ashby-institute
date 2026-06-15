@@ -24,10 +24,27 @@ const DOMAINS = [
 export default function Theory() {
   return (
     <Layout>
+      <style>{`
+        @media (max-width: 640px) {
+          .theory-2col { grid-template-columns: 1fr !important; }
+          .theory-canvas { display: none !important; }
+          .theory-text { padding: 32px 20px !important; border-right: none !important; }
+          .theory-header-pad { padding: 40px 20px 32px !important; border-right: none !important; }
+          .theory-domains { grid-template-columns: 1fr !important; }
+          .theory-domains > div { border-right: none !important; padding: 24px 20px !important; }
+          .theory-header-row { padding: 24px 20px !important; flex-direction: column !important; gap: 8px !important; }
+          .theory-cta { flex-direction: column !important; }
+          .theory-cta a { border-right: none !important; border-bottom: 1px solid #111 !important; }
+        }
+        @media (max-width: 768px) and (min-width: 641px) {
+          .theory-domains { grid-template-columns: 1fr 1fr !important; }
+          .theory-domains > div:nth-child(2n) { border-right: none !important; }
+        }
+      `}</style>
       {/* ── PAGE HEADER ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+        <div className="theory-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="theory-header-pad" style={{ padding: "64px 48px 56px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>
               THEORETICAL FOUNDATION
             </p>
@@ -38,7 +55,7 @@ export default function Theory() {
               W. Ross Ashby's Law of Requisite Variety (1956) and the Good Regulator Theorem (Conant & Ashby, 1970) are not metaphors. They are mathematical results with direct implications for every governance problem of the compute era.
             </p>
           </div>
-          <div style={{ position: "relative", minHeight: 280 }}>
+          <div className="theory-canvas" style={{ position: "relative", minHeight: 280 }}>
             <AsciiCanvas sim="network" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REGULATORY NETWORK · FEEDBACK DYNAMICS</span>
@@ -49,9 +66,9 @@ export default function Theory() {
 
       {/* ── ASHBY'S LAW ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div className="theory-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Left: ASCII canvas */}
-          <div style={{ position: "relative", minHeight: 560, borderRight: B }}>
+          <div className="theory-canvas" style={{ position: "relative", minHeight: 560, borderRight: B }}>
             <AsciiCanvas sim="cellular" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>CELLULAR AUTOMATON · EMERGENT VARIETY</span>
@@ -59,7 +76,7 @@ export default function Theory() {
           </div>
 
           {/* Right: content */}
-          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="theory-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>ASHBY · 1956</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Law of Requisite Variety
@@ -85,9 +102,9 @@ export default function Theory() {
 
       {/* ── GOOD REGULATOR THEOREM ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div className="theory-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Left: content */}
-          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: B }}>
+          <div className="theory-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>CONANT & ASHBY · 1970</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               The Good Regulator Theorem
@@ -107,7 +124,7 @@ export default function Theory() {
           </div>
 
           {/* Right: ASCII canvas */}
-          <div style={{ position: "relative", minHeight: 560 }}>
+          <div className="theory-canvas" style={{ position: "relative", minHeight: 560 }}>
             <AsciiCanvas sim="reaction-diffusion" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REACTION-DIFFUSION · TURING PATTERNS</span>
@@ -118,9 +135,9 @@ export default function Theory() {
 
       {/* ── AI ALIGNMENT ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div className="theory-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Left: ASCII canvas */}
-          <div style={{ position: "relative", minHeight: 500, borderRight: B }}>
+          <div className="theory-canvas" style={{ position: "relative", minHeight: 500, borderRight: B }}>
             <AsciiCanvas sim="lorenz" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>LORENZ ATTRACTOR · DETERMINISTIC CHAOS</span>
@@ -128,7 +145,7 @@ export default function Theory() {
           </div>
 
           {/* Right: content */}
-          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="theory-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>THE ULTIMATE APPLICATION</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               AI Alignment as a Variety Problem
@@ -151,13 +168,13 @@ export default function Theory() {
 
       {/* ── DOMAIN APPLICATIONS GRID ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ borderBottom: B, padding: "40px 48px", display: "flex", alignItems: "baseline", gap: 32 }}>
+        <div className="theory-header-row" style={{ borderBottom: B, padding: "40px 48px", display: "flex", alignItems: "baseline", gap: 32 }}>
           <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>APPLICATIONS</p>
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.02em" }}>
             The Law Applied Across Domains
           </h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div className="theory-domains" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
           {DOMAINS.map((d, i) => (
             <div key={d.label} style={{
               padding: "36px 40px",
@@ -178,7 +195,7 @@ export default function Theory() {
 
       {/* ── CTA ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="theory-cta" style={{ display: "flex" }}>
           <Link href="/research" style={{
             fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
             color: "#fff", background: "#111", padding: "20px 32px",

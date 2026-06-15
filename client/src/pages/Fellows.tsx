@@ -102,10 +102,27 @@ const PROGRAMS = [
 export default function Fellows() {
   return (
     <Layout>
+      <style>{`
+        @media (max-width: 640px) {
+          .fellows-2col { grid-template-columns: 1fr !important; }
+          .fellows-canvas { display: none !important; }
+          .fellows-text { padding: 32px 20px !important; border-right: none !important; }
+          .fellows-header-pad { padding: 40px 20px 32px !important; border-right: none !important; }
+          .fellows-cohort { grid-template-columns: 1fr 1fr !important; }
+          .fellows-cohort > div { padding: 24px 16px !important; }
+          .fellows-cohort > div:nth-child(2n) { border-right: none !important; }
+          .fellows-cta { flex-direction: column !important; }
+          .fellows-cta a { border-right: none !important; border-bottom: 1px solid #111 !important; }
+          .fellows-header-row { padding: 24px 20px !important; }
+        }
+        @media (max-width: 768px) and (min-width: 641px) {
+          .fellows-cohort { grid-template-columns: 1fr 1fr 1fr !important; }
+        }
+      `}</style>
       {/* ── PAGE HEADER ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+        <div className="fellows-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="fellows-header-pad" style={{ padding: "64px 48px 56px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>
               FELLOWSHIP PROGRAMS
             </p>
@@ -126,7 +143,7 @@ export default function Fellows() {
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
             >INQUIRE ABOUT FELLOWSHIPS →</a>
           </div>
-          <div style={{ position: "relative", minHeight: 320 }}>
+          <div className="fellows-canvas" style={{ position: "relative", minHeight: 320 }}>
             <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>BOIDS FLOCKING · DISTRIBUTED INTELLIGENCE</span>
@@ -138,9 +155,9 @@ export default function Fellows() {
       {/* ── FELLOWSHIP PROGRAMS ── */}
       {PROGRAMS.map((prog, i) => (
         <section key={prog.code} style={{ borderBottom: B }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="fellows-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {/* Left: main content */}
-            <div style={{ padding: "56px 48px", borderRight: B }}>
+            <div className="fellows-text" style={{ padding: "56px 48px", borderRight: B }}>
               <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>{prog.label}</p>
               <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
                 {prog.title}
@@ -161,7 +178,7 @@ export default function Fellows() {
             </div>
 
             {/* Right: eligibility + benefits */}
-            <div style={{ padding: "56px 48px" }}>
+            <div className="fellows-text" style={{ padding: "56px 48px" }}>
               <div style={{ marginBottom: 40 }}>
                 <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: "#888", marginBottom: 16, marginTop: 0 }}>ELIGIBILITY</p>
                 {prog.eligibility.map((item, j) => (
@@ -187,10 +204,10 @@ export default function Fellows() {
 
       {/* ── CURRENT FELLOWS ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ borderBottom: B, padding: "40px 48px" }}>
+        <div className="fellows-header-row" style={{ borderBottom: B, padding: "40px 48px" }}>
           <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>INAUGURAL COHORT · 2026–2027</p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+        <div className="fellows-cohort" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div key={i} style={{
               padding: "40px 40px",
@@ -212,14 +229,14 @@ export default function Fellows() {
 
       {/* ── ASHBY SYMPOSIUM ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ position: "relative", minHeight: 400, borderRight: B }}>
+        <div className="fellows-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="fellows-canvas" style={{ position: "relative", minHeight: 400, borderRight: B }}>
             <AsciiCanvas sim="network" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REGULATORY NETWORK · COLLECTIVE INTELLIGENCE</span>
             </div>
           </div>
-          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="fellows-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>ANNUAL EVENT</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               The Ashby Symposium
@@ -246,7 +263,7 @@ export default function Fellows() {
 
       {/* ── CTA ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="fellows-cta" style={{ display: "flex" }}>
           <a href="mailto:fellows@theashbyinstitute.org" style={{
             fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
             color: "#fff", background: "#111", padding: "20px 32px",

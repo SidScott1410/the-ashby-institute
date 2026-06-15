@@ -84,10 +84,23 @@ export default function Publications() {
 
   return (
     <Layout>
+      <style>{`
+        @media (max-width: 640px) {
+          .pub-2col { grid-template-columns: 1fr !important; }
+          .pub-canvas { display: none !important; }
+          .pub-text { padding: 32px 20px !important; border-right: none !important; }
+          .pub-header-pad { padding: 40px 20px 32px !important; border-right: none !important; }
+          .pub-list-row { grid-template-columns: 1fr !important; }
+          .pub-list-date { border-right: none !important; border-bottom: 1px solid #111 !important; padding: 16px 20px !important; }
+          .pub-list-content { padding: 20px !important; }
+          .pub-cta { flex-direction: column !important; }
+          .pub-cta a, .pub-cta a[href] { border-right: none !important; border-bottom: 1px solid #111 !important; }
+        }
+      `}</style>
       {/* PAGE HEADER */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+        <div className="pub-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="pub-header-pad" style={{ padding: "64px 48px 56px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>PUBLICATIONS</p>
             <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
               Publications
@@ -96,7 +109,7 @@ export default function Publications() {
               TAI publishes across six series: annual scenario reports, governance reviews, lecture transcripts, equity indices, working papers, and policy briefs. All publications are open access. No paywalls. No embargoes.
             </p>
           </div>
-          <div style={{ position: "relative", minHeight: 280 }}>
+          <div className="pub-canvas" style={{ position: "relative", minHeight: 280 }}>
             <AsciiCanvas sim="reaction-diffusion" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>REACTION-DIFFUSION · PATTERN FORMATION</span>
@@ -107,8 +120,8 @@ export default function Publications() {
 
       {/* FEATURED: COMPUTE 2030 */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+        <div className="pub-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="pub-text" style={{ padding: "56px 48px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>FEATURED · COMPUTE 2030 · JUNE 2026</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.0 }}>
               Compute 2030
@@ -127,7 +140,7 @@ export default function Publications() {
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
             >READ THE FULL REPORT →</a>
           </div>
-          <div style={{ padding: "56px 48px" }}>
+          <div className="pub-text" style={{ padding: "56px 48px" }}>
             <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: "#888", marginBottom: 20, marginTop: 0 }}>FOUR SCENARIOS</p>
             {[
               { n: "I", title: "Concentrated Dominance", desc: "State tension increasing on frontier compute." },
@@ -172,12 +185,12 @@ export default function Publications() {
       {/* PUBLICATION LIST */}
       <section style={{ borderBottom: B }}>
         {filtered.map((pub, i) => (
-          <div key={i} style={{ display: "grid", gridTemplateColumns: "200px 1fr", borderBottom: i < filtered.length - 1 ? B : "none" }}>
-            <div style={{ padding: "32px 32px", borderRight: B }}>
+          <div key={i} className="pub-list-row" style={{ display: "grid", gridTemplateColumns: "200px 1fr", borderBottom: i < filtered.length - 1 ? B : "none" }}>
+            <div className="pub-list-date" style={{ padding: "32px 32px", borderRight: B }}>
               <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: SLATE, margin: "0 0 8px" }}>{pub.seriesLabel}</p>
               <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0 }}>{pub.date}</p>
             </div>
-            <div style={{ padding: "32px 40px", transition: "background 0.15s" }}
+            <div className="pub-list-content" style={{ padding: "32px 40px", transition: "background 0.15s" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F9F9F9"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#fff"}
             >
@@ -210,8 +223,8 @@ export default function Publications() {
 
       {/* OPEN ACCESS POLICY */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+        <div className="pub-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="pub-text" style={{ padding: "56px 48px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>OPEN ACCESS POLICY</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               No Paywalls.<br />No Embargoes.
@@ -220,7 +233,7 @@ export default function Publications() {
               All TAI publications are released under open access terms. Research that is publicly relevant should be publicly available. TAI does not accept publication fees, embargo agreements, or any arrangement that restricts access to its research outputs.
             </p>
           </div>
-          <div style={{ padding: "56px 48px" }}>
+          <div className="pub-text" style={{ padding: "56px 48px" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>PUBLICATION SERIES</p>
             {[
               { title: "Compute 2030", desc: "Annual scenario report on the compute transition" },
@@ -244,7 +257,7 @@ export default function Publications() {
 
       {/* CTA */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="pub-cta" style={{ display: "flex" }}>
           <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#2C3E6B"}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}

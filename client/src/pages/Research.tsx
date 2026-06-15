@@ -131,7 +131,7 @@ export default function Research() {
                     ))}
                   </div>
                 </div>
-                <div style={{ position: "relative", minHeight: 500 }}>
+                <div className="res-canvas" style={{ position: "relative", minHeight: 500 }}>
                   <AsciiCanvas sim={prog.sim} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
                   <div style={{ position: "absolute", bottom: 20, left: 24 }}>
                     <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>{prog.simLabel}</span>
@@ -140,13 +140,13 @@ export default function Research() {
               </>
             ) : (
               <>
-                <div style={{ position: "relative", minHeight: 500, borderRight: B }}>
+                <div className="res-canvas" style={{ position: "relative", minHeight: 500, borderRight: B }}>
                   <AsciiCanvas sim={prog.sim} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
                   <div style={{ position: "absolute", bottom: 20, left: 24 }}>
                     <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>{prog.simLabel}</span>
                   </div>
                 </div>
-                <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div className="res-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
                     <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginBottom: 20 }}>
                       <span style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE }}>{prog.label}</span>
@@ -187,13 +187,13 @@ export default function Research() {
 
       {/* ── CROSS-DOMAIN APPLICATIONS ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ borderBottom: B, padding: "40px 48px", display: "flex", alignItems: "baseline", gap: 32 }}>
+        <div className="res-header-row" style={{ borderBottom: B, padding: "40px 48px", display: "flex", alignItems: "baseline", gap: 32 }}>
           <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>CROSS-DOMAIN APPLICATIONS</p>
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.02em" }}>
             One Law Governs Every System
           </h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <div className="res-domains" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
           {CROSS_DOMAINS.map((d, i) => (
             <div key={d.label} style={{
               padding: "32px 32px",
@@ -214,8 +214,8 @@ export default function Research() {
 
       {/* ── COMPUTE 2030 FEATURE ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+        <div className="res-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="res-text" style={{ padding: "56px 48px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>FEATURED PUBLICATION · JUNE 2026</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.0 }}>
               Compute 2030
@@ -235,7 +235,7 @@ export default function Research() {
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
             >READ THE FULL REPORT →</a>
           </div>
-          <div style={{ padding: "56px 48px" }}>
+          <div className="res-text" style={{ padding: "56px 48px" }}>
             <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: "#888", marginBottom: 20, marginTop: 0 }}>FOUR SCENARIOS</p>
             {[
               { n: "I", title: "Concentrated Dominance", desc: "One or two actors control the majority of global compute capacity." },
@@ -259,7 +259,7 @@ export default function Research() {
 
       {/* ── CTA ── */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="res-cta" style={{ display: "flex" }}>
           <Link href="/fellows" style={{
             fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
             color: "#fff", background: "#111", padding: "20px 32px",

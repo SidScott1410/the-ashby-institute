@@ -221,7 +221,7 @@ export default function PublicationDetail() {
           </div>
 
           {/* ASCII canvas panel */}
-          <div style={{ position: "relative", minHeight: 320 }}>
+          <div className="pd-canvas-panel" style={{ position: "relative", minHeight: 320 }}>
             <AsciiCanvas
               sim={pub.sim}
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
@@ -516,9 +516,24 @@ export default function PublicationDetail() {
             grid-template-columns: 1fr !important;
           }
           aside { display: none !important; }
-          div[style*="minHeight: 320"] { display: none !important; }
+          /* Hide ASCII canvas panel in hero on mobile */
+          .pd-canvas-panel { display: none !important; }
+          /* Hero title block: full width, reduced padding */
+          div[style*="padding: 56px 48px 48px"] {
+            padding: 32px 20px 28px !important;
+            border-right: none !important;
+          }
           article[aria-label="Publication content"] {
             padding: 32px 20px !important;
+          }
+          /* Metadata strip: allow wrapping, reduce padding */
+          div[style*="flexShrink: 0"] {
+            padding: 12px 16px !important;
+          }
+          /* Breadcrumb: reduce padding */
+          nav[aria-label="Breadcrumb"] a,
+          nav[aria-label="Breadcrumb"] span {
+            padding: 10px 14px !important;
           }
         }
       `}</style>

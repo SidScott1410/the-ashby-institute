@@ -67,9 +67,17 @@ const FOCUS_STYLE = `
   /* Footer responsive */
   @media (max-width: 768px) {
     .footer-grid { grid-template-columns: 1fr 1fr !important; }
+    .footer-grid > div, .footer-grid > nav { border-right: none !important; }
   }
   @media (max-width: 480px) {
     .footer-grid { grid-template-columns: 1fr !important; }
+    .footer-grid > div, .footer-grid > nav { border-right: none !important; border-bottom: 1px solid #111 !important; }
+  }
+  /* Prevent horizontal overflow globally */
+  html, body { max-width: 100vw; overflow-x: hidden; }
+  /* Nav: prevent logo text from wrapping and pushing width */
+  @media (max-width: 400px) {
+    .nav-logo-text { display: none !important; }
   }
 `;
 
@@ -134,7 +142,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           padding: "0 20px", borderRight: BORDER, textDecoration: "none", flexShrink: 0,
         }}>
           <LogoMark size={22} color={SLATE} />
-          <span style={{ fontSize: 9, letterSpacing: "0.14em", fontWeight: 600, color: "#111" }}>
+          <span className="nav-logo-text" style={{ fontSize: 9, letterSpacing: "0.14em", fontWeight: 600, color: "#111" }}>
             THE ASHBY INSTITUTE
           </span>
         </Link>

@@ -46,10 +46,20 @@ const EVENTS = [
 export default function Events() {
   return (
     <Layout>
+      <style>{`
+        @media (max-width: 640px) {
+          .ev-2col { grid-template-columns: 1fr !important; }
+          .ev-canvas { display: none !important; }
+          .ev-text { padding: 32px 20px !important; border-right: none !important; }
+          .ev-header-pad { padding: 40px 20px 32px !important; border-right: none !important; }
+          .ev-cta { flex-direction: column !important; }
+          .ev-cta a { border-right: none !important; border-bottom: 1px solid #111 !important; }
+        }
+      `}</style>
       {/* PAGE HEADER */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+        <div className="ev-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ev-header-pad" style={{ padding: "64px 48px 56px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>EVENTS</p>
             <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
               Events
@@ -58,7 +68,7 @@ export default function Events() {
               TAI convenes three types of events: an annual symposium for the research community, a quarterly workshop series for policy professionals, and an annual public lecture. All events are designed to advance rigorous structural analysis, not to showcase or promote.
             </p>
           </div>
-          <div style={{ position: "relative", minHeight: 280 }}>
+          <div className="ev-canvas" style={{ position: "relative", minHeight: 280 }}>
             <AsciiCanvas sim="cellular" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>CELLULAR AUTOMATON · EMERGENT COORDINATION</span>
@@ -70,8 +80,8 @@ export default function Events() {
       {/* EVENTS */}
       {EVENTS.map((event, i) => (
         <section key={event.title} style={{ borderBottom: B }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-            <div style={{ padding: "56px 48px", borderRight: B }}>
+          <div className="ev-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+            <div className="ev-text" style={{ padding: "56px 48px", borderRight: B }}>
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
                 <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>{event.type}</p>
                 <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", color: "#fff", background: event.status === "UPCOMING" ? "#111" : SLATE, padding: "3px 8px" }}>{event.status}</span>
@@ -93,7 +103,7 @@ export default function Events() {
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.color = "#111"; }}
               >INQUIRE →</a>
             </div>
-            <div style={{ padding: "56px 48px" }}>
+            <div className="ev-text" style={{ padding: "56px 48px" }}>
               <div style={{ marginBottom: 32 }}>
                 <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888", marginBottom: 8, marginTop: 0 }}>DATE</p>
                 <p style={{ fontFamily: FONT, fontSize: 14, color: "#111", margin: 0, fontWeight: 600 }}>{event.date}</p>
@@ -117,14 +127,14 @@ export default function Events() {
 
       {/* MAILING LIST */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ position: "relative", minHeight: 360, borderRight: B }}>
+        <div className="ev-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ev-canvas" style={{ position: "relative", minHeight: 360, borderRight: B }}>
             <AsciiCanvas sim="lorenz" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>LORENZ ATTRACTOR · DETERMINISTIC CHAOS</span>
             </div>
           </div>
-          <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="ev-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>EVENT NOTIFICATIONS</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Stay Informed
@@ -148,7 +158,7 @@ export default function Events() {
 
       {/* CTA */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="ev-cta" style={{ display: "flex" }}>
           <Link href="/fellows" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}

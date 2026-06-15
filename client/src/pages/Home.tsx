@@ -93,12 +93,79 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ fontFamily: "'Chakra Petch', monospace", background: "#fff", color: "#111" }}>
+    <div id="home-root" style={{ fontFamily: "'Chakra Petch', monospace", background: "#fff", color: "#111", overflowX: "hidden" }}>
       <style>{`
         :focus-visible { outline: 2px solid #2C3E6B !important; outline-offset: 2px !important; }
         @media (max-width: 768px) { .desktop-nav { display: none !important; } .hamburger-btn { display: flex !important; } .hamburger-menu { display: block !important; } }
         @media (min-width: 769px) { .hamburger-btn { display: none !important; } #home-mobile-nav { display: none !important; } }
         @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+        /* ── MOBILE LAYOUT FIXES ── */
+        @media (max-width: 640px) {
+          /* Prevent all horizontal overflow */
+          #home-root { overflow-x: hidden; max-width: 100vw; }
+
+          /* Hero: hide sim selector on mobile, show below hero instead */
+          #hero-sim-selector { display: none !important; }
+          #hero-info-card { max-width: 100% !important; padding: 28px 20px 28px 20px !important; left: 0 !important; right: 0 !important; border-left: none !important; border-right: none !important; }
+          #hero-info-card h1 { font-size: 26px !important; }
+          #hero-info-card .hero-btns { flex-wrap: wrap !important; }
+          #hero-bottom-label { display: none !important; }
+
+          /* Sim selector below hero on mobile */
+          #mobile-sim-strip { display: flex !important; }
+
+          /* Section 1: 3-col → 1-col, hide canvases */
+          #section-law { grid-template-columns: 1fr !important; }
+          #section-law .canvas-col { display: none !important; }
+          #section-law .text-col { padding: 32px 20px !important; }
+
+          /* Section 2: header 2-col → 1-col, domain grid 4-col → 2-col */
+          #section-domains .header-grid { grid-template-columns: 1fr !important; }
+          #section-domains .header-grid > div { border-right: none !important; padding: 24px 20px !important; }
+          #section-domains .domain-grid { grid-template-columns: 1fr 1fr !important; }
+          #section-domains .domain-grid > div { padding: 20px 16px !important; }
+
+          /* Section 3: 2-col → 1-col, hide canvases */
+          #section-compute { grid-template-columns: 1fr !important; }
+          #section-compute .canvas-col { display: none !important; }
+          #section-compute .text-col { padding: 32px 20px !important; }
+          #section-compute .scenario-grid { grid-template-columns: 1fr 1fr !important; }
+
+          /* Section 4: programs 2-col → 1-col */
+          #section-programs .programs-grid { grid-template-columns: 1fr !important; }
+          #section-programs .programs-grid > div { border-right: none !important; padding: 28px 20px !important; }
+          #section-programs .programs-header { padding: 24px 20px !important; }
+
+          /* Section 5: 2-col → 1-col, hide canvas */
+          #section-independence { grid-template-columns: 1fr !important; }
+          #section-independence .canvas-col { display: none !important; }
+          #section-independence .text-col { padding: 32px 20px !important; border-right: none !important; }
+          #section-independence .checklist-grid { grid-template-columns: 1fr !important; }
+          #section-independence .checklist-grid > div { border-right: none !important; padding-right: 0 !important; padding-left: 0 !important; }
+
+          /* Section 6: newsletter 2-col → 1-col */
+          #section-newsletter .newsletter-grid { grid-template-columns: 1fr !important; }
+          #section-newsletter .newsletter-grid > div { border-right: none !important; padding: 28px 20px !important; }
+          #section-newsletter .email-row { flex-wrap: wrap !important; }
+          #section-newsletter .email-row input { min-width: 0 !important; border-right: 1px solid #111 !important; }
+
+          /* Footer: 4-col → 1-col */
+          #home-footer .footer-grid { grid-template-columns: 1fr !important; }
+          #home-footer .footer-grid > div { border-right: none !important; padding: 28px 20px !important; }
+          #home-footer .footer-bottom { flex-direction: column !important; }
+          #home-footer .footer-bottom > * { border-right: none !important; border-bottom: 1px solid #111 !important; }
+        }
+
+        @media (max-width: 768px) and (min-width: 641px) {
+          /* Tablet: collapse 4-col to 2-col, 3-col to 1-col */
+          #section-law { grid-template-columns: 1fr !important; }
+          #section-law .canvas-col:first-child { display: none !important; }
+          #section-law .canvas-col { border-right: none !important; }
+          #section-domains .domain-grid { grid-template-columns: 1fr 1fr !important; }
+          #home-footer .footer-grid { grid-template-columns: 1fr 1fr !important; }
+          #home-footer .footer-grid > div:nth-child(2n) { border-right: none !important; }
+        }
       `}</style>
 
       {/* Skip to content */}
@@ -238,7 +305,7 @@ export default function Home() {
         </div>
 
         {/* Sim selector — top right, inside hero */}
-        <div style={{
+        <div id="hero-sim-selector" style={{
           position: "absolute", top: 56, right: 0,
           display: "flex", flexDirection: "column",
           borderLeft: BORDER,
@@ -275,7 +342,7 @@ export default function Home() {
         </div>
 
         {/* Floating white card — bottom left */}
-        <div style={{
+        <div id="hero-info-card" style={{
           position: "absolute", bottom: 0, left: 0,
           background: "#fff",
           border: BORDER,
@@ -297,7 +364,7 @@ export default function Home() {
           <p style={{ fontSize: 13, lineHeight: 1.7, color: "#444", marginBottom: 28, maxWidth: 420 }}>
             TAI is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era — and beyond.
           </p>
-          <div style={{ display: "flex", gap: 0 }}>
+          <div className="hero-btns" style={{ display: "flex", gap: 0 }}>
             <Link href="/theory" style={{
               display: "inline-block", padding: "12px 24px",
               background: "#111", color: "#fff",
@@ -326,7 +393,7 @@ export default function Home() {
         </div>
 
         {/* Bottom-right label */}
-        <div style={{
+        <div id="hero-bottom-label" style={{
           position: "absolute", bottom: 0, right: 0,
           borderTop: BORDER, borderLeft: BORDER,
           padding: "10px 16px",
@@ -337,27 +404,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Mobile sim strip — shown only on mobile below hero */}
+      <div id="mobile-sim-strip" style={{ display: "none", overflowX: "auto", borderBottom: BORDER }}>
+        {SIMS.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            onClick={() => setActiveSim(s.id)}
+            style={{
+              flexShrink: 0, padding: "12px 16px",
+              borderRight: BORDER,
+              background: activeSim === s.id ? "#111" : "#fff",
+              color: activeSim === s.id ? "#fff" : "#111",
+              fontSize: 9, letterSpacing: "0.1em", cursor: "pointer",
+              fontFamily: "'Chakra Petch', monospace",
+            }}
+          >{s.label}</button>
+        ))}
+      </div>
+
       {/* ══════════════════════════════════════════
           SECTION 1 — The Law (multi-canvas + text)
           3 columns: canvas | canvas | text
       ══════════════════════════════════════════ */}
-      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderBottom: BORDER }}>
+      <section id="section-law" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", borderBottom: BORDER }}>
         {/* Canvas 1 */}
-        <div style={{ borderRight: BORDER, height: 480 }}>
+        <div className="canvas-col" style={{ borderRight: BORDER, height: 480 }}>
           <div style={{ borderBottom: BORDER, padding: "10px 16px", fontSize: 9, letterSpacing: "0.1em", color: "#666" }}>
             REACTION-DIFFUSION · TURING PATTERNS
           </div>
           <AsciiCanvas sim="reaction-diffusion" style={{ width: "100%", height: "calc(100% - 37px)" }} />
         </div>
         {/* Canvas 2 */}
-        <div style={{ borderRight: BORDER, height: 480 }}>
+        <div className="canvas-col" style={{ borderRight: BORDER, height: 480 }}>
           <div style={{ borderBottom: BORDER, padding: "10px 16px", fontSize: 9, letterSpacing: "0.1em", color: "#666" }}>
             REGULATORY NETWORK · FEEDBACK DYNAMICS
           </div>
           <AsciiCanvas sim="network" style={{ width: "100%", height: "calc(100% - 37px)" }} />
         </div>
         {/* Text panel */}
-        <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div className="text-col" style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>
             ASHBY'S LAW OF REQUISITE VARIETY
           </p>
@@ -395,9 +481,9 @@ export default function Home() {
           SECTION 2 — Eight Domains
           Header row + 4×2 grid
       ══════════════════════════════════════════ */}
-      <section style={{ borderBottom: BORDER }}>
+      <section id="section-domains" style={{ borderBottom: BORDER }}>
         {/* Header */}
-        <div style={{
+        <div className="header-grid" style={{
           display: "grid", gridTemplateColumns: "1fr 1fr",
           borderBottom: BORDER,
         }}>
@@ -415,7 +501,7 @@ export default function Home() {
         </div>
 
         {/* 4×2 domain grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+        <div className="domain-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
           {DOMAINS.map((d, i) => (
             <div
               key={d.label}
@@ -442,9 +528,9 @@ export default function Home() {
           SECTION 3 — Compute 2030 Feature
           2 columns: multi-canvas left | text right
       ══════════════════════════════════════════ */}
-      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: BORDER, minHeight: 520 }}>
+      <section id="section-compute" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: BORDER, minHeight: 520 }}>
         {/* Left: stacked canvases */}
-        <div style={{ borderRight: BORDER, display: "grid", gridTemplateRows: "1fr 1fr" }}>
+        <div className="canvas-col" style={{ borderRight: BORDER, display: "grid", gridTemplateRows: "1fr 1fr" }}>
           <div style={{ borderBottom: BORDER }}>
             <div style={{ borderBottom: BORDER, padding: "10px 16px", fontSize: 9, letterSpacing: "0.1em", color: "#666" }}>
               LORENZ ATTRACTOR · DETERMINISTIC CHAOS
@@ -460,7 +546,7 @@ export default function Home() {
         </div>
 
         {/* Right: text */}
-        <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div className="text-col" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>
             FEATURED PUBLICATION · JUNE 2026
           </p>
@@ -478,7 +564,7 @@ export default function Home() {
               "The question is not whether compute will reshape the world. The question is whether our regulatory institutions will have sufficient variety to absorb the disturbances it introduces."
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, marginBottom: 28 }}>
+          <div className="scenario-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, marginBottom: 28 }}>
             {[
               { n: "01", title: "Concentrated Dominance", desc: "State-backed monopoly on frontier compute" },
               { n: "02", title: "Multilateral Fragmentation", desc: "Competing national compute blocs" },
@@ -516,12 +602,12 @@ export default function Home() {
           SECTION 4 — Research Programs
           Header + 2×2 grid
       ══════════════════════════════════════════ */}
-      <section style={{ borderBottom: BORDER }}>
-        <div style={{ borderBottom: BORDER, padding: "32px 40px" }}>
+      <section id="section-programs" style={{ borderBottom: BORDER }}>
+        <div className="programs-header" style={{ borderBottom: BORDER, padding: "32px 40px" }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 8 }}>RESEARCH PROGRAMS</p>
           <h2 style={{ fontSize: 26, fontWeight: 700 }}>Four programs. One framework.</h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div className="programs-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {RESEARCH_PROGRAMS.map((p, i) => (
             <div key={p.id} style={{
               padding: "36px 40px",
@@ -547,9 +633,9 @@ export default function Home() {
           SECTION 5 — Independence + Boids canvas
           2 columns: text left | canvas right
       ══════════════════════════════════════════ */}
-      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: BORDER, minHeight: 400 }}>
+      <section id="section-independence" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: BORDER, minHeight: 400 }}>
         {/* Text */}
-        <div style={{ padding: "56px 48px", borderRight: BORDER, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div className="text-col" style={{ padding: "56px 48px", borderRight: BORDER, display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>
             INDEPENDENCE POLICY
           </p>
@@ -559,7 +645,7 @@ export default function Home() {
           <p style={{ fontSize: 13, lineHeight: 1.75, color: "#444", marginBottom: 20 }}>
             TAI accepts no funding from technology companies, governments, or any entity with a direct commercial interest in the compute transition. Our independence is structural, not aspirational.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+          <div className="checklist-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
             {[
               "No corporate funding",
               "No government contracts",
@@ -580,7 +666,7 @@ export default function Home() {
           </div>
         </div>
         {/* Canvas */}
-        <div>
+        <div className="canvas-col">
           <div style={{ borderBottom: BORDER, padding: "10px 16px", fontSize: 9, letterSpacing: "0.1em", color: "#666" }}>
             BOIDS FLOCKING · DISTRIBUTED CONTROL
           </div>
@@ -591,8 +677,8 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           SECTION 6 — Newsletter
       ══════════════════════════════════════════ */}
-      <section style={{ borderBottom: BORDER }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      <section id="section-newsletter" style={{ borderBottom: BORDER }}>
+        <div className="newsletter-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           <div style={{ padding: "48px 40px", borderRight: BORDER }}>
             <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>NEWSLETTER</p>
             <h2 style={{ fontSize: 24, fontWeight: 700, marginBottom: 16 }}>
@@ -603,7 +689,7 @@ export default function Home() {
             </p>
           </div>
           <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <div style={{ display: "flex", gap: 0 }}>
+            <div className="email-row" style={{ display: "flex", gap: 0 }}>
               <input
                 type="email"
                 placeholder="your@institution.edu"
@@ -637,8 +723,8 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           FOOTER
       ══════════════════════════════════════════ */}
-      <footer style={{ borderTop: BORDER }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", borderBottom: BORDER }}>
+      <footer id="home-footer" style={{ borderTop: BORDER }}>
+        <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", borderBottom: BORDER }}>
           {/* Brand */}
           <div style={{ padding: "40px 32px", borderRight: BORDER }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>

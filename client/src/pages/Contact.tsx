@@ -38,10 +38,24 @@ export default function Contact() {
 
   return (
     <Layout>
+      <style>{`
+        @media (max-width: 640px) {
+          .ct-2col { grid-template-columns: 1fr !important; }
+          .ct-canvas { display: none !important; }
+          .ct-text { padding: 32px 20px !important; border-right: none !important; }
+          .ct-header-pad { padding: 40px 20px 32px !important; border-right: none !important; }
+          .ct-selector { flex-wrap: wrap !important; }
+          .ct-selector button { flex: none !important; width: 50% !important; border-right: none !important; border-bottom: 1px solid #111 !important; }
+          .ct-cta { flex-direction: column !important; }
+          .ct-cta a { border-right: none !important; border-bottom: 1px solid #111 !important; }
+          .ct-newsletter-form { flex-direction: column !important; }
+          .ct-newsletter-form input { border-right: 1px solid #111 !important; }
+        }
+      `}</style>
       {/* PAGE HEADER */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "64px 48px 56px", borderRight: B }}>
+        <div className="ct-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ct-header-pad" style={{ padding: "64px 48px 56px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>CONTACT</p>
             <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
               Contact
@@ -50,7 +64,7 @@ export default function Contact() {
               TAI welcomes inquiries from researchers, policymakers, journalists, and members of the public. We respond to all substantive inquiries, typically within five business days.
             </p>
           </div>
-          <div style={{ position: "relative", minHeight: 280 }}>
+          <div className="ct-canvas" style={{ position: "relative", minHeight: 280 }}>
             <AsciiCanvas sim="cellular" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>CELLULAR AUTOMATON · EMERGENT ORDER</span>
@@ -61,7 +75,7 @@ export default function Contact() {
 
       {/* INQUIRY TYPE SELECTOR */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="ct-selector" style={{ display: "flex" }}>
           {INQUIRY_TYPES.map((type, i) => (
             <button key={type.id} onClick={() => setSelectedType(type.id)} style={{
               flex: 1,
@@ -84,9 +98,9 @@ export default function Contact() {
 
       {/* CONTACT FORM + DIRECT CONTACTS */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div className="ct-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {/* Form */}
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+          <div className="ct-text" style={{ padding: "56px 48px", borderRight: B }}>
             {submitted ? (
               <div>
                 <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 20, marginTop: 0 }}>MESSAGE RECEIVED</p>
@@ -149,7 +163,7 @@ export default function Contact() {
           </div>
 
           {/* Direct contacts */}
-          <div style={{ padding: "56px 48px" }}>
+          <div className="ct-text" style={{ padding: "56px 48px" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 24, marginTop: 0 }}>DIRECT CONTACTS</p>
             {[
               { label: "RESEARCH INQUIRIES", email: "research@theashbyinstitute.org", desc: "Questions about research programs, publications, and theoretical framework." },
@@ -185,8 +199,8 @@ export default function Contact() {
 
       {/* NEWSLETTER */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-          <div style={{ padding: "56px 48px", borderRight: B }}>
+        <div className="ct-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="ct-text" style={{ padding: "56px 48px", borderRight: B }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>NEWSLETTER</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
               Research updates and working papers.
@@ -197,7 +211,7 @@ export default function Contact() {
             {newsletterSubmitted ? (
               <p style={{ fontFamily: FONT, fontSize: 12, color: SLATE }}>Subscribed. Thank you.</p>
             ) : (
-              <form onSubmit={handleNewsletter} style={{ display: "flex", gap: 0 }}>
+              <form onSubmit={handleNewsletter} className="ct-newsletter-form" style={{ display: "flex", gap: 0 }}>
                 <input
                   type="email" required value={newsletterEmail} onChange={e => setNewsletterEmail(e.target.value)}
                   placeholder="your@institution.edu"
@@ -218,7 +232,7 @@ export default function Contact() {
               </form>
             )}
           </div>
-          <div style={{ position: "relative", minHeight: 300 }}>
+          <div className="ct-canvas" style={{ position: "relative", minHeight: 300 }}>
             <AsciiCanvas sim="boids" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} />
             <div style={{ position: "absolute", bottom: 20, left: 24 }}>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: "#888" }}>BOIDS FLOCKING · DISTRIBUTED CONTROL</span>
@@ -229,7 +243,7 @@ export default function Contact() {
 
       {/* CTA */}
       <section style={{ borderBottom: B }}>
-        <div style={{ display: "flex" }}>
+        <div className="ct-cta" style={{ display: "flex" }}>
           <Link href="/research" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
