@@ -56,7 +56,7 @@ export default function About() {
               About
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              The Ashby Institute is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era. We are not affiliated with any technology company, government, or commercial interest.
+              The Ashby Institute is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era. Our independence is structural: no funder influences our research, and all funding is publicly disclosed.
             </p>
           </div>
           <div className="ab-canvas" style={{ position: "relative", minHeight: 280 }}>
@@ -83,7 +83,7 @@ export default function About() {
               TAI was founded on a simple premise: W. Ross Ashby's Law of Requisite Variety — and its corollary, the Good Regulator Theorem — are the most important analytical tools available for understanding governance in complex systems. They are not metaphors. They are mathematical results.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              The Institute exists to apply these tools rigorously, to produce research that is structurally grounded rather than politically convenient, and to do so without commercial entanglement.
+              The Institute exists to apply these tools rigorously, to produce research that is structurally grounded rather than politically convenient, and to do so with full independence — enforced through structural firewalls, not categorical exclusions.
             </p>
           </div>
           <div className="ab-text" style={{ padding: "56px 48px" }}>
@@ -121,19 +121,22 @@ export default function About() {
           <div className="ab-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>INDEPENDENCE POLICY</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
-              No Affiliations.<br />No Exceptions.
+              Independence by<br />Conduct, Not Exclusion.
             </h2>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
+              TAI accepts funding from a broad range of sources — including technology companies, governments, and foundations — subject to strict structural conditions. No funder, regardless of origin, may influence our research agenda, review findings before publication, or condition outputs on any commercial or policy outcome.
+            </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 24px", fontWeight: 300 }}>
-              TAI accepts no funding from technology companies, governments, or any entity with a direct commercial interest in the compute transition. Our independence is structural, not aspirational.
+              TAI's Research Council has sole authority over what the institute publishes. All funders and funding amounts are disclosed publicly. No funder holds a governance role.
             </p>
             <div className="ab-policy-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
               {[
-                "No corporate funding",
-                "No government contracts",
+                "Unrestricted grants only",
+                "Full public disclosure",
+                "No pre-publication review",
+                "No governance roles for funders",
                 "Open access publications",
-                "Public governance records",
-                "No consulting arrangements",
-                "Disclosed funding sources",
+                "Research Council authority",
               ].map((item, i) => (
                 <div key={item} style={{ padding: "10px 0", borderBottom: i < 4 ? B : "none", borderRight: i % 2 === 0 ? B : "none", paddingRight: i % 2 === 0 ? 20 : 0, paddingLeft: i % 2 !== 0 ? 20 : 0 }}>
                   <span style={{ fontFamily: FONT, fontSize: 9, color: SLATE, marginRight: 8 }}>—</span>
