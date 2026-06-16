@@ -197,8 +197,8 @@ export default function Research() {
           {CROSS_DOMAINS.map((d, i) => (
             <div key={d.label} style={{
               padding: "32px 32px",
-              borderRight: i % 4 !== 3 ? B : "none",
-              borderBottom: i < 4 ? B : "none",
+              borderRight: B,
+              borderBottom: B,
               transition: "background 0.15s",
             }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#F9F9F9"}

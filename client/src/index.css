@@ -135,6 +135,11 @@ html, body {
     grid-template-columns: 1fr !important;
   }
 
+  /* Cross-domain grid: 2 columns on mobile — override the collapse above */
+  .res-domains.res-domains {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
   /* Remove right borders that create phantom columns */
   [style*="borderRight"] {
     border-right: none !important;
@@ -144,6 +149,11 @@ html, body {
 @media (max-width: 768px) {
   .tai-grid-3,
   .tai-grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Cross-domain grid: 2 columns on tablet */
+  .res-domains {
     grid-template-columns: 1fr 1fr !important;
   }
 
