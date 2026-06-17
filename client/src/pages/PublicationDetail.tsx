@@ -384,14 +384,15 @@ export default function PublicationDetail() {
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <a href="#" style={{
+                <a href={pub.pdfUrl ?? "#"} target={pub.pdfUrl ? "_blank" : undefined} rel="noopener noreferrer" style={{
                   display: "block", fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em",
                   color: "#fff", background: "#111", padding: "12px 16px",
                   textDecoration: "none", textAlign: "center", transition: "background 0.15s",
+                  opacity: pub.pdfUrl ? 1 : 0.4, cursor: pub.pdfUrl ? "pointer" : "default",
                 }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = SLATE}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
-                >DOWNLOAD PDF →</a>
+                  onMouseEnter={e => { if (pub.pdfUrl) (e.currentTarget as HTMLElement).style.background = SLATE; }}
+                  onMouseLeave={e => { if (pub.pdfUrl) (e.currentTarget as HTMLElement).style.background = "#111"; }}
+                >{pub.pdfUrl ? "DOWNLOAD PDF →" : "PDF FORTHCOMING"}</a>
                 <button type="button" onClick={() => navigator.clipboard.writeText(window.location.href)} style={{
                   display: "block", fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em",
                   color: "#111", background: "#fff", padding: "12px 16px", border: B,

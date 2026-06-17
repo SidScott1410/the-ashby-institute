@@ -40,10 +40,12 @@ export interface Publication {
   sim: SimType;
   body: Section[];
   related: string[]; // slugs
+  pdfUrl?: string; // direct link to PDF
 }
 
 export const PUBLICATIONS_DATA: Publication[] = [
   {
+    pdfUrl: "https://d36hbw14aib5lz.cloudfront.net/310419663029926944/ji6TxRc3bzmkZeKBk9w454/compute2030-report-v7_f1a77784.pdf",
     slug: "compute-2030-four-scenarios",
     series: "compute-2030",
     seriesLabel: "COMPUTE 2030",
