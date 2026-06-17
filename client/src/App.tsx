@@ -12,11 +12,14 @@ import Events from "./pages/Events";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Theory from "./pages/Theory";
-import PublicationDetail from "./pages/PublicationDetail";
+import PublicationDetail from "@/pages/PublicationDetail";
+import ScrollToTop from "./components/ScrollToTop";
 
 function Router() {
   return (
-    <Switch>
+    <>
+      <ScrollToTop />
+      <Switch>
       <Route path="/" component={Home} />
       <Route path="/research" component={Research} />
       <Route path="/theory" component={Theory} />
@@ -29,6 +32,7 @@ function Router() {
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
+    </>
   );
 }
 
