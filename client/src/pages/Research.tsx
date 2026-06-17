@@ -223,7 +223,7 @@ export default function Research() {
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
               TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law — examining how regulatory variety must evolve to match the variety of AI-native compute systems.
             </p>
-            <a href="https://theashbyinstitute.manus.space" target="_blank" rel="noopener noreferrer"
+            <a href="https://d36hbw14aib5lz.cloudfront.net/310419663029926944/ji6TxRc3bzmkZeKBk9w454/compute2030-report-v7_f1a77784.pdf" target="_blank" rel="noopener noreferrer"
               style={{
                 display: "inline-block",
                 fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em",
