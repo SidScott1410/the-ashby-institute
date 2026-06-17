@@ -60,7 +60,7 @@ export default function About() {
               About
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              The Ashby Institute is an independent nonprofit research organization applying Ashby's Law of Requisite Variety to the defining governance problems of the compute era. Our independence is structural: no funder influences our research, and all funding is publicly disclosed.
+              The Ashby Institute is an independent nonprofit research organization. We study why AI oversight systems fail — and how to build ones that don't. Our independence is structural: no funder influences our research, and all funding is publicly disclosed.
             </p>
           </div>
           <div className="ab-canvas" style={{ position: "relative", minHeight: 280 }}>
@@ -81,13 +81,13 @@ export default function About() {
               Why TAI Exists
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The compute transition is the most consequential structural shift of our era. Within a decade, AI-native compute systems will reshape every sector of the global economy — and the governance institutions designed to manage that transition will either have sufficient variety to do so, or they will not.
+              The compute transition is the most consequential structural shift of our era. AI oversight systems are failing — not because regulators lack intent, but because they lack variety. Within a decade, AI-native compute systems will reshape every sector of the global economy, and the governance institutions designed to manage that transition will either have sufficient variety to do so, or they will not.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              TAI was founded on a simple premise: W. Ross Ashby's Law of Requisite Variety — and its corollary, the Good Regulator Theorem — are the most important analytical tools available for understanding governance in complex systems. They are not metaphors. They are mathematical results.
+              TAI was founded on a simple premise: W. Ross Ashby's Law of Requisite Variety — and its corollary, the Good Regulator Theorem — are the most precise tools available for diagnosing why oversight systems fail. They are not metaphors. They are mathematical results that predict, with structural precision, when a regulator will succeed and when it will not.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              The Institute exists to apply these tools rigorously, to produce research that is structurally grounded rather than politically convenient, and to do so with full independence — enforced through structural firewalls, not categorical exclusions.
+              The Institute exists to apply these tools rigorously — to produce research that explains why AI oversight fails, what it would take to fix it, and how to build regulatory institutions with sufficient variety to govern the systems they are meant to control. That work requires full independence, enforced through structural firewalls, not categorical exclusions.
             </p>
           </div>
           <div className="ab-text" style={{ padding: "56px 48px" }}>
