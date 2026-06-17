@@ -45,7 +45,7 @@ export interface Publication {
 
 export const PUBLICATIONS_DATA: Publication[] = [
   {
-    pdfUrl: "https://d36hbw14aib5lz.cloudfront.net/310419663029926944/ji6TxRc3bzmkZeKBk9w454/compute2030-report-v7_f1a77784.pdf",
+    pdfUrl: "/manus-storage/compute2030_final_67600b52.pdf",
     slug: "compute-2030-four-scenarios",
     series: "compute-2030",
     seriesLabel: "COMPUTE 2030",
