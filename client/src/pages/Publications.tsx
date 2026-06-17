@@ -134,7 +134,7 @@ export default function Publications() {
                 "The question is not whether compute will reshape the world. The question is whether our regulatory institutions will have sufficient variety to absorb the disturbances it introduces."
               </p>
             </blockquote>
-            <a href="/manus-storage/compute2030_final_67600b52.pdf" target="_blank" rel="noopener noreferrer"
+            <a href="/manus-storage/compute2030_final_v2_68dc0ed4.pdf" target="_blank" rel="noopener noreferrer"
               style={{ display: "inline-block", fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "14px 24px", textDecoration: "none", transition: "background 0.15s" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#2C3E6B"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
@@ -258,7 +258,7 @@ export default function Publications() {
       {/* CTA */}
       <section style={{ borderBottom: B }}>
         <div className="pub-cta" style={{ display: "flex" }}>
-          <a href="/manus-storage/compute2030_final_67600b52.pdf" target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
+          <a href="/manus-storage/compute2030_final_v2_68dc0ed4.pdf" target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "20px 32px", textDecoration: "none", borderRight: B, transition: "background 0.15s" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#2C3E6B"}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
           >READ COMPUTE 2030 →</a>
