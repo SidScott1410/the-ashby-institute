@@ -54,8 +54,8 @@ export function LogoMark({ size = 32, color = SLATE, iconOnly = false }: LogoMar
       >
         {/* Outer circle */}
         <circle cx="20" cy="20" r="17" stroke={color} strokeWidth="2" fill="none" />
-        {/* Inner concentric circle */}
-        <circle cx="20" cy="20" r="12" stroke={color} strokeWidth="1.5" fill="none" />
+        {/* Inner concentric circle — smaller radius for clear visible gap */}
+        <circle cx="20" cy="20" r="10" stroke={color} strokeWidth="1.5" fill="none" />
         {/* Small upward triangle at 12 o'clock, sitting on the outer circle */}
         <polygon points="20,1.5 22.5,6.5 17.5,6.5" fill={color} />
       </svg>
