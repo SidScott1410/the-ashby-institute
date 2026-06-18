@@ -19,7 +19,7 @@ const PROGRAMS = [
     duration: "12 months",
     cycle: "Annual",
     applications: "Open September",
-    description: "TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original research applying Ashby's Law to a governance domain of their choosing — AI alignment, compute governance, financial regulation, democratic institutions, or any other domain where variety deficits are consequential.",
+    description: "TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original research applying Ashby's Law to a governance domain of their choosing: AI alignment, compute governance, financial regulation, democratic institutions, or any other domain where variety deficits are consequential.",
     eligibility: [
       "Doctoral candidates or recent PhDs (within 5 years of degree)",
       "Demonstrated capacity for formal theoretical work",
@@ -83,7 +83,7 @@ const PROGRAMS = [
     duration: "6 months",
     cycle: "Biannual",
     applications: "Open January and July",
-    description: "Designed for practitioners — government officials, regulatory staff, legislative analysts, and policy professionals — who wish to develop a deeper analytical foundation for their work on AI governance, compute policy, or related domains. Residents work alongside TAI researchers and produce a policy-relevant output applying TAI's analytical framework to a specific governance problem.",
+    description: "Designed for practitioners (government officials, regulatory staff, legislative analysts, and policy professionals) who wish to develop a deeper analytical foundation for their work on AI governance, compute policy, or related domains. Residents work alongside TAI researchers and produce a policy-relevant output applying TAI's analytical framework to a specific governance problem.",
     eligibility: [
       "Current or recent government officials, regulatory staff, or legislative analysts",
       "Policy professionals working on AI governance, compute policy, or related domains",
@@ -242,7 +242,7 @@ export default function Fellows() {
               The Ashby Symposium
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The annual gathering of TAI's research community. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Symposium is TAI's primary intellectual event — a working conference, not a showcase.
+              The annual gathering of TAI's research community. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Symposium is TAI's primary intellectual event: a working conference, not a showcase.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
               Inaugural Ashby Symposium: Washington D.C., November 2026.

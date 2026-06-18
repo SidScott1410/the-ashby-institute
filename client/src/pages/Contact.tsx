@@ -13,7 +13,7 @@ const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
 const INQUIRY_TYPES = [
   { id: "research", label: "RESEARCH INQUIRY", desc: "Questions about TAI's research programs, publications, or theoretical framework." },
-  { id: "fellowship", label: "FELLOWSHIP", desc: "Expressions of interest in TAI's fellowship programs — Ashby, Senior, Visiting, or Policy Residency." },
+  { id: "fellowship", label: "FELLOWSHIP", desc: "Expressions of interest in TAI's fellowship programs: Ashby, Senior, Visiting, or Policy Residency." },
   { id: "media", label: "MEDIA & PRESS", desc: "Press inquiries, interview requests, and media access." },
   { id: "events", label: "EVENTS", desc: "Event attendance, speaker inquiries, and partnership proposals." },
 ];

@@ -38,7 +38,7 @@ const PROGRAMS = [
     equation: "∀S ∃R: R ≡ model(S)",
     sim: "reaction-diffusion" as const,
     simLabel: "REACTION-DIFFUSION · TURING PATTERNS",
-    description: "Foundational research applying Ashby's Law and the Good Regulator Theorem across domains beyond compute — AI alignment, critical infrastructure, financial systems, democratic governance, and biological systems. The theorem is a universal constraint on the possibility of control.",
+    description: "Foundational research applying Ashby's Law and the Good Regulator Theorem across domains beyond compute: AI alignment, critical infrastructure, financial systems, democratic governance, and biological systems. The theorem is a universal constraint on the possibility of control.",
     outputs: ["GRT Lecture Series", "Cross-Domain Working Papers", "Alignment Research Notes", "Mathematical Foundations"],
     domains: ["AI Alignment", "Systems Theory", "Control Theory"],
   },
@@ -48,18 +48,18 @@ const PROGRAMS = [
     equation: "V(equity) ≥ V(harm)",
     sim: "boids" as const,
     simLabel: "BOIDS FLOCKING · DISTRIBUTED CONTROL",
-    description: "Distributional analysis of the compute transition. Examines who gains and loses variety — adaptive capacity — as AI-native systems reshape access to economic opportunity, information, and political agency. Produces the annual Compute Equity Index.",
+    description: "Distributional analysis of the compute transition. Examines who gains and loses variety (adaptive capacity) as AI-native systems reshape access to economic opportunity, information, and political agency. Produces the annual Compute Equity Index.",
     outputs: ["Compute Equity Index", "Distributional Analysis Reports", "Civil Society Briefings", "Policy Recommendations"],
     domains: ["Equity", "Political Economy", "Civil Society"],
   },
 ];
 
 const CROSS_DOMAINS = [
-  { label: "AI Alignment", eq: "V(AI) ≫ V(H)", desc: "Superintelligent systems exceed human regulatory variety — the alignment problem is a variety-matching failure." },
+  { label: "AI Alignment", eq: "V(AI) ≫ V(H)", desc: "Superintelligent systems exceed human regulatory variety; the alignment problem is a variety-matching failure." },
   { label: "Cybersecurity", eq: "V(attacker) > V(defender)", desc: "Persistent insecurity arises when attackers hold more variety than defenders. Defense requires modeling the full attack surface." },
   { label: "Autonomous Systems", eq: "V(env) ≤ V(controller)", desc: "Autonomous vehicles, drones, and robotic systems fail when environmental variety exceeds controller model fidelity." },
   { label: "Critical Infrastructure", eq: "V(grid) ≤ V(operator)", desc: "Power grid failures and supply chain collapse follow from insufficient operator variety relative to system complexity." },
-  { label: "Financial Systems", eq: "V(market) > V(regulator)", desc: "Systemic financial risk accumulates when market complexity exceeds regulatory model capacity — 2008 as a GRT failure." },
+  { label: "Financial Systems", eq: "V(market) > V(regulator)", desc: "Systemic financial risk accumulates when market complexity exceeds regulatory model capacity (2008 as a GRT failure)." },
   { label: "Healthcare Systems", eq: "V(pathogen) > V(response)", desc: "Pandemic response failures are variety failures: public health systems that cannot model novel pathogens cannot control them." },
   { label: "Democratic Governance", eq: "V(polity) > V(institution)", desc: "Democratic institutions that cannot model the full variety of their polity lose legitimacy and effectiveness." },
   { label: "Climate & Earth Systems", eq: "V(climate) > V(policy)", desc: "Climate governance fails when policy instruments lack the variety to absorb the complexity of Earth system feedbacks." },
@@ -221,7 +221,7 @@ export default function Research() {
               Compute 2030
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
-              TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law — examining how regulatory variety must evolve to match the variety of AI-native compute systems.
+              TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law, examining how regulatory variety must evolve to match the variety of AI-native compute systems.
             </p>
             <a href="/manus-storage/compute2030_final_v3_969057f2.pdf" target="_blank" rel="noopener noreferrer"
               style={{

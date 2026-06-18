@@ -87,7 +87,7 @@ export default function About() {
               TAI was founded on a simple premise: W. Ross Ashby's Law of Requisite Variety — and its corollary, the Good Regulator Theorem — are the most precise tools available for diagnosing why oversight systems fail. They are not metaphors. They are mathematical results that predict, with structural precision, when a regulator will succeed and when it will not.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              The Institute exists to apply these tools rigorously — to produce research that explains why AI oversight fails, what it would take to fix it, and how to build regulatory institutions with sufficient variety to govern the systems they are meant to control. That work requires full independence, enforced through structural firewalls, not categorical exclusions.
+              The Institute exists to apply these tools rigorously, producing research that explains why AI oversight fails, what it would take to fix it, and how to build regulatory institutions with sufficient variety to govern the systems they are meant to control. That work requires full independence, enforced through structural firewalls, not categorical exclusions.
             </p>
           </div>
           <div className="ab-text" style={{ padding: "56px 48px" }}>
@@ -96,7 +96,7 @@ export default function About() {
               <p style={{ fontFamily: FONT, fontSize: "2rem", fontWeight: 700, color: SLATE, margin: "0 0 8px", letterSpacing: "-0.01em" }}>V(R) ≥ V(D)</p>
               <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: "0 0 20px", letterSpacing: "0.1em" }}>ASHBY'S LAW OF REQUISITE VARIETY · 1956</p>
               <p style={{ fontFamily: FONT, fontSize: 12, color: "#555", lineHeight: 1.7, margin: 0, fontWeight: 300 }}>
-                The variety of a regulator must be at least as great as the variety of the disturbances it is designed to control. This is not a design principle — it is a mathematical constraint.
+                The variety of a regulator must be at least as great as the variety of the disturbances it is designed to control. This is not a design principle; it is a mathematical constraint.
               </p>
             </div>
             <Link href="/theory" style={{
@@ -128,7 +128,7 @@ export default function About() {
               Independence by<br />Conduct, Not Exclusion.
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              TAI accepts funding from a broad range of sources — including technology companies, governments, and foundations — subject to strict structural conditions. No funder, regardless of origin, may influence our research agenda, review findings before publication, or condition outputs on any commercial or policy outcome.
+              TAI accepts funding from a broad range of sources, including technology companies, governments, and foundations, subject to strict structural conditions. No funder, regardless of origin, may influence our research agenda, review findings before publication, or condition outputs on any commercial or policy outcome.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 24px", fontWeight: 300 }}>
               TAI's Research Council has sole authority over what the institute publishes. All funders and funding amounts are disclosed publicly. No funder holds a governance role.
@@ -167,10 +167,10 @@ export default function About() {
               Fund the research<br />the field needs.
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#aaa", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The governance of advanced compute systems is one of the most consequential and least-funded research problems of our era. TAI exists to close that gap — with rigorous, structurally grounded work that no commercially entangled institution can produce.
+              The governance of advanced compute systems is one of the most consequential and least-funded research problems of our era. TAI exists to close that gap, through rigorous, structurally grounded work that no commercially entangled institution can produce.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#aaa", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
-              We welcome support from foundations, technology companies, governments, and individuals who share that priority — under a single, non-negotiable condition: your funding does not purchase influence over our findings.
+              We welcome support from foundations, technology companies, governments, and individuals who share that priority, under a single, non-negotiable condition: your funding does not purchase influence over our findings.
             </p>
             <Link href="/contact" style={{
               display: "inline-block",
@@ -201,7 +201,7 @@ export default function About() {
               {
                 num: "03",
                 title: "Funder Briefings",
-                body: "Annual private briefings on TAI's research agenda and findings — the same briefings available to all funders, with no preferential access to unpublished work.",
+                body: "Annual private briefings on TAI's research agenda and findings, the same briefings available to all funders, with no preferential access to unpublished work.",
               },
             ].map((item, i) => (
               <div key={item.num} style={{ display: "grid", gridTemplateColumns: "36px 1fr", gap: 16, paddingBottom: i < 2 ? 24 : 0, marginBottom: i < 2 ? 24 : 0, borderBottom: i < 2 ? "1px solid #222" : "none" }}>
@@ -334,7 +334,7 @@ export default function About() {
               Small. Rigorous. Independent.
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              TAI operates with a deliberately small permanent staff. Research is conducted primarily by fellows — Ashby Fellows, Senior Research Fellows, Visiting Fellows, and Policy Residents — supported by a lean operational team.
+              TAI operates with a deliberately small permanent staff. Research is conducted primarily by fellows: Ashby Fellows, Senior Research Fellows, Visiting Fellows, and Policy Residents, supported by a lean operational team.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
               This model keeps overhead low, maintains intellectual flexibility, and ensures that TAI's research agenda is driven by the questions that matter, not by the institutional imperatives of a large organization.

@@ -488,7 +488,7 @@ export default function Home() {
           </div>
           <div style={{ padding: "32px 40px", display: "flex", alignItems: "center" }}>
             <p style={{ fontSize: 13, lineHeight: 1.75, color: "#444", maxWidth: 480 }}>
-              Ashby's Law is not a metaphor. It is a precise mathematical constraint that applies wherever a regulator must absorb disturbances — from AI alignment to democratic governance, from financial systems to climate modeling.
+              Ashby's Law is not a metaphor. It is a precise mathematical constraint that applies wherever a regulator must absorb disturbances: from AI alignment to democratic governance, from financial systems to climate modeling.
             </p>
           </div>
         </div>
@@ -550,7 +550,7 @@ export default function Home() {
             TAI INAUGURAL REPORT SERIES
           </p>
           <p style={{ fontSize: 14, lineHeight: 1.75, color: "#444", marginBottom: 20 }}>
-            Four scenarios for the compute transition — the period in which AI-native compute orchestration reshapes the global economy, governance, and strategic balance.
+            Four scenarios for the compute transition, the period in which AI-native compute orchestration reshapes the global economy, governance, and strategic balance.
           </p>
           <div style={{ borderLeft: `3px solid ${SLATE}`, paddingLeft: 20, marginBottom: 28 }}>
             <p style={{ fontSize: 12, lineHeight: 1.7, color: "#555", fontStyle: "italic" }}>

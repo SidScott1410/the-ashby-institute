@@ -13,7 +13,7 @@ const SLATE = "#2C3E6B";
 const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
 const DOMAINS = [
-  { label: "AI Alignment", eq: "V(AI) ≫ V(H)", desc: "A superintelligent AI operates with variety vastly exceeding human regulatory capacity. Human oversight hits a mathematical ceiling — not a political one." },
+  { label: "AI Alignment", eq: "V(AI) ≫ V(H)", desc: "A superintelligent AI operates with variety vastly exceeding human regulatory capacity. Human oversight hits a mathematical ceiling, not a political one." },
   { label: "Compute Governance", eq: "V(compute) > V(regulator)", desc: "AI-native compute systems generate variety faster than regulatory institutions can model. Governance deficits are structurally inevitable without deliberate design." },
   { label: "Financial Systems", eq: "V(market) > V(regulator)", desc: "The 2008 crisis was a GRT failure: regulators lacked the internal model complexity to anticipate the variety of structured credit instruments." },
   { label: "Cybersecurity", eq: "V(attacker) > V(defender)", desc: "Persistent insecurity is a variety problem. Defenders who cannot model the full attack surface cannot defend it." },
@@ -91,7 +91,7 @@ export default function Theory() {
               Only variety can absorb variety. A regulator can reduce the variety of outcomes in a system only to the extent that it possesses at least as much variety as the disturbances it must absorb.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              This is not a design principle — it is a mathematical constraint. It applies to thermostats, immune systems, financial regulators, AI oversight architectures, and democratic institutions alike.
+              This is not a design principle; it is a mathematical constraint. It applies to thermostats, immune systems, financial regulators, AI oversight architectures, and democratic institutions alike.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 12, color: "#888", fontStyle: "italic", margin: 0 }}>
               "Only variety can destroy variety." — W. Ross Ashby, 1956
@@ -116,10 +116,10 @@ export default function Theory() {
               </p>
             </div>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The GRT is a stronger result than Ashby's Law. It proves that any regulator achieving good regulation must, necessarily, contain an internal model of the regulated system. Model-building is not optional — it is the mechanism of regulation itself.
+              The GRT is a stronger result than Ashby's Law. It proves that any regulator achieving good regulation must, necessarily, contain an internal model of the regulated system. Model-building is not optional; it is the mechanism of regulation itself.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              A regulatory body that lacks an adequate internal model of the system it governs cannot regulate it effectively — not because of insufficient effort or political will, but because of a structural impossibility.
+              A regulatory body that lacks an adequate internal model of the system it governs cannot regulate it effectively, not because of insufficient effort or political will, but because of a structural impossibility.
             </p>
           </div>
 
@@ -157,10 +157,10 @@ export default function Theory() {
               </p>
             </div>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              As AI systems grow in capability, their variety — the range of states they can occupy and outputs they can produce — will exceed the variety of any human oversight system. This is not a prediction about malevolence. It is a mathematical constraint on the possibility of control.
+              As AI systems grow in capability, their variety (the range of states they can occupy and outputs they can produce) will exceed the variety of any human oversight system. This is not a prediction about malevolence. It is a mathematical constraint on the possibility of control.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              The GRT adds a second constraint: any system that successfully aligns an AI must model that AI. As AI systems become more capable, the model required for alignment becomes more complex — potentially as complex as the AI itself.
+              The GRT adds a second constraint: any system that successfully aligns an AI must model that AI. As AI systems become more capable, the model required for alignment becomes more complex, potentially as complex as the AI itself.
             </p>
           </div>
         </div>
