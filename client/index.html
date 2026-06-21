@@ -9,14 +9,47 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="The Ashby Institute" />
     <meta property="og:description" content="Independent research on compute governance and AI regulatory design. The Ashby Institute applies Ashby's Law of Requisite Variety to understand why AI oversight systems fail — and how to build ones that don't." />
-    <meta property="og:image" content="/manus-storage/tai-og-v5_757c777d.png" />
+    <meta property="og:image" content="https://theashbyinstitute.org/og-image.png" />
+    <meta property="og:url" content="https://theashbyinstitute.org" />
     <meta property="og:site_name" content="The Ashby Institute" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="The Ashby Institute" />
     <meta name="twitter:description" content="Independent research on compute governance and AI regulatory design. The Ashby Institute applies Ashby's Law of Requisite Variety to understand why AI oversight systems fail — and how to build ones that don't." />
-    <meta name="twitter:image" content="/manus-storage/tai-og-v5_757c777d.png" />
+    <meta name="twitter:image" content="https://theashbyinstitute.org/og-image.png" />
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://theashbyinstitute.org" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="The Ashby Institute" />
+    <meta name="keywords" content="compute governance, AI regulation, Ashby's Law, Requisite Variety, AI oversight, regulatory design, compute policy, AI governance" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ResearchOrganization",
+      "name": "The Ashby Institute",
+      "url": "https://theashbyinstitute.org",
+      "logo": "https://theashbyinstitute.org/favicon.svg",
+      "description": "Independent research on compute governance and AI regulatory design. The Ashby Institute applies Ashby's Law of Requisite Variety to understand why AI oversight systems fail and how to build ones that don't.",
+      "foundingDate": "2024",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "research@theashbyinstitute.org",
+        "contactType": "Research Inquiries"
+      },
+      "knowsAbout": [
+        "Compute Governance",
+        "AI Regulatory Design",
+        "Ashby's Law of Requisite Variety",
+        "Good Regulator Theorem",
+        "AI Oversight",
+        "Compute Policy",
+        "AI Alignment",
+        "Cybernetics"
+      ]
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -24,9 +57,118 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+
+    <!-- Static content for crawlers, AI agents, and bots that do not execute JavaScript -->
+    <noscript>
+      <style>
+        .static-site { font-family: Georgia, serif; max-width: 900px; margin: 0 auto; padding: 40px 24px; color: #111; line-height: 1.7; }
+        .static-site h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .static-site h2 { font-size: 1.6rem; margin-top: 2.5rem; border-top: 1px solid #ddd; padding-top: 1.5rem; }
+        .static-site h3 { font-size: 1.2rem; margin-top: 1.5rem; color: #2C3E6B; }
+        .static-site p { margin-bottom: 1rem; }
+        .static-site nav a { margin-right: 16px; color: #2C3E6B; text-decoration: none; }
+        .static-site .section { margin-bottom: 3rem; }
+      </style>
+      <div class="static-site">
+        <header>
+          <h1>The Ashby Institute</h1>
+          <nav>
+            <a href="/">Home</a>
+            <a href="/theory">Theory</a>
+            <a href="/research">Research</a>
+            <a href="/publications">Publications</a>
+            <a href="/fellows">Fellows</a>
+            <a href="/events">Events</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+          </nav>
+        </header>
+
+        <div class="section">
+          <h2>About The Ashby Institute</h2>
+          <p>The Ashby Institute is an independent research organization focused on compute governance and AI regulatory design. We study why AI oversight systems fail and how to build ones that don't.</p>
+          <p>Our work is grounded in a single structural insight: Ashby's Law of Requisite Variety. A regulator that cannot model the system it governs cannot govern it. This is not a metaphor. It is a precise mathematical constraint that applies wherever a regulator must absorb disturbances — from AI alignment to democratic governance, from financial systems to climate modeling.</p>
+          <p>TAI was founded on the premise that the governance failures of the AI era are not political failures. They are structural failures. Regulatory bodies that cannot model the variety of frontier AI systems are structurally guaranteed to under-control them. Understanding this is the first step toward fixing it.</p>
+          <p>Contact: research@theashbyinstitute.org</p>
+        </div>
+
+        <div class="section">
+          <h2>The Theory: Ashby's Law of Requisite Variety</h2>
+          <p>"Only variety can destroy variety." — W. Ross Ashby, 1956</p>
+          <p>Ashby's Law of Requisite Variety is a theorem in cybernetics and control theory, first formalized by W. Ross Ashby in his 1956 work <em>An Introduction to Cybernetics</em>. The law states that a controller must possess at least as much variety (the number of distinguishable states it can occupy) as the system it seeks to regulate. If the controller's variety is less than the system's variety, control is structurally impossible — not merely difficult, but mathematically precluded.</p>
+          <p>The Good Regulator Theorem (Conant &amp; Ashby, 1970) extends this: every good regulator of a system must be a model of that system. A regulator that does not model its system cannot be a good regulator of it.</p>
+          <h3>Applied to AI Governance</h3>
+          <p>Frontier AI systems are high-variety systems. Their behavioral state space is vast and rapidly expanding. Oversight regimes built on low-variety instruments — static rules, periodic audits, a handful of evaluation benchmarks — are structurally guaranteed to under-control them. The governance question becomes an engineering question: where does the requisite variety come from?</p>
+          <p>TAI's answer: from compute thresholds, continuous monitoring, adaptive regulation, and institutional designs that can model the systems they govern. This is the core thesis of all TAI research.</p>
+          <h3>Key Equations</h3>
+          <p>V(R) ≥ V(D) — The regulator's variety must be at least as great as the disturbance variety it must absorb.</p>
+          <p>∀S ∃R: R ≡ model(S) — For every system S, every good regulator R must be a model of S.</p>
+        </div>
+
+        <div class="section">
+          <h2>Research Programs</h2>
+          <h3>Program I: Compute Futures — V(R) ≥ V(D)</h3>
+          <p>Scenario analysis and structural forecasting for the compute transition. Examines how shifts in AI-native compute orchestration reshape economic structures, labor markets, and the distribution of productive capacity across geographies and institutions. Outputs include the Compute 2030 Annual Report, Scenario Modeling Working Papers, Compute Transition Indicators, and Quarterly Structural Briefings.</p>
+          <h3>Program II: Compute Governance — R ⊇ model(S)</h3>
+          <p>Institutional design for compute regulation. Applies the Good Regulator Theorem to governance architectures: a regulatory body that cannot model the system it governs cannot govern it. Produces frameworks for compute access policy, export controls, and international coordination mechanisms. Outputs include the Compute Governance Annual, Policy Briefs, Treaty Framework Analysis, and Regulatory Design Templates.</p>
+          <h3>Program III: The Good Regulator Project — ∀S ∃R: R ≡ model(S)</h3>
+          <p>Foundational research applying Ashby's Law and the Good Regulator Theorem across domains beyond compute: AI alignment, critical infrastructure, financial systems, democratic governance, and biological systems. The theorem is a universal constraint on the possibility of control. Outputs include the GRT Lecture Series, Cross-Domain Working Papers, Alignment Research Notes, and Mathematical Foundations.</p>
+          <h3>Program IV: Compute &amp; Society — V(equity) ≥ V(harm)</h3>
+          <p>Distributional analysis of the compute transition. Examines who gains and loses variety (adaptive capacity) as AI-native systems reshape access to economic opportunity, information, and political agency. Produces the annual Compute Equity Index. Outputs include the Compute Equity Index, Distributional Analysis Reports, Civil Society Briefings, and Policy Recommendations.</p>
+          <h3>Cross-Domain Applications</h3>
+          <p><strong>AI Alignment:</strong> Superintelligent systems exceed human regulatory variety; the alignment problem is a variety-matching failure.</p>
+          <p><strong>Cybersecurity:</strong> Persistent insecurity arises when attackers hold more variety than defenders. Defense requires modeling the full attack surface.</p>
+          <p><strong>Autonomous Systems:</strong> Autonomous vehicles, drones, and robotic systems fail when environmental variety exceeds controller model fidelity.</p>
+          <p><strong>Critical Infrastructure:</strong> Power grid failures and supply chain collapse follow from insufficient operator variety relative to system complexity.</p>
+          <p><strong>Financial Systems:</strong> Systemic financial risk accumulates when market complexity exceeds regulatory model capacity (2008 as a GRT failure).</p>
+          <p><strong>Healthcare Systems:</strong> Pandemic response failures are variety failures: public health systems that cannot model novel pathogens cannot control them.</p>
+          <p><strong>Democratic Governance:</strong> Democratic institutions that cannot model the full variety of their polity lose legitimacy and effectiveness.</p>
+          <p><strong>Climate &amp; Earth Systems:</strong> Climate governance fails when policy instruments lack the variety to absorb the complexity of Earth system feedbacks.</p>
+        </div>
+
+        <div class="section">
+          <h2>Publications</h2>
+          <h3>Compute 2030: Four Scenarios for the Compute Transition (June 2026)</h3>
+          <p>TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law, examining how regulatory variety must evolve to match the variety of AI-native compute systems.</p>
+          <p>The four scenarios are: Distributed Sovereignty (compute capacity distributed across multiple competing state and non-state actors); Concentrated Control (a small number of actors — state or corporate — control the majority of frontier compute); Regulatory Fragmentation (jurisdictional divergence produces incompatible governance regimes); and Cooperative Architecture (international coordination produces shared governance frameworks with sufficient variety to match the systems they govern).</p>
+          <p>Download: <a href="/manus-storage/compute2030_final_v3_969057f2.pdf">Compute 2030 Report (PDF)</a></p>
+        </div>
+
+        <div class="section">
+          <h2>Fellowship Programs</h2>
+          <h3>The Ashby Fellowship (12 months, annual)</h3>
+          <p>TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original research applying Ashby's Law to a governance domain of their choosing: AI alignment, compute governance, financial regulation, democratic institutions, or any other domain where variety deficits are consequential. Applications open September. Eligibility: doctoral candidates or recent PhDs within 5 years of degree.</p>
+          <h3>Senior Research Fellows (3 years, renewable)</h3>
+          <p>Established scholars and practitioners who contribute to TAI's research programs on a part-time basis. Senior Fellows bring deep expertise in one or more of TAI's eight application domains and contribute through publications, workshops, and advisory engagement.</p>
+          <h3>Visiting Fellows (3–6 months, rolling)</h3>
+          <p>Short-term residencies for researchers who wish to spend a concentrated period working on a specific project in residence at TAI. The program supports focused research that benefits from TAI's analytical framework and network.</p>
+          <h3>Policy Residency (6 months, biannual)</h3>
+          <p>Designed for practitioners (government officials, regulatory staff, legislative analysts, and policy professionals) who wish to develop a deeper analytical foundation for their work on AI governance, compute policy, or related domains.</p>
+          <p>Fellowship inquiries: fellows@theashbyinstitute.org</p>
+        </div>
+
+        <div class="section">
+          <h2>Events</h2>
+          <h3>The Ashby Symposium — November 2026, Washington D.C.</h3>
+          <p>TAI's annual research symposium. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Symposium is TAI's primary intellectual event: a working conference, not a showcase. Attendance by invitation.</p>
+          <h3>Constitutional Period Workshop — Quarterly 2026–2027, Washington D.C. / London</h3>
+          <p>A series of closed workshops examining the governance challenges of the 'constitutional period,' the window in which foundational decisions about AI compute governance are being made. Each workshop focuses on a specific governance domain: compute access, export controls, international coordination, or institutional design.</p>
+          <h3>GRT Lecture Series — Annual, Washington D.C. / Online</h3>
+          <p>The annual Good Regulator Theorem Lecture, delivered by a distinguished scholar or practitioner. The lecture develops the formal implications of the GRT for a specific contemporary governance problem. Lectures are recorded and published. Open to the public. Inaugural 2026.</p>
+        </div>
+
+        <div class="section">
+          <h2>Independence &amp; Funding</h2>
+          <p>TAI accepts no funding from commercial AI developers, compute infrastructure providers, or any entity with a direct financial interest in the outcome of AI governance decisions. This is not a preference. It is a structural requirement: a research institute that models AI governance systems cannot be funded by the systems it models without compromising the independence of its analysis.</p>
+          <p>TAI is funded by philanthropic foundations, academic institutions, and individual donors with no commercial AI interests. All funders receive the same briefings available to all funders — no privileged access, no influence over research direction.</p>
+          <p>All TAI research is published open access. No paywalls. No embargoes. The work is intended to be used.</p>
+        </div>
+
+        <footer>
+          <p>The Ashby Institute | theashbyinstitute.org | research@theashbyinstitute.org</p>
+        </footer>
+      </div>
+    </noscript>
+
   </body>
 </html>
