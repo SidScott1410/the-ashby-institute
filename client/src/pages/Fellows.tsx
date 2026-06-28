@@ -237,6 +237,51 @@ export default function Fellows() {
         </div>
       </section>
 
+      {/* ── APPLICATIONS STATUS ── */}
+      <section style={{ borderBottom: B }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "none" }}>
+          <div style={{ padding: "48px 48px", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: "0 0 16px" }}>COHORT STATUS · 2026–2027</p>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+              <span style={{
+                display: "inline-block",
+                width: 8, height: 8,
+                borderRadius: "50%",
+                background: "#2C6B3E",
+                boxShadow: "0 0 0 3px rgba(44,107,62,0.2)",
+                flexShrink: 0,
+              }} />
+              <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#2C6B3E", letterSpacing: "0.06em" }}>APPLICATIONS OPEN</span>
+            </div>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 12px", fontWeight: 300 }}>
+              TAI is now accepting applications for its inaugural 2026–2027 cohort. We are recruiting across all fellowship tracks: Ashby Fellows, Senior Research Fellows, and Policy Residents.
+            </p>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
+              Cohort announcements will be made on a rolling basis. Early applications are encouraged.
+            </p>
+          </div>
+          <div style={{ padding: "48px 48px" }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: "0 0 16px" }}>KEY DATES</p>
+            {[
+              { label: "Applications Open", date: "Now" },
+              { label: "Rolling Review Begins", date: "August 2026" },
+              { label: "Cohort Announced", date: "September 2026" },
+              { label: "Fellowship Begins", date: "October 2026" },
+              { label: "Mission Alignment Conference", date: "November 2026" },
+            ].map((item, i) => (
+              <div key={i} style={{
+                display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                padding: "12px 0",
+                borderBottom: i < 4 ? "1px solid #e5e5e5" : "none",
+              }}>
+                <span style={{ fontFamily: FONT, fontSize: 11, color: "#333", fontWeight: 300 }}>{item.label}</span>
+                <span style={{ fontFamily: FONT, fontSize: 10, color: item.date === "Now" ? "#2C6B3E" : SLATE, fontWeight: item.date === "Now" ? 700 : 400, letterSpacing: "0.06em" }}>{item.date}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section style={{ borderBottom: B }}>
         <div className="fellows-cta" style={{ display: "flex" }}>
