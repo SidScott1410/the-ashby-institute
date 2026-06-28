@@ -10,22 +10,6 @@ const B = "1px solid #111";
 const SLATE = "#2C3E6B";
 const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
-const BOARD = [
-  { name: "To Be Announced", role: "Board Chair", affiliation: "TBA" },
-  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
-  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
-  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
-  { name: "To Be Announced", role: "Board Member", affiliation: "TBA" },
-];
-
-const SAC = [
-  { name: "To Be Announced", role: "SAC Member", domain: "AI Alignment" },
-  { name: "To Be Announced", role: "SAC Member", domain: "Compute Governance" },
-  { name: "To Be Announced", role: "SAC Member", domain: "Financial Systems" },
-  { name: "To Be Announced", role: "SAC Member", domain: "Democratic Governance" },
-  { name: "To Be Announced", role: "SAC Member", domain: "Critical Infrastructure" },
-  { name: "To Be Announced", role: "SAC Member", domain: "Systems Theory" },
-];
 
 export default function About() {
   return (
@@ -287,43 +271,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* GOVERNANCE: BOARD */}
-      <section style={{ borderBottom: B }}>
-        <div className="ab-header-row" style={{ borderBottom: B, padding: "40px 48px" }}>
-          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>GOVERNANCE · BOARD OF DIRECTORS</p>
-        </div>
-        <div className="ab-board" style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)" }}>
-          {BOARD.map((member, i) => (
-            <div key={i} style={{ padding: "32px 28px", borderRight: i < 4 ? B : "none" }}>
-              <div style={{ width: 40, height: 40, border: B, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: FONT, fontSize: 8, color: "#888" }}>TBA</span>
-              </div>
-              <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#111", margin: "0 0 4px" }}>{member.name}</p>
-              <p style={{ fontFamily: FONT, fontSize: 9, color: SLATE, margin: "0 0 4px" }}>{member.role}</p>
-              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, fontWeight: 300 }}>{member.affiliation}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* GOVERNANCE: SAC */}
-      <section style={{ borderBottom: B }}>
-        <div className="ab-header-row" style={{ borderBottom: B, padding: "40px 48px" }}>
-          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>GOVERNANCE · SCIENTIFIC ADVISORY COUNCIL</p>
-        </div>
-        <div className="ab-sac" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
-          {SAC.map((member, i) => (
-            <div key={i} style={{ padding: "32px 36px", borderRight: i % 3 !== 2 ? B : "none", borderBottom: i < 3 ? B : "none" }}>
-              <div style={{ width: 40, height: 40, border: B, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: FONT, fontSize: 8, color: "#888" }}>TBA</span>
-              </div>
-              <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#111", margin: "0 0 4px" }}>{member.name}</p>
-              <p style={{ fontFamily: FONT, fontSize: 9, color: SLATE, margin: "0 0 4px" }}>{member.role}</p>
-              <p style={{ fontFamily: FONT, fontSize: 9, color: "#888", margin: 0, fontWeight: 300 }}>{member.domain}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* STAFFING MODEL */}
       <section style={{ borderBottom: B }}>

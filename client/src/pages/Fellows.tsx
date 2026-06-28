@@ -202,32 +202,8 @@ export default function Fellows() {
         </section>
       ))}
 
-      {/* ── CURRENT FELLOWS ── */}
-      <section style={{ borderBottom: B }}>
-        <div className="fellows-header-row" style={{ borderBottom: B, padding: "40px 48px" }}>
-          <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>INAUGURAL COHORT · 2026–2027</p>
-        </div>
-        <div className="fellows-cohort" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <div key={i} style={{
-              padding: "40px 40px",
-              borderRight: i % 3 !== 2 ? B : "none",
-              borderBottom: i < 3 ? B : "none",
-            }}>
-              <div style={{ width: 48, height: 48, border: B, marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: FONT, fontSize: 9, color: "#888" }}>TBA</span>
-              </div>
-              <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 600, color: "#111", margin: "0 0 4px" }}>To Be Announced</p>
-              <p style={{ fontFamily: FONT, fontSize: 10, color: SLATE, margin: "0 0 8px" }}>Ashby Fellow 2026–2027</p>
-              <p style={{ fontFamily: FONT, fontSize: 11, color: "#888", margin: 0, fontWeight: 300, lineHeight: 1.6 }}>
-                TAI is currently recruiting its inaugural cohort. Announcements forthcoming.
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ── ASHBY SYMPOSIUM ── */}
+      {/* ── MISSION ALIGNMENT CONFERENCE ── */}
       <section style={{ borderBottom: B }}>
         <div className="fellows-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           <div className="fellows-canvas" style={{ position: "relative", minHeight: 400, borderRight: B }}>
@@ -239,13 +215,13 @@ export default function Fellows() {
           <div className="fellows-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>ANNUAL EVENT</p>
             <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.05 }}>
-              The Ashby Symposium
+              Mission Alignment
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The annual gathering of TAI's research community. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Symposium is TAI's primary intellectual event: a working conference, not a showcase.
+              The annual gathering of TAI's research community. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Mission Alignment Conference is TAI's primary intellectual event: a working conference, not a showcase.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
-              Inaugural Ashby Symposium: Washington D.C., November 2026.
+              Inaugural Mission Alignment Conference: Washington D.C., November 2026.
             </p>
             <Link href="/events" style={{
               display: "inline-block",

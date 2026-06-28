@@ -12,11 +12,11 @@ const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
 const EVENTS = [
   {
-    type: "ANNUAL SYMPOSIUM",
-    title: "The Ashby Symposium",
+  type: "ANNUAL CONFERENCE",
+  title: "Mission Alignment Conference",
     date: "NOVEMBER 2026",
     location: "Washington, D.C.",
-    description: "TAI's annual research symposium. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Symposium is TAI's primary intellectual event: a working conference, not a showcase. Attendance by invitation.",
+    description: "TAI's annual research conference. Fellows present work in progress, receive structured feedback, and engage with invited scholars and practitioners. The Mission Alignment Conference is TAI's primary intellectual event: a working conference, not a showcase. Attendance by invitation.",
     format: "Two-day working conference",
     audience: "TAI fellows, invited scholars, policy professionals",
     status: "UPCOMING",
@@ -65,7 +65,7 @@ export default function Events() {
               Events
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              TAI convenes three types of events: an annual symposium for the research community, a quarterly workshop series for policy professionals, and an annual public lecture. All events are designed to advance rigorous structural analysis, not to showcase or promote.
+              TAI convenes three types of events: an annual conference for the research community, a quarterly workshop series for policy professionals, and an annual public lecture. All events are designed to advance rigorous structural analysis, not to showcase or promote.
             </p>
           </div>
           <div className="ev-canvas" style={{ position: "relative", minHeight: 280 }}>
