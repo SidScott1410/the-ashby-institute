@@ -370,7 +370,7 @@ export default function Home() {
             >
               THE THEORY
             </Link>
-            <a href="/manus-storage/compute2030_final_v3_969057f2.pdf" target="_blank" rel="noopener noreferrer" style={{
+            <a href="/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf" target="_blank" rel="noopener noreferrer" style={{
               display: "inline-block", padding: "12px 24px",
               background: "#fff", color: "#111",
               fontSize: 10, letterSpacing: "0.12em",
@@ -575,7 +575,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <a href="/manus-storage/compute2030_final_v3_969057f2.pdf" target="_blank" rel="noopener noreferrer" style={{
+          <a href="/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf" target="_blank" rel="noopener noreferrer" style={{
             display: "inline-block", padding: "12px 24px",
             background: "#111", color: "#fff",
             fontSize: 10, letterSpacing: "0.12em",
