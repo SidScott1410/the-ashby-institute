@@ -45,6 +45,84 @@ export interface Publication {
 
 export const PUBLICATIONS_DATA: Publication[] = [
   {
+    pdfUrl: "/manus-storage/via_negativa_arxiv_25faf71a.pdf",
+    slug: "via-negativa",
+    series: "working-papers",
+    seriesLabel: "WORKING PAPER",
+    type: "Working Paper",
+    date: "July 2026",
+    dateISO: "2026-07-01",
+    title: "Via Negativa: The AI Economy by Elimination",
+    subtitle: "Forecasting by elimination against six physical constraints.",
+    authors: [
+      { name: "Sidney Scott", role: "The Ashby Institute", initials: "SS" },
+    ],
+    abstract: "This memorandum forecasts the AI economy by elimination rather than projection. For each question it enumerates the candidate answers, tests each against six hard constraints, and computes the gap between what a candidate requires and what the binding constraint permits, in orders of magnitude. The core memorandum resolves the five root uncertainties, the ten questions of the economic-transformation domain, and the fifteen highest-leverage branch questions across compute, data, models, labor, agents, software, and the physical world -- thirty questions in all, at full depth. The constraints prove decisive and consistent, and the surviving answers compose into one finding: as intelligence commoditizes, value migrates to whatever intelligence cannot make abundant.",
+    keyFindings: [
+      "As intelligence commoditizes, value migrates to whatever intelligence cannot make abundant -- the Residual Ratio.",
+      "The Residual Ratio rose roughly 990-fold from 2020 to 2026, measured in a companion note.",
+      "Reliability, not capability, remains the binding constraint on AI agents through 2027.",
+      "On 31 December 2027, the best generally available AI model's METR 80%-reliability task-completion time horizon is under eight hours.",
+      "By 31 December 2027, the combined market value of the three leading HBM makers exceeds the combined valuation of the two leading frontier labs.",
+    ],
+    pages: 30,
+    docNumber: "TAI-WP-2026-02",
+    program: "Compute Governance",
+    tags: ["AI Economy", "Compute", "Forecasting", "Via Negativa", "Residual Ratio", "Agent Reliability"],
+    readingTime: 45,
+    sim: "cellular",
+    body: [
+      {
+        id: "abstract",
+        heading: "Abstract",
+        content: [
+          "This memorandum forecasts the AI economy by elimination rather than projection. For each question it enumerates the candidate answers, tests each against six hard constraints, and computes the gap between what a candidate requires and what the binding constraint permits, in orders of magnitude.",
+          "The core memorandum resolves the five root uncertainties, the ten questions of the economic-transformation domain, and the fifteen highest-leverage branch questions across compute, data, models, labor, agents, software, and the physical world -- thirty questions in all, at full depth.",
+          "The constraints prove decisive and consistent, and the surviving answers compose into one finding: as intelligence commoditizes, value migrates to whatever intelligence cannot make abundant. We name this ratio the Residual Ratio and, in a companion note, measure it rising roughly 990-fold from 2020 to 2026.",
+          "Every verdict carries a test matrix, computed eliminations, a scenario band with a probability, and a falsification signpost, so the document is auditable and reversible rather than rhetorical.",
+        ],
+        blockquote: "\"Superintelligence may or may not arrive on schedule; the electricity bill, the memory, and the trust will arrive regardless.\"",
+      },
+      {
+        id: "method",
+        heading: "Method: The Six Immovables",
+        content: [
+          "The via negativa method does not project. It eliminates. For each question, every candidate answer is tested against six constraints that are not negotiable on the relevant time horizon: physics (thermodynamics, speed of light, materials science), capital (available investment, cost of capital, return requirements), infrastructure (grid capacity, fab throughput, logistics), institutions (regulatory capacity, legal doctrine, political economy), human factors (trust, adoption curves, skill formation), and time (the gap between what is needed and what can be built).",
+          "A candidate answer survives only if it does not require violating any of the six. The gap between what a candidate requires and what the binding constraint permits is computed in orders of magnitude -- the Residual Ratio for that question.",
+          "This approach has a structural advantage over projection: it is falsifiable by construction. Each surviving answer comes with a signpost -- an observable that, if triggered, would move the verdict. The register below tracks all thirteen signposts on a published schedule.",
+        ],
+        blockquote: "\"The Residual Ratio: the ratio of what intelligence requires to what the binding constraint permits. Rising 990-fold from 2020 to 2026.\"",
+      },
+      {
+        id: "the-call",
+        heading: "The Call",
+        content: [
+          "ONE DATED, FALSIFIABLE PREDICTION -- P APPROX 0.60",
+          "Reliability, not capability, remains the binding constraint on AI agents through 2027. On 31 December 2027, the best generally available AI model's METR 80%-reliability task-completion time horizon is under eight hours.",
+          "Adjudicated on METR's public time-horizon leaderboard. Falsified if, on or before 31 December 2027, any generally available model posts an 80%-reliability horizon of eight hours or more. The 80% horizon, not the widely cited 50% horizon, is the standard, because it is the level at which work can actually be delegated.",
+          "Resolves 31 December 2027 | Metric: METR 80% horizon | Falsifies at: 8 hours or more",
+          "Signature bet: By 31 December 2027 the combined market value of the three leading high-bandwidth-memory makers exceeds the combined valuation of the two leading frontier labs. Value accruing to the complement rather than the intelligence.",
+        ],
+      },
+      {
+        id: "signpost-register",
+        heading: "The Live Signpost Register",
+        content: [
+          "Every prediction is operationalized as a tracked trigger. A forecast that cannot fail is not a forecast. These are the observables that would move each verdict, checked on a schedule.",
+        ],
+      },
+      {
+        id: "citation",
+        heading: "Citation",
+        content: [
+          "Scott, Sidney. \"Via Negativa: The AI Economy by Elimination.\" The Ashby Institute, 2026. arXiv:XXXX.XXXXX.",
+          "Published by The Ashby Institute. This memorandum is analysis, not investment advice. Forward-looking statements are uncertain and may prove wrong; that is the purpose of the register above.",
+        ],
+      },
+    ],
+    related: ["compute-2030-four-scenarios"],
+  },
+  {
     pdfUrl: "/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf",
     slug: "compute-2030-four-scenarios",
     series: "compute-2030",

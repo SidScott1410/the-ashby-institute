@@ -309,53 +309,118 @@ export default function PublicationDetail() {
           )}
 
           {/* Article sections */}
-          {pub.body.map((section) => (
-            <section key={section.id} id={section.id} style={{ marginBottom: 48 }}>
-              <h2 style={{
-                fontFamily: FONT,
-                fontSize: "clamp(1.1rem, 2vw, 1.35rem)",
-                fontWeight: 700, color: "#111",
-                margin: "0 0 24px",
-                letterSpacing: "-0.01em",
-                paddingBottom: 12,
-                borderBottom: B,
-              }}>
-                {section.heading}
-              </h2>
-              {section.content.map((para, pi) => (
-                <p key={pi} style={{
-                  fontFamily: BODY_FONT, fontSize: 14, color: "#222",
-                  lineHeight: 1.9, margin: "0 0 20px",
-                }}>
-                  {para}
-                </p>
-              ))}
-              {section.blockquote && (
-                <blockquote style={{
-                  borderLeft: `3px solid ${SLATE}`,
-                  paddingLeft: 24,
-                  margin: "28px 0",
-                  fontStyle: "italic",
-                }}>
-                  <p style={{ fontFamily: BODY_FONT, fontSize: 14, color: "#444", lineHeight: 1.75, margin: 0 }}>
-                    {section.blockquote}
+          {pub.body.map((section) => {
+            // Special render: The Call box
+            if (section.id === "the-call") {
+              const [label, headline, test, facts, bet] = section.content;
+              return (
+                <section key={section.id} id={section.id} style={{ marginBottom: 48 }}>
+                  <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.1rem, 2vw, 1.35rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.01em", paddingBottom: 12, borderBottom: B }}>
+                    {section.heading}
+                  </h2>
+                  <div style={{ border: `2px solid ${SLATE}`, padding: "32px", background: "#F4F6FB" }}>
+                    <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.18em", color: SLATE, margin: "0 0 16px" }}>{label}</p>
+                    <p style={{ fontFamily: FONT, fontSize: "clamp(1rem, 1.8vw, 1.2rem)", fontWeight: 700, color: "#111", lineHeight: 1.5, margin: "0 0 20px" }}>{headline}</p>
+                    <p style={{ fontFamily: BODY_FONT, fontSize: 13, color: "#444", lineHeight: 1.85, margin: "0 0 20px" }}>{test}</p>
+                    <div style={{ borderTop: `1px solid ${SLATE}`, paddingTop: 16, margin: "0 0 20px" }}>
+                      <p style={{ fontFamily: BODY_FONT, fontSize: 11, color: SLATE, margin: 0, letterSpacing: "0.04em" }}>{facts}</p>
+                    </div>
+                    {bet && (
+                      <div style={{ borderLeft: `3px solid ${SLATE}`, paddingLeft: 16 }}>
+                        <p style={{ fontFamily: BODY_FONT, fontSize: 12, color: "#555", margin: 0, fontStyle: "italic", lineHeight: 1.75 }}>{bet}</p>
+                      </div>
+                    )}
+                  </div>
+                </section>
+              );
+            }
+
+            // Special render: Signpost Register table
+            if (section.id === "signpost-register") {
+              const signposts = [
+                { id: "S1",  signpost: "Data wall",              what: "Frontier dataset size vs. Epoch stock; AI-content share of web",  triggers: "Datasets exceed ~100T tokens, or contamination passes ~90% of new pages",  source: "Epoch; Ahrefs",          cadence: "Semiannual" },
+                { id: "S2",  signpost: "Agent reliability",       what: "METR 80% horizon; production single-task success",                 triggers: "80% horizon reaches multi-hour AND production success above 90%",           source: "METR; enterprise data",  cadence: "Quarterly" },
+                { id: "S3",  signpost: "Financing cascade",       what: "AI-linked credit spread; correlated defaults",                    triggers: "Forced refinancing failure at a top-5 buildout, or spread above 150bp",     source: "BIS; issuer filings",    cadence: "Monthly" },
+                { id: "S4",  signpost: "Compute control",         what: "Incumbent accelerator revenue share",                             triggers: "Share falls below ~70% as custom silicon scales",                          source: "Earnings; analysts",     cadence: "Quarterly" },
+                { id: "S5",  signpost: "Model commoditization",   what: "Open-weight vs closed frontier gap; price per token",             triggers: "Open-weight reaches frontier parity, or price decline halts",             source: "Epoch; API price sheets", cadence: "Quarterly" },
+                { id: "S6",  signpost: "Liability regime",        what: "AI-agent liability doctrine and statute",                        triggers: "A bespoke AI-agent liability statute, or ruling shifting liability to developers", source: "Official Journal; case law", cadence: "Semiannual" },
+                { id: "S7",  signpost: "SaaS repricing",          what: "Seat counts; outcome-pricing share; AI-native ARR",               triggers: "Incumbent seats fall >15% YoY, or AI-native ARR growth stalls >50%",       source: "Earnings; private-market", cadence: "Quarterly" },
+                { id: "S8",  signpost: "Humanoid economics",      what: "Unit cost; deployed unit count",                                  triggers: "Build cost below ~$30k AND deployed base above ~100k units",               source: "Manufacturer disclosures", cadence: "Semiannual" },
+                { id: "S9",  signpost: "AV mainstreaming",        what: "Paid rides/week; number of open metros",                         triggers: "Above ~2M weekly rides across 30+ metros, or vision-only unsupervised launch at scale", source: "Operator disclosures", cadence: "Quarterly" },
+                { id: "S10", signpost: "Capital gap",             what: "Attributable AI revenue run-rate vs. Bain path",                  triggers: "Annual AI revenue run-rate above $400B by 2027",                         source: "Earnings; Bain",         cadence: "Quarterly" },
+                { id: "S11", signpost: "Power ceiling",           what: "US interconnection median wait",                                  triggers: "Median wait falls below 3 years",                                        source: "LBNL Queued Up",         cadence: "Annual" },
+                { id: "S12", signpost: "Distributional backlash", what: "Policy: displacement tax, moratoria",                            triggers: "Any G7 AI-displacement tax or deployment moratorium enacted",             source: "Legislative trackers",  cadence: "Quarterly" },
+                { id: "S13", signpost: "The Call",                what: "METR 80%-reliability time horizon",                               triggers: "80% horizon reaches 8 hours by 31 Dec 2027 (falsifies the call)",         source: "METR",                   cadence: "Quarterly" },
+              ];
+              return (
+                <section key={section.id} id={section.id} style={{ marginBottom: 48 }}>
+                  <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.1rem, 2vw, 1.35rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.01em", paddingBottom: 12, borderBottom: B }}>
+                    {section.heading}
+                  </h2>
+                  {section.content.map((para, pi) => (
+                    <p key={pi} style={{ fontFamily: BODY_FONT, fontSize: 14, color: "#444", lineHeight: 1.85, margin: "0 0 20px" }}>{para}</p>
+                  ))}
+                  <div style={{ overflowX: "auto" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: BODY_FONT, fontSize: 11 }}>
+                      <thead>
+                        <tr style={{ background: "#111", color: "#fff" }}>
+                          {["ID", "Signpost", "What is measured", "Triggers when", "Source", "Cadence"].map(h => (
+                            <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {signposts.map((row, ri) => (
+                          <tr key={row.id} style={{ background: ri % 2 === 0 ? "#F8F9FC" : "#fff", borderBottom: "1px solid #E5E7EB" }}>
+                            <td style={{ padding: "10px 14px", color: SLATE, fontWeight: 600, whiteSpace: "nowrap" }}>{row.id}</td>
+                            <td style={{ padding: "10px 14px", fontWeight: 600, color: "#111", whiteSpace: "nowrap" }}>{row.signpost}</td>
+                            <td style={{ padding: "10px 14px", color: "#444", lineHeight: 1.5 }}>{row.what}</td>
+                            <td style={{ padding: "10px 14px", color: "#444", lineHeight: 1.5 }}>{row.triggers}</td>
+                            <td style={{ padding: "10px 14px", color: "#666", whiteSpace: "nowrap" }}>{row.source}</td>
+                            <td style={{ padding: "10px 14px", color: "#666", whiteSpace: "nowrap" }}>{row.cadence}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              );
+            }
+
+            // Default render
+            return (
+              <section key={section.id} id={section.id} style={{ marginBottom: 48 }}>
+                <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.1rem, 2vw, 1.35rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", letterSpacing: "-0.01em", paddingBottom: 12, borderBottom: B }}>
+                  {section.heading}
+                </h2>
+                {section.content.map((para, pi) => (
+                  <p key={pi} style={{ fontFamily: BODY_FONT, fontSize: 14, color: "#222", lineHeight: 1.9, margin: "0 0 20px" }}>
+                    {para}
                   </p>
-                </blockquote>
-              )}
-            </section>
-          ))}
+                ))}
+                {section.blockquote && (
+                  <blockquote style={{ borderLeft: `3px solid ${SLATE}`, paddingLeft: 24, margin: "28px 0", fontStyle: "italic" }}>
+                    <p style={{ fontFamily: BODY_FONT, fontSize: 14, color: "#444", lineHeight: 1.75, margin: 0 }}>
+                      {section.blockquote}
+                    </p>
+                  </blockquote>
+                )}
+              </section>
+            );
+          })}
 
           {/* Citation block */}
-          {pub.doi && (
+          {(pub.doi || pub.docNumber) && (
             <div style={{ borderTop: B, paddingTop: 32, marginTop: 16 }}>
               <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: SLATE, margin: "0 0 16px" }}>CITATION</p>
               <div style={{ background: "#F8F8F8", padding: "20px 24px", border: B }}>
                 <p style={{ fontFamily: BODY_FONT, fontSize: 11, color: "#444", lineHeight: 1.8, margin: "0 0 8px" }}>
                   {pub.authors.map(a => a.name).join(", ")},{" "}
                   <em>{pub.title}</em>.{" "}
-                  The Ashby Institute, {pub.docNumber}, {pub.date}.{" "}
-                  DOI:{" "}
-                  <a href={pub.doi} style={{ color: SLATE }}>{pub.doi}</a>
+                  The Ashby Institute, {pub.date}.
+                  {pub.docNumber && <> {pub.docNumber}.</>}
+                  {pub.doi && <> DOI: <a href={pub.doi} style={{ color: SLATE }}>{pub.doi}</a></>}
+                  {!pub.doi && pub.slug === "via-negativa" && <> arXiv:XXXX.XXXXX (preprint).</>}
                 </p>
               </div>
             </div>
