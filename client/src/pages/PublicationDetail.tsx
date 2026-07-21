@@ -637,7 +637,7 @@ export default function PublicationDetail() {
             max-width: 100vw !important;
           }
           article[aria-label="Publication content"] {
-            padding: 28px 16px !important;
+            padding: 28px 16px 72px !important;
             overflow-x: hidden !important;
             box-sizing: border-box !important;
             max-width: 100vw !important;
