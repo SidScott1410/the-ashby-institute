@@ -368,9 +368,12 @@ export default function PublicationDetail() {
                     <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: BODY_FONT, fontSize: 11 }}>
                       <thead>
                         <tr style={{ background: "#111", color: "#fff" }}>
-                          {["ID", "Signpost", "What is measured", "Triggers when", "Source", "Cadence"].map(h => (
-                            <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>{h}</th>
-                          ))}
+                          <th style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>ID</th>
+                          <th style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>Signpost</th>
+                          <th style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>What is measured</th>
+                          <th style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>Triggers when</th>
+                          <th className="sp-col-hide" style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>Source</th>
+                          <th className="sp-col-hide" style={{ padding: "10px 14px", textAlign: "left", fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", fontWeight: 600, whiteSpace: "nowrap" }}>Cadence</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -380,8 +383,8 @@ export default function PublicationDetail() {
                             <td style={{ padding: "10px 14px", fontWeight: 600, color: "#111", whiteSpace: "nowrap" }}>{row.signpost}</td>
                             <td style={{ padding: "10px 14px", color: "#444", lineHeight: 1.5 }}>{row.what}</td>
                             <td style={{ padding: "10px 14px", color: "#444", lineHeight: 1.5 }}>{row.triggers}</td>
-                            <td style={{ padding: "10px 14px", color: "#666", whiteSpace: "nowrap" }}>{row.source}</td>
-                            <td style={{ padding: "10px 14px", color: "#666", whiteSpace: "nowrap" }}>{row.cadence}</td>
+                            <td className="sp-col-hide" style={{ padding: "10px 14px", color: "#666", whiteSpace: "nowrap" }}>{row.source}</td>
+                            <td className="sp-col-hide" style={{ padding: "10px 14px", color: "#666", whiteSpace: "nowrap" }}>{row.cadence}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -564,6 +567,35 @@ export default function PublicationDetail() {
         </div>
       </section>
 
+      {/* Sticky PDF CTA — mobile only */}
+      {pub.pdfUrl && (
+        <a
+          href={pub.pdfUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="sticky-pdf-cta"
+          style={{
+            display: "none", // shown via CSS on mobile
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+            background: "#111",
+            color: "#fff",
+            fontFamily: FONT,
+            fontSize: 10,
+            letterSpacing: "0.14em",
+            padding: "16px 24px",
+            textDecoration: "none",
+            textAlign: "center" as const,
+            borderTop: `2px solid ${SLATE}`,
+          }}
+        >
+          DOWNLOAD PDF →
+        </a>
+      )}
+
       {/* Responsive overrides */}
       <style>{`
         /* Hide swipe hint on desktop, show on mobile via media query */
@@ -657,6 +689,10 @@ export default function PublicationDetail() {
           div[style*="repeat("] {
             grid-template-columns: 1fr !important;
           }
+          /* Hide Source and Cadence columns on mobile */
+          .sp-col-hide { display: none !important; }
+          /* Show sticky PDF download CTA on mobile */
+          .sticky-pdf-cta { display: block !important; }
         }
       `}</style>
     </Layout>
