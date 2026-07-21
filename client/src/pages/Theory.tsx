@@ -11,6 +11,7 @@ import { Link } from "wouter";
 const B = "1px solid #111";
 const SLATE = "#2C3E6B";
 const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const BODY_FONT = "'IBM Plex Mono', monospace";
 
 const DOMAINS = [
   { label: "AI Alignment", eq: "V(AI) ≫ V(H)", desc: "A superintelligent AI operates with variety vastly exceeding human regulatory capacity. Human oversight hits a mathematical ceiling, not a political one." },

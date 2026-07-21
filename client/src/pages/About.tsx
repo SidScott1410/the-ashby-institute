@@ -9,6 +9,7 @@ import { Link } from "wouter";
 const B = "1px solid #111";
 const SLATE = "#2C3E6B";
 const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const BODY_FONT = "'IBM Plex Mono', monospace";
 
 
 export default function About() {

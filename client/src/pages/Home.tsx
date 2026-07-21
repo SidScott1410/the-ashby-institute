@@ -94,7 +94,7 @@ export default function Home() {
   ];
 
   return (
-    <div id="home-root" style={{ fontFamily: "'Chakra Petch', monospace", background: "#fff", color: "#111", overflowX: "hidden" }}>
+    <div id="home-root" style={{ fontFamily: "'IBM Plex Mono', monospace", background: "#fff", color: "#111", overflowX: "hidden" }}>
       <style>{`
         :focus-visible { outline: 2px solid #2C3E6B !important; outline-offset: 2px !important; }
         @media (max-width: 768px) { .desktop-nav { display: none !important; } .hamburger-btn { display: flex !important; } .hamburger-menu { display: block !important; } }

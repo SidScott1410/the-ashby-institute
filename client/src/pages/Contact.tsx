@@ -10,6 +10,7 @@ import { Link } from "wouter";
 const B = "1px solid #111";
 const SLATE = "#2C3E6B";
 const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
+const BODY_FONT = "'IBM Plex Mono', monospace";
 
 const INQUIRY_TYPES = [
   { id: "research", label: "RESEARCH INQUIRY", desc: "Questions about TAI's research programs, publications, or theoretical framework." },

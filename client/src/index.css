@@ -68,9 +68,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Chakra Petch', 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Chakra Petch', 'IBM Plex Mono', monospace;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
