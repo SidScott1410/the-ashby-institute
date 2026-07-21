@@ -592,6 +592,72 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
+          SECTION 3b — Via Negativa Feature
+          2 columns: text left | signpost panel right
+      ══════════════════════════════════════════ */}
+      <section id="section-via-negativa" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: BORDER, minHeight: 480 }}>
+        {/* Left: text */}
+        <div className="text-col" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: BORDER }}>
+          <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>
+            FEATURED WORKING PAPER · JULY 2026
+          </p>
+          <h2 style={{ fontSize: 32, fontWeight: 700, lineHeight: 1.15, marginBottom: 8 }}>
+            Via Negativa
+          </h2>
+          <p style={{ fontSize: 11, color: "#888", letterSpacing: "0.06em", marginBottom: 24 }}>
+            TAI WORKING PAPER SERIES · TAI-WP-2026-02
+          </p>
+          <p style={{ fontSize: 14, lineHeight: 1.75, color: "#444", marginBottom: 20 }}>
+            The AI economy by elimination. Thirty questions on compute, data, models, labor, and the physical world — each forecast by testing every candidate answer against six hard constraints and keeping only what survives.
+          </p>
+          <div style={{ borderLeft: `3px solid ${SLATE}`, paddingLeft: 20, marginBottom: 28 }}>
+            <p style={{ fontSize: 12, lineHeight: 1.7, color: "#555", fontStyle: "italic" }}>
+              "Superintelligence may or may not arrive on schedule; the electricity bill, the memory, and the trust will arrive regardless."
+            </p>
+          </div>
+          <Link href="/publications/via-negativa" style={{
+            display: "inline-block", padding: "12px 24px",
+            background: "#111", color: "#fff",
+            fontSize: 10, letterSpacing: "0.12em",
+            textDecoration: "none", border: BORDER,
+            alignSelf: "flex-start",
+            transition: "background 0.15s",
+          }}
+            onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
+            onMouseLeave={e => (e.currentTarget.style.background = "#111")}
+          >
+            READ THE WORKING PAPER →
+          </Link>
+        </div>
+
+        {/* Right: Six Immovables panel */}
+        <div className="text-col" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <p style={{ fontSize: 9, letterSpacing: "0.14em", color: "#888", marginBottom: 24 }}>SIX IMMOVABLES</p>
+          {[
+            { n: "01", title: "Physics",        desc: "Thermodynamics, speed of light, materials science." },
+            { n: "02", title: "Capital",        desc: "Available investment, cost of capital, return requirements." },
+            { n: "03", title: "Infrastructure", desc: "Grid capacity, fab throughput, logistics." },
+            { n: "04", title: "Institutions",   desc: "Regulatory capacity, legal doctrine, political economy." },
+            { n: "05", title: "Human Factors",  desc: "Trust, adoption curves, skill formation." },
+            { n: "06", title: "Time",           desc: "The gap between what is needed and what can be built." },
+          ].map((s, i) => (
+            <div key={s.n} style={{
+              display: "grid", gridTemplateColumns: "36px 1fr", gap: 16,
+              padding: "14px 0",
+              borderTop: BORDER,
+              borderBottom: i === 5 ? BORDER : "none",
+            }}>
+              <span style={{ fontSize: 9, letterSpacing: "0.08em", color: "rgba(44,62,107,0.45)", paddingTop: 2 }}>{s.n}</span>
+              <div>
+                <p style={{ fontSize: 12, fontWeight: 600, color: "#111", margin: "0 0 3px" }}>{s.title}</p>
+                <p style={{ fontSize: 11, color: "#666", margin: 0, lineHeight: 1.5 }}>{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
           SECTION 4 — Research Programs
           Header + 2×2 grid
       ══════════════════════════════════════════ */}
