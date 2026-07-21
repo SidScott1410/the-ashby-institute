@@ -360,6 +360,10 @@ export default function PublicationDetail() {
                   {section.content.map((para, pi) => (
                     <p key={pi} style={{ fontFamily: BODY_FONT, fontSize: 14, color: "#444", lineHeight: 1.85, margin: "0 0 20px" }}>{para}</p>
                   ))}
+                  <div style={{ marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }} className="signpost-swipe-hint">
+                    <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: SLATE, opacity: 0.7 }}>SWIPE TO SEE FULL TABLE</span>
+                    <span style={{ fontSize: 14, color: SLATE, opacity: 0.7 }}>→</span>
+                  </div>
                   <div style={{ overflowX: "auto" }}>
                     <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: BODY_FONT, fontSize: 11 }}>
                       <thead>
@@ -562,6 +566,10 @@ export default function PublicationDetail() {
 
       {/* Responsive overrides */}
       <style>{`
+        /* Hide swipe hint on desktop, show on mobile via media query */
+        .signpost-swipe-hint {
+          display: none;
+        }
         @media (max-width: 1100px) {
           article[aria-label="Publication content"] {
             padding: 40px 36px !important;
@@ -631,6 +639,10 @@ export default function PublicationDetail() {
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch !important;
             max-width: calc(100vw - 32px) !important;
+          }
+          /* Show swipe hint only on mobile */
+          .signpost-swipe-hint {
+            display: flex !important;
           }
           /* Metadata strip: allow wrapping, reduce padding */
           div[style*="flexShrink: 0"] {
