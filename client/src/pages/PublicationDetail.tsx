@@ -19,7 +19,7 @@ import { PUBLICATIONS_DATA, type Publication, type Author, type Section } from "
 const B = "1px solid #111";
 const SLATE = "#2C3E6B";
 const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
-const BODY_FONT = "'IBM Plex Mono', 'Chakra Petch', monospace";
+const BODY_FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 
 // ─── Table of Contents ────────────────────────────────────────────────────────
 function TableOfContents({ sections, activeId }: { sections: Section[]; activeId: string }) {
