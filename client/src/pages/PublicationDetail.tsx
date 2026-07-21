@@ -575,6 +575,11 @@ export default function PublicationDetail() {
           }
         }
         @media (max-width: 640px) {
+          /* Prevent ALL horizontal overflow on the page */
+          body, #root, .publication-detail-root {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+          }
           /* Single column */
           div[style*="grid-template-columns: 220px"],
           div[style*="grid-template-columns: 1fr 360px"],
@@ -588,9 +593,44 @@ export default function PublicationDetail() {
           div[style*="padding: 56px 48px 48px"] {
             padding: 32px 20px 28px !important;
             border-right: none !important;
+            box-sizing: border-box !important;
+            max-width: 100vw !important;
           }
           article[aria-label="Publication content"] {
-            padding: 32px 20px !important;
+            padding: 28px 16px !important;
+            overflow-x: hidden !important;
+            box-sizing: border-box !important;
+            max-width: 100vw !important;
+            word-break: break-word !important;
+          }
+          /* Abstract and all content boxes: constrain width */
+          article[aria-label="Publication content"] > div,
+          article[aria-label="Publication content"] section {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          /* The Call box: reduce padding, prevent overflow */
+          article[aria-label="Publication content"] section div[style*="border: 2px solid"] {
+            padding: 20px 16px !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          /* Blockquotes: constrain */
+          article[aria-label="Publication content"] blockquote {
+            margin: 20px 0 !important;
+            padding-left: 16px !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+          }
+          /* Abstract box: reduce padding */
+          article[aria-label="Publication content"] > div:first-child {
+            padding: 20px 16px !important;
+          }
+          /* Signpost table: horizontal scroll container */
+          article[aria-label="Publication content"] div[style*="overflowX"] {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            max-width: calc(100vw - 32px) !important;
           }
           /* Metadata strip: allow wrapping, reduce padding */
           div[style*="flexShrink: 0"] {
@@ -600,6 +640,10 @@ export default function PublicationDetail() {
           nav[aria-label="Breadcrumb"] a,
           nav[aria-label="Breadcrumb"] span {
             padding: 10px 14px !important;
+          }
+          /* Related publications: single column */
+          div[style*="repeat("] {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>
