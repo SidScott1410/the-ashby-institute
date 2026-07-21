@@ -133,6 +133,10 @@ export default function Home() {
           #section-compute .text-col { padding: 32px 20px !important; }
           #section-compute .scenario-grid { grid-template-columns: 1fr 1fr !important; }
 
+          /* Section 3b: Via Negativa 2-col → 1-col */
+          #section-via-negativa { grid-template-columns: 1fr !important; }
+          #section-via-negativa .text-col { padding: 32px 20px !important; border-right: none !important; }
+
           /* Section 4: programs 2-col → 1-col */
           #section-programs .programs-grid { grid-template-columns: 1fr !important; }
           #section-programs .programs-grid > div { border-right: none !important; padding: 28px 20px !important; }
