@@ -1,37 +1,4 @@
-# robots.txt — The Ashby Institute
-# https://theashbyinstitute.org
-
-# Allow all crawlers full access to all content
 User-agent: *
 Allow: /
-Disallow: /__manus__/
 
-# Sitemap location
 Sitemap: https://theashbyinstitute.org/sitemap.xml
-
-# Google
-User-agent: Googlebot
-Allow: /
-
-# Bing
-User-agent: Bingbot
-Allow: /
-
-# AI crawlers — allow for citation and discoverability
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: CCBot
-Allow: /
