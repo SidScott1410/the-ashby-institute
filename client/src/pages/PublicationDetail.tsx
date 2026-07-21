@@ -322,6 +322,74 @@ export default function PublicationDetail() {
               }}>
                 {section.heading}
               </h2>
+
+              {/* Special: The Call box */}
+              {section.id === "the-call" && (
+                <div style={{
+                  border: `2px solid ${SLATE}`,
+                  padding: "28px 32px",
+                  marginBottom: 32,
+                  background: "#F4F6FB",
+                }}>
+                  <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.18em", color: SLATE, margin: "0 0 12px" }}>ONE DATED, FALSIFIABLE PREDICTION · P ≈ 0.60</p>
+                  <p style={{ fontFamily: FONT, fontSize: 15, fontWeight: 700, color: "#111", lineHeight: 1.5, margin: "0 0 20px" }}>
+                    Reliability, not capability, remains the binding constraint on AI agents through 2027.
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 0, borderTop: B, marginTop: 16 }}>
+                    {[
+                      { label: "RESOLVES", value: "31 December 2027" },
+                      { label: "METRIC", value: "METR 80% horizon" },
+                      { label: "FALSIFIES AT", value: "8 hours or more" },
+                    ].map(({ label, value }, i, arr) => (
+                      <div key={label} style={{ padding: "12px 20px", borderRight: i < arr.length - 1 ? B : "none", flexShrink: 0 }}>
+                        <p style={{ fontFamily: FONT, fontSize: 7, letterSpacing: "0.14em", color: "#888", margin: "0 0 4px" }}>{label}</p>
+                        <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 600, color: "#111", margin: 0 }}>{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Special: Signpost Register table */}
+              {section.id === "signpost-register" && (
+                <div style={{ overflowX: "auto", marginBottom: 32 }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: FONT }}>
+                    <thead>
+                      <tr style={{ background: "#111", color: "#fff" }}>
+                        {["ID", "Signpost", "Triggers when", "Source", "Cadence"].map(h => (
+                          <th key={h} style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.12em", padding: "10px 14px", textAlign: "left", fontWeight: 600, whiteSpace: "nowrap" }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { id: "S1", name: "Data wall", trigger: "Datasets exceed ~100T tokens, or contamination passes ~90% of new pages", source: "Epoch; Ahrefs", cadence: "Semiannual" },
+                        { id: "S2", name: "Agent reliability", trigger: "80% horizon reaches multi-hour AND production success above 90%", source: "METR; enterprise data", cadence: "Quarterly" },
+                        { id: "S3", name: "Financing cascade", trigger: "Forced refinancing failure at a top-5 buildout, or spread above 150bp", source: "BIS; issuer filings", cadence: "Monthly" },
+                        { id: "S4", name: "Compute control", trigger: "Incumbent accelerator share falls below ~70%", source: "Earnings; analyst trackers", cadence: "Quarterly" },
+                        { id: "S5", name: "Model commoditization", trigger: "Open-weight reaches frontier parity, or price decline halts", source: "Epoch; API price sheets", cadence: "Quarterly" },
+                        { id: "S6", name: "Liability regime", trigger: "Bespoke AI-agent liability statute, or ruling shifting liability to developers", source: "Official Journal; case law", cadence: "Semiannual" },
+                        { id: "S7", name: "SaaS repricing", trigger: "Incumbent seats fall >15% YoY, or AI-native ARR growth stalls >50%", source: "Earnings; private-market data", cadence: "Quarterly" },
+                        { id: "S8", name: "Humanoid economics", trigger: "Build cost below ~$30k AND deployed base above ~100k units", source: "Manufacturer disclosures", cadence: "Semiannual" },
+                        { id: "S9", name: "AV mainstreaming", trigger: "Above ~2M weekly rides across 30+ metros", source: "Operator disclosures", cadence: "Quarterly" },
+                        { id: "S10", name: "Capital gap", trigger: "Annual AI revenue run-rate above $400B by 2027", source: "Earnings; Bain", cadence: "Quarterly" },
+                        { id: "S11", name: "Power ceiling", trigger: "US interconnection median wait falls below 3 years", source: "LBNL Queued Up", cadence: "Annual" },
+                        { id: "S12", name: "Distributional backlash", trigger: "Any G7 AI-displacement tax or deployment moratorium enacted", source: "Legislative trackers", cadence: "Quarterly" },
+                        { id: "S13", name: "The Call", trigger: "METR 80% horizon reaches 8 hours by 31 Dec 2027 (falsifies the call)", source: "METR", cadence: "Quarterly" },
+                      ].map((row, i) => (
+                        <tr key={row.id} style={{ background: i % 2 === 0 ? "#fff" : "#F9F9F9", borderBottom: B }}>
+                          <td style={{ fontFamily: FONT, fontSize: 9, fontWeight: 700, color: SLATE, padding: "10px 14px", whiteSpace: "nowrap" }}>{row.id}</td>
+                          <td style={{ fontFamily: FONT, fontSize: 10, fontWeight: 600, color: "#111", padding: "10px 14px", whiteSpace: "nowrap" }}>{row.name}</td>
+                          <td style={{ fontFamily: BODY_FONT, fontSize: 10, color: "#333", padding: "10px 14px", lineHeight: 1.5 }}>{row.trigger}</td>
+                          <td style={{ fontFamily: FONT, fontSize: 9, color: "#666", padding: "10px 14px", whiteSpace: "nowrap" }}>{row.source}</td>
+                          <td style={{ fontFamily: FONT, fontSize: 9, color: "#666", padding: "10px 14px", whiteSpace: "nowrap" }}>{row.cadence}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+
               {section.content.map((para, pi) => (
                 <p key={pi} style={{
                   fontFamily: BODY_FONT, fontSize: 14, color: "#222",
@@ -346,16 +414,15 @@ export default function PublicationDetail() {
           ))}
 
           {/* Citation block */}
-          {pub.doi && (
+          {(pub.doi || pub.docNumber) && (
             <div style={{ borderTop: B, paddingTop: 32, marginTop: 16 }}>
               <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: SLATE, margin: "0 0 16px" }}>CITATION</p>
               <div style={{ background: "#F8F8F8", padding: "20px 24px", border: B }}>
-                <p style={{ fontFamily: BODY_FONT, fontSize: 11, color: "#444", lineHeight: 1.8, margin: "0 0 8px" }}>
-                  {pub.authors.map(a => a.name).join(", ")},{" "}
-                  <em>{pub.title}</em>.{" "}
-                  The Ashby Institute, {pub.docNumber}, {pub.date}.{" "}
-                  DOI:{" "}
-                  <a href={pub.doi} style={{ color: SLATE }}>{pub.doi}</a>
+                <p style={{ fontFamily: BODY_FONT, fontSize: 11, color: "#444", lineHeight: 1.8, margin: "0 0 8px", fontStyle: "italic", userSelect: "all" }}>
+                  {pub.authors.map(a => a.name).join(", ")}.{" "}
+                  "{pub.title}." The Ashby Institute, {pub.date}.
+                  {pub.doi && <>{" "}DOI: <a href={pub.doi} style={{ color: SLATE }}>{pub.doi}</a></>}
+                  {!pub.doi && pub.docNumber && <>{" "}Document No. {pub.docNumber}.</>}
                 </p>
               </div>
             </div>

@@ -160,6 +160,50 @@ export default function Publications() {
         </div>
       </section>
 
+      {/* FEATURED: VIA NEGATIVA */}
+      <section style={{ borderBottom: B }}>
+        <div className="pub-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <div className="pub-text" style={{ padding: "56px 48px", borderRight: B }}>
+            <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, marginBottom: 16, marginTop: 0 }}>FEATURED · WORKING PAPER · JULY 2026</p>
+            <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", fontWeight: 700, color: "#111", margin: "0 0 20px", letterSpacing: "-0.02em", lineHeight: 1.0 }}>
+              Via Negativa
+            </h2>
+            <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
+              The AI economy by elimination. Thirty questions on compute, data, models, labor, and the physical world, each forecast not by projection but by testing every candidate answer against six hard constraints and keeping only what survives.
+            </p>
+            <blockquote style={{ borderLeft: "3px solid #2C3E6B", paddingLeft: 20, margin: "0 0 32px", fontStyle: "italic" }}>
+              <p style={{ fontFamily: FONT, fontSize: 12, color: "#555", lineHeight: 1.75, margin: 0, fontWeight: 300 }}>
+                "Superintelligence may or may not arrive on schedule; the electricity bill, the memory, and the trust will arrive regardless."
+              </p>
+            </blockquote>
+            <Link href="/publications/via-negativa"
+              style={{ display: "inline-block", fontFamily: FONT, fontSize: 9, letterSpacing: "0.14em", color: "#fff", background: "#111", padding: "14px 24px", textDecoration: "none", transition: "background 0.15s" }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#2C3E6B"}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "#111"}
+            >READ THE WORKING PAPER →</Link>
+          </div>
+          <div className="pub-text" style={{ padding: "56px 48px" }}>
+            <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: "#888", marginBottom: 20, marginTop: 0 }}>THE SIX IMMOVABLES</p>
+            {[
+              { n: "01", title: "Energy", desc: "Power, heat. US data-center power ~31 GW (2025) toward ~66 GW (2027)." },
+              { n: "02", title: "Capital", desc: "Financing, unit economics. ~$725B 2026 hyperscaler capex." },
+              { n: "03", title: "Matter", desc: "Silicon, machines. ~80-90% AI accelerators on TSMC." },
+              { n: "04", title: "Data", desc: "Availability, provenance. ~300T-token public text stock." },
+              { n: "05", title: "Law", desc: "Liability, statute. EU AI Liability Directive withdrawn Oct 2025." },
+              { n: "06", title: "Time", desc: "Adoption, reliability. METR 50% task horizon ~2h17m (mid-2026)." },
+            ].map((s, i) => (
+              <div key={s.n} style={{ display: "grid", gridTemplateColumns: "32px 1fr", gap: 16, padding: "12px 0", borderBottom: i < 5 ? B : "none" }}>
+                <span style={{ fontFamily: FONT, fontSize: 9, color: "rgba(44,62,107,0.4)" }}>{s.n}</span>
+                <div>
+                  <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 600, color: "#111", margin: "0 0 2px" }}>{s.title}</p>
+                  <p style={{ fontFamily: FONT, fontSize: 11, color: "#555", margin: 0, fontWeight: 300 }}>{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SERIES FILTER */}
       <section style={{ borderBottom: B }}>
         <div style={{ display: "flex", overflowX: "auto" }}>
