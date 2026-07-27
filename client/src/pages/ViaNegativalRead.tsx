@@ -35,35 +35,28 @@ const DARK_SRCS: Record<string, string> = {
   "/manus-storage/IMG_9269_b37167ea.png": "/manus-storage/IMG_9269_dark_e847ab6b.png",
 };
 
-// Figure component — respects forced colorMode; falls back to prefers-color-scheme when mode is null
+// Figure component — React fully controls src selection; no picture/source so Safari cannot
+// override via OS prefers-color-scheme. colorMode='light' (default) always shows white originals.
 function Fig({ src, alt, caption, width = 1200, height = 700, colorMode }: {
   src: string; alt: string; caption: React.ReactNode; width?: number; height?: number;
   colorMode?: 'dark' | 'light' | null;
 }) {
   const darkSrc = DARK_SRCS[src];
-  // When forced to light, always use the light src regardless of OS preference
-  // When forced to dark, always use the dark src
-  // When null (auto), use picture/source to let the browser decide
-  const forcedDark = colorMode === 'dark';
-  const forcedLight = colorMode === 'light';
-  const imgSrc = forcedDark && darkSrc ? darkSrc : src;
+  // null = follow OS via a CSS class on .vn-page, but we still need a concrete src.
+  // For null we default to light so the initial render is always white.
+  const useDark = colorMode === 'dark' && !!darkSrc;
+  const imgSrc = useDark ? darkSrc! : src;
   return (
     <figure className="vn-figure">
-      <picture>
-        {/* Only add the dark source hint when in auto mode — forced modes use imgSrc directly */}
-        {!forcedDark && !forcedLight && darkSrc && (
-          <source srcSet={darkSrc} media="(prefers-color-scheme: dark)" />
-        )}
-        <img
-          src={imgSrc}
-          alt={alt}
-          width={width}
-          height={height}
-          loading="lazy"
-          decoding="async"
-          style={{ display: "block", width: "100%", height: "auto", maxWidth: "100%" }}
-        />
-      </picture>
+      <img
+        src={imgSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        style={{ display: "block", width: "100%", height: "auto", maxWidth: "100%" }}
+      />
       <figcaption dangerouslySetInnerHTML={{ __html: caption as string }} />
     </figure>
   );
@@ -239,7 +232,7 @@ export default function ViaNegativalRead() {
           --vn-paper: #FFFFFF; --vn-ink: #15181C; --vn-muted: #6A7079;
           --vn-rule: #E4E3DD; --vn-rule-soft: #EFEEE9;
           --vn-bind: #0F5257; --vn-bind-tint: #E4EEEE; --vn-strike: #868C94;
-          --vn-measure: 69ch;
+          --vn-measure: 66ch;
         }
         @media (prefers-color-scheme: dark) {
           :root {
@@ -275,8 +268,14 @@ export default function ViaNegativalRead() {
           font-family: "IBM Plex Mono", monospace; font-size: 11.5px; line-height: 1.9; color: var(--vn-muted); }
         .vn-navfoot a { display: block; border: 0; color: inherit; text-decoration: none; }
         .vn-navfoot a:hover { color: var(--vn-ink); }
-        .vn-piece { max-width: var(--vn-measure); margin: 0; padding: 60px 46px 140px;
+        .vn-piece { max-width: var(--vn-measure); margin: 0; padding: 60px 52px 140px;
           border-top: 1px solid var(--vn-rule-soft); }
+        /* Drop cap on the first paragraph of each piece */
+        .vn-piece > p:first-of-type::first-letter,
+        .vn-piece > .vn-lede:first-of-type::first-letter {
+          font-size: 4.2em; line-height: 0.82; float: left; margin: 0.06em 0.08em 0 0;
+          font-weight: 600; color: var(--vn-ink); font-variant: normal;
+        }
         .vn-piece:first-child { border-top: 0; }
         body.vn-js .vn-piece { display: none; border-top: 0; }
         body.vn-js .vn-piece.vn-on { display: block; }
@@ -541,7 +540,7 @@ export default function ViaNegativalRead() {
               <p>That ordering does the work, and it produces the first uncomfortable result. Almost all public argument about AI concerns capital. Capital relaxes in weeks. It therefore cannot bind on a multi-year horizon, and an argument about a non-binding constraint cannot change an answer.</p>
               <p><strong>The constraint that binds the buildout in 2026 is a transformer.</strong> Lead time <a href="https://www.datacenterknowledge.com/build-design/ai-data-center-boom-rewires-us-power-supply-chain" target="_blank" rel="noopener noreferrer">128 weeks in 2025, past 160 by 2026</a>, three to five years for the largest units. Not a chip. Not a dollar.</p>
 
-              <Fig
+              <Fig colorMode={colorMode}
                 src="/manus-storage/IMG_9249_23b1f08b.png"
                 alt="All thirty verdicts by binding constraint, tier and probability"
                 width={1458} height={1513}
