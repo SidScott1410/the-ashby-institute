@@ -35,19 +35,27 @@ const DARK_SRCS: Record<string, string> = {
   "/manus-storage/IMG_9269_b37167ea.png": "/manus-storage/IMG_9269_dark_e847ab6b.png",
 };
 
-// Figure component — renders with picture/source for automatic dark-mode switching
-function Fig({ src, alt, caption, width = 1200, height = 700 }: {
+// Figure component — respects forced colorMode; falls back to prefers-color-scheme when mode is null
+function Fig({ src, alt, caption, width = 1200, height = 700, colorMode }: {
   src: string; alt: string; caption: React.ReactNode; width?: number; height?: number;
+  colorMode?: 'dark' | 'light' | null;
 }) {
   const darkSrc = DARK_SRCS[src];
+  // When forced to light, always use the light src regardless of OS preference
+  // When forced to dark, always use the dark src
+  // When null (auto), use picture/source to let the browser decide
+  const forcedDark = colorMode === 'dark';
+  const forcedLight = colorMode === 'light';
+  const imgSrc = forcedDark && darkSrc ? darkSrc : src;
   return (
     <figure className="vn-figure">
       <picture>
-        {darkSrc && (
+        {/* Only add the dark source hint when in auto mode — forced modes use imgSrc directly */}
+        {!forcedDark && !forcedLight && darkSrc && (
           <source srcSet={darkSrc} media="(prefers-color-scheme: dark)" />
         )}
         <img
-          src={src}
+          src={imgSrc}
           alt={alt}
           width={width}
           height={height}
@@ -62,8 +70,8 @@ function Fig({ src, alt, caption, width = 1200, height = 700 }: {
 }
 
 export default function ViaNegativalRead() {
-  // null = follow OS, 'dark' = forced dark, 'light' = forced light
-  const [colorMode, setColorMode] = useState<'dark' | 'light' | null>(null);
+  // 'light' = default (white figures), 'dark' = forced dark, null = follow OS
+  const [colorMode, setColorMode] = useState<'dark' | 'light' | null>('light');
 
   // Apply forced color mode by toggling a class on the .vn-page element
   useEffect(() => {
@@ -530,9 +538,6 @@ export default function ViaNegativalRead() {
                 <div className="vn-ladder-key">Rule weight encodes mutability. Only Tier 0 makes a candidate impossible; the rest make it late, expensive, or contingent.</div>
               </div>
 
-              <Fig src="/manus-storage/IMG_9266_d714c7ac.png" alt="Tier ladder: six constraints ranked by relaxation time" width={1087} height={669}
-                caption="<b>The ordering that does the work.</b> Rule weight encodes mutability. Only Tier 0 bars a candidate outright; the rest reprice it as late, expensive, or contingent on a decision not yet taken." />
-
               <p>That ordering does the work, and it produces the first uncomfortable result. Almost all public argument about AI concerns capital. Capital relaxes in weeks. It therefore cannot bind on a multi-year horizon, and an argument about a non-binding constraint cannot change an answer.</p>
               <p><strong>The constraint that binds the buildout in 2026 is a transformer.</strong> Lead time <a href="https://www.datacenterknowledge.com/build-design/ai-data-center-boom-rewires-us-power-supply-chain" target="_blank" rel="noopener noreferrer">128 weeks in 2025, past 160 by 2026</a>, three to five years for the largest units. Not a chip. Not a dollar.</p>
 
@@ -583,7 +588,7 @@ export default function ViaNegativalRead() {
               <p>This paper set out to measure the migration with a single ratio: value captured by the complements over value captured by intelligence. <strong>The intelligence side rebuilt cleanly. The complement side could not be built at all</strong>, and reporting that is the more useful result.</p>
               <p><strong>Intelligence commoditizes, and faster than we thought.</strong> Rebuilt from <a href="https://epoch.ai/data-insights/llm-inference-price-trends" target="_blank" rel="noopener noreferrer">Epoch AI's replication repository</a>, cloned and re-run rather than quoted: the cheapest model matching GPT-3-class capability fell from $60.00 to $0.07, <strong>a fall of 857-fold at 11.8x per year, R² = 0.96</strong>. Frontier price fell far less, at 1.34x to 2.25x per year depending on whether reasoning models are allowed to set the frontier. <strong>Fixed-capability price falls 4 to 56 times faster than frontier price.</strong> That divergence is the commoditization claim, and it needs no index of complements to state.</p>
 
-              <Fig src="/manus-storage/IMG_9263_7a3e7696.png" alt="Frontier and fixed-capability price series and their rates of decline" width={1339} height={823}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9263_7a3e7696.png" alt="Frontier and fixed-capability price series and their rates of decline" width={1339} height={823}
                 caption="<b>What the corrected series show.</b> Frontier price falls at 1.34 to 2.25x per year; fixed-capability price falls at 11.8 to 75.3x. The divergence is the commoditization claim, and unlike the withdrawn ratio it needs no index of complements. <span class='vn-src'>Epoch AI replication repository, re-run</span>" />
 
               <div className="vn-concede">
@@ -601,7 +606,7 @@ export default function ViaNegativalRead() {
               <p><strong>Power is not.</strong> The 2028/29 <a href="https://www.pjm.com/markets-and-operations/rpm" target="_blank" rel="noopener noreferrer">PJM capacity auction</a> procured <strong>525 MW</strong> of new resources, fell <strong>6.8 GW short</strong> of the reserve margin target, and cleared with the margin down to 14.7 percent. Four consecutive years of extraordinary prices have induced almost nothing. That is Tier 3 behaviour: capital does not convert inside the horizon.</p>
               <p>Same test, opposite answers, both from disclosed sources. <strong>This is the first empirical validation of the tier ordering itself.</strong> It carries a falsification condition, tracked as signpost S20: if a subsequent auction clears with substantial new entry at or below the cap, the Tier 3 classification of delivered power is wrong.</p>
 
-              <Fig src="/manus-storage/IMG_9265_1a59bda9.png" alt="PJM capacity price signal and supply response: memory vs power" width={1422} height={847}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9265_1a59bda9.png" alt="PJM capacity price signal and supply response: memory vs power" width={1422} height={847}
                 caption="<b>Same test, opposite answers.</b> Memory's margins pulled in $250B of committed expansion. Four years of extraordinary power prices drew 525 MW, 6.8 GW short of target. A binding constraint attracts no supply response; a cycle does. Both answers are from disclosed sources. <span class='vn-src'>PJM, company filings</span>" />
 
               <div className="vn-concede">
@@ -614,7 +619,7 @@ export default function ViaNegativalRead() {
               <p>A second measure asks how much value is captured at all. Against measured US consumer surplus of roughly $172B annually, producers capture about 0.31 of the value created.<sup><a href="#f0-1" id="r0-1">1</a></sup> <strong>Roughly seventy percent of measured AI value is captured by nobody</strong>, accruing to users as surplus on goods priced at zero.</p>
               <p><strong>One sourcing note that must travel with this number.</strong> Attributable AI revenue, the numerator, rests on three points covering NVIDIA data-centre revenue alone, one of them unverified, with lab run-rates reported rather than filed. The level is indicative; the second decimal is not real.</p>
 
-              <Fig src="/manus-storage/IMG_9260_982b371b.png" alt="Value created against value captured, 2025 and 2026" width={1195} height={711}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9260_982b371b.png" alt="Value created against value captured, 2025 and 2026" width={1195} height={711}
                 caption="<b>Value created against value captured.</b> Roughly seventy percent of measured AI value accrues to users as surplus on goods priced at or near zero. The hypothesis that capture is collapsing is wrong and withdrawn: K rose from 0.27 to 0.31. The level survives; the trend does not. <span class='vn-src'>Brynjolfsson et al. 2026, via the Stanford AI Index 2026</span>" />
 
               <div className="vn-concede">
@@ -687,7 +692,7 @@ export default function ViaNegativalRead() {
 
               <p>The probabilities were always the tell. A framework that declares candidates eliminated and then attaches survivor probabilities of 0.55 to 0.78 is describing itself wrongly: a survivor at 0.60 leaves forty percent of the mass with candidates it called eliminated. That is incoherent under a deductive reading and coherent under a stratified one.</p>
 
-              <Fig src="/manus-storage/IMG_9253_7ea0c178.png" alt="Three inferential layers: deductive floor, inductive middle, abductive top" width={1200} height={506}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9253_7ea0c178.png" alt="Three inferential layers: deductive floor, inductive middle, abductive top" width={1200} height={506}
                 caption="<b>Only the floor licenses deduction.</b> Constraints do not eliminate candidates; they reprice them. A survivor at 0.60 leaves forty percent of the mass with candidates the framework called eliminated." />
 
               <h2 id="m-derive">Deriving the six</h2>
@@ -716,18 +721,18 @@ export default function ViaNegativalRead() {
               </p>
               <p>and survival is a logistic in the difference between time available and time required, with <span className="vn-mono">S = 0</span> whenever the constraint is Tier 0. That zero is the deductive floor, and it is the only place a zero appears.<sup><a href="#f1-1" id="r1-1">1</a></sup></p>
 
-              <Fig src="/manus-storage/IMG_9254_5b7389e9.png" alt="Required time as a function of shortfall, and the survival logistic" width={1237} height={860}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9254_5b7389e9.png" alt="Required time as a function of shortfall, and the survival logistic" width={1237} height={860}
                 caption="<b>The engine.</b> Left: how long a constraint needs to close a shortfall at its observed expansion rate, against the horizon remaining. Right: survival as a logistic in the difference. The only zero in the system sits at Tier 0." />
 
               <p>The parameters are observable rather than chosen, which is the substantive improvement over a penalty-coefficient approach. Matter is decomposed by sub-constraint because its expansion rates differ by an order of magnitude: <a href="https://www.trendforce.com/" target="_blank" rel="noopener noreferrer">advanced packaging has expanded at 60 to 110 percent annually</a> while <a href="https://www.datacenterknowledge.com/build-design/ai-data-center-boom-rewires-us-power-supply-chain" target="_blank" rel="noopener noreferrer">grid equipment has expanded at 10 to 20</a>. <strong>That ratio alone explains why the binding constraint migrated from packaging in 2024 to grid equipment in 2025 and 2026</strong>, with no additional assumption required.</p>
 
-              <Fig src="/manus-storage/IMG_9262_a5de7e49.png" alt="Observed annual expansion rates by constraint and tier" width={1787} height={721}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9262_a5de7e49.png" alt="Observed annual expansion rates by constraint and tier" width={1787} height={721}
                 caption="<b>Why the binding constraint migrates.</b> Sub-constraint expansion rates differ by an order of magnitude, so advanced packaging absorbs shortfalls that grid equipment cannot. The ratio between those two rates is the entire content of the migration argument." />
 
               <div className="vn-concede">
                 <span className="vn-sig">Where this does not apply</span>
                 <p>The engine needs a candidate whose requirement expresses as an expansion factor and a constraint with an observable rate. Both exist for forward capacity questions. Neither exists for structural questions (does control concentrate, who bears liability) nor current-state ones (are cash flows sufficient today). <strong>Eight of thirty verdicts are computed. The rest are disciplined judgment, and each one says which it is.</strong></p>
-                <Fig src="/manus-storage/IMG_9255_21b7e237.png" alt="Eight of thirty verdicts computed, fourteen structural, eight current-state" width={1137} height={599}
+                <Fig colorMode={colorMode} src="/manus-storage/IMG_9255_21b7e237.png" alt="Eight of thirty verdicts computed, fourteen structural, eight current-state" width={1137} height={599}
                   caption="<b>Where the engine applies.</b> It needs an expansion factor and an observable rate. Both exist for forward capacity questions and for neither of the other classes." />
               </div>
 
@@ -737,7 +742,7 @@ export default function ViaNegativalRead() {
               <p><strong>Synchronization.</strong> Electricity is not storable, so a site needs power at the coincident peak rather than on average. The relaxation direction is the interesting one: a candidate that accepts interruption converts a synchronization requirement into an energy requirement, and <a href="https://www.energy.gov/gdo/grid-deployment-office" target="_blank" rel="noopener noreferrer">curtailable interconnection clears in months</a> where firm service clears in years. Flexible load is the single largest available relaxation lever on the buildout.</p>
               <p><strong>Serial path.</strong> A candidate can fail with every individual slack ratio above one, because the chain of conversions it requires is longer than the horizon. A greenfield site with <a href="https://emp.lbl.gov/queues" target="_blank" rel="noopener noreferrer">no interconnection agreement needs six to seven years</a> of serialized conversions against 4.4 remaining to 2030. That is a timing verdict, not a possibility verdict, and it must say so. Conflating the two is how constraint forecasting earns its reputation for crying impossible when it meant late.</p>
 
-              <Fig src="/manus-storage/IMG_9251_2701b107.png" alt="Conversion lags from capital to each constraint against the horizon" width={1519} height={820}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9251_2701b107.png" alt="Conversion lags from capital to each constraint against the horizon" width={1519} height={820}
                 caption="<b>Money becomes megawatts, but only after the lag.</b> Everything to the right of the line cannot be bought into existence before 2030 at any price." />
 
               <h2 id="m-params">The parameters, in full</h2>
@@ -798,7 +803,7 @@ export default function ViaNegativalRead() {
               <p>where <span className="vn-mono">O</span> is AI-attributable output, <span className="vn-mono">C</span> is deployed compute, and <span className="vn-mono">α</span> is the elasticity of the first with respect to the second. At <span className="vn-mono">α = 1</span> output scales proportionally with compute. Below one, each additional gigawatt yields less than the last. Above one, deployed compute yields increasing returns, as it would if a model trained once serves many users or if value accrues through channels consuming little marginal inference.</p>
               <p><strong>No published forecast of the AI economy states its α.</strong> None reports it, none defends it, and it has never been measured. Yet every such forecast is a bet on its value, because the forecast asserts an output figure, the constraints permit a quantity of compute, and only α connects them.</p>
 
-              <Fig src="/manus-storage/IMG_9248_7900ab5d.png" alt="Published forecasts against the Tier 3 constraint as a function of alpha" width={1545} height={890}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9248_7900ab5d.png" alt="Published forecasts against the Tier 3 constraint as a function of alpha" width={1545} height={890}
                 caption="<b>Every published forecast, run through the constraint engine.</b> At α = 1.0 this paper's own band is eliminated and only Acemoglu survives; at α = 1.4 both survive. The shaded band is the range actually observed. <span class='vn-src'>Drag the slider below, or reproduce from the repository</span>" />
 
               <div className="vn-explore">
@@ -844,7 +849,7 @@ export default function ViaNegativalRead() {
               <p><strong>At α = 1.4, the midpoint of the observed range, this paper survives and so does Goldman.</strong> At α = 1.7, the value observed across 2023 to 2024, even PwC survives.</p>
               <p>So the central quantitative dispute in this field is a disagreement about α that no participant has named. <a href="https://www.pwc.com/gx/en/issues/analytics/assets/pwc-ai-analysis-sizing-the-prize-report.pdf" target="_blank" rel="noopener noreferrer">PwC's $15.7T is a bet that α ≥ 1.7</a>. <a href="https://www.goldmansachs.com/insights/articles/generative-ai-could-raise-global-gdp-by-7-percent" target="_blank" rel="noopener noreferrer">Goldman's 7 percent is a bet on roughly 1.4</a>. <a href="https://www.nber.org/papers/w32487" target="_blank" rel="noopener noreferrer">Acemoglu's 0.66 percent is a bet that α ≤ 1.0</a>. The verdicts in this paper are a bet on roughly 1.3 to 1.4. <strong>None of them has stated the wager it is making.</strong></p>
 
-              <Fig src="/manus-storage/IMG_9256_ebe1e681.png" alt="Implied elasticity 2023 to 2026: 1.70, 1.17, 1.37" width={1262} height={655}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9256_ebe1e681.png" alt="Implied elasticity 2023 to 2026: 1.70, 1.17, 1.37" width={1262} height={655}
                 caption="<b>The elasticity is not a stable parameter.</b> It ran 1.70, then 1.17, then 1.37. That range is wide enough to reverse every forecast in the table above, and no participant in the debate reports it." />
 
               <p>The observed range spans values that reverse every forecast in the table. That is not a narrow uncertainty around a central estimate. It is the difference between a technology that adds one percent of output and one that adds ten.</p>
@@ -897,7 +902,7 @@ export default function ViaNegativalRead() {
                 <p className="vn-meta">binding: <b>Absorption, Tier 1</b> · P ≈ 0.73 · tails: distributional rejection 0.15, financing cascade 0.07</p>
               </div>
 
-              <Fig src="/manus-storage/IMG_9267_008efa6e.png" alt="Hyperscaler capex against attributable AI revenue, 2023 to 2026" width={1231} height={734}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9267_008efa6e.png" alt="Hyperscaler capex against attributable AI revenue, 2023 to 2026" width={1231} height={734}
                 caption="<b>The ratio dates the lag, not the destination.</b> Hyperscaler capex ran at 30x attributable AI revenue in 2023, converging to 6.6x by 2026. It is a funding gap and not a debt requirement: reading the widely cited $1.5T as debt overstates the capital constraint roughly sevenfold, on the one constraint least likely to bind. <span class='vn-src'>Company filings, SEC</span>" />
               <div className="vn-verdict"><p className="vn-q">R2. How fast do organizations become AI-native?</p>
                 <p className="vn-a">Overnight transformation requires broad P&amp;L-positive deployment now. <a href="https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf" target="_blank" rel="noopener noreferrer">Five percent of integrated pilots are P&amp;L-positive</a>. That is a twentyfold gap on the success base, and no mechanism closes it in three years. A decade-long uneven grind survives. This is also where Absorption was discovered: the bottleneck is organizational, and a constraint set without it would find that and have nowhere to put it.</p>
@@ -908,7 +913,7 @@ export default function ViaNegativalRead() {
                 <p className="vn-meta">binding: <b>Matter, Tier 3</b> · P ≈ 0.75</p>
               </div>
 
-              <Fig src="/manus-storage/IMG_9259_703d6e80.png" alt="Market shares by layer: packaging, accelerators, foundry, cloud" width={1458} height={664}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9259_703d6e80.png" alt="Market shares by layer: packaging, accelerators, foundry, cloud" width={1458} height={664}
                 caption="<b>Concentration is real and split across layers.</b> Each layer is concentrated and owned by a different firm, which bars the monopoly candidate on structure. Nobody owns the floor." />
 
               <div className="vn-verdict"><p className="vn-q">R4. Can institutions adapt without stifling innovation?</p>
@@ -928,7 +933,7 @@ export default function ViaNegativalRead() {
               <h2 id="r-gdp">How much GDP</h2>
               <p>The majority-of-GDP claim requires AI-attributable output above half of a $154T 2030 economy. That is $77T of new output in four years. The most bullish credible estimate in the field, <a href="https://www.pwc.com/gx/en/issues/analytics/assets/pwc-ai-analysis-sizing-the-prize-report.pdf" target="_blank" rel="noopener noreferrer">PwC's $15.7T cumulative</a>, permits $16T. <strong>A ninefold gap, and no constraint in the set closes it in four years.</strong></p>
 
-              <Fig src="/manus-storage/IMG_9257_6978ba35.png" alt="Majority-of-GDP claim against the feasible band" width={1270} height={776}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9257_6978ba35.png" alt="Majority-of-GDP claim against the feasible band" width={1270} height={776}
                 caption="<b>The majority claim against the feasible band.</b> The survivor sits inside the electricity and information-technology precedents rather than above them." />
 
               <p>What survives is 1.0 to 1.5 points per year, $7 to $10.5T cumulative by 2030. That is inside the electricity and information-technology precedents, not above them. The bulls are not wrong about the technology. They are wrong about the denominator.</p>
@@ -1010,7 +1015,7 @@ export default function ViaNegativalRead() {
                 <p>Of 12 to 16 GW of US data-center capacity announced for 2026, roughly 5 GW is under construction. Closing that gap requires 5.2 years of expansion at the observed rate against 1.4 years available.</p>
               </div>
 
-              <Fig src="/manus-storage/IMG_9258_7a4dab4f.png" alt="Announced US 2026 data-center capacity against capacity under construction" width={1341} height={759}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9258_7a4dab4f.png" alt="Announced US 2026 data-center capacity against capacity under construction" width={1341} height={759}
                 caption="<b>The binding constraint, dated to the week.</b> Of announced US capacity for 2026 delivery, roughly a third is under construction. Closing the gap needs 5.2 years of expansion at the observed rate against 1.4 available. <span class='vn-src'>LBNL, Wood Mackenzie, GE Vernova</span>" />
 
               <div className="vn-verdict"><p className="vn-q">Q11. Who controls compute?</p>
@@ -1037,7 +1042,7 @@ export default function ViaNegativalRead() {
               <div className="vn-verdict"><p className="vn-q">Q15. Do models commoditize?</p>
                 <p className="vn-a">One model winning is eliminated: no frontier lead has held for more than months. Zero margin everywhere is eliminated: the newest model always commands a premium. What survives is that the floor commoditizes fast and the frontier holds a brief, eroding lead. <strong>The model is a commodity and the moat is everything around it.</strong> BOND reaches the same premise and calls the consequence <a href="https://www.bondcap.com/report/pdf/Trends_Artificial_Intelligence.pdf" target="_blank" rel="noopener noreferrer">a riddle</a>. It is not a riddle. The floor falls 11.8x to 75.3x per year while the frontier falls 1.34x to 2.25x, and that divergence is the whole answer.</p>
 
-                <Fig src="/manus-storage/IMG_9263_7a3e7696.png" alt="Frontier and fixed-capability price series and their annual rates of decline" width={1339} height={823}
+                <Fig colorMode={colorMode} src="/manus-storage/IMG_9263_7a3e7696.png" alt="Frontier and fixed-capability price series and their annual rates of decline" width={1339} height={823}
                   caption="<b>The two prices, measured.</b> Frontier price falls 1.34x to 2.25x per year depending on whether reasoning models set the frontier. The price of a fixed capability falls 11.8x to 75.3x. <span class='vn-src'>Epoch AI replication repository, re-run</span>" />
 
                 <p className="vn-meta">binding: <b>Capital, Tier 5</b> · P ≈ 0.75</p>
@@ -1070,7 +1075,7 @@ export default function ViaNegativalRead() {
               <div className="vn-verdict"><p className="vn-q">Q20. Can agents run whole workflows unsupervised?</p>
                 <p className="vn-a">No, and the limit is arithmetic rather than sentiment. Success compounds multiplicatively. At 95 percent per step, a twenty-step workflow succeeds 36 percent of the time. Long unsupervised chains need 99 percent-plus per step. Production is at 56.</p>
 
-                <Fig src="/manus-storage/IMG_9261_0871db68.png" alt="Whole-task success against workflow length at several per-step rates" width={1282} height={730}
+                <Fig colorMode={colorMode} src="/manus-storage/IMG_9261_0871db68.png" alt="Whole-task success against workflow length at several per-step rates" width={1282} height={730}
                   caption="<b>Why long unsupervised chains fail.</b> The limit is arithmetic rather than sentiment, which is why this verdict is labelled empirical and not constraint-based." />
 
                 <p className="vn-meta">empirical, not constraint · P ≈ 0.72</p>
@@ -1131,7 +1136,7 @@ export default function ViaNegativalRead() {
               <p>The widely cited METR figure is the 50 percent horizon, and it has risen several-fold since late 2025. <strong>The 80 percent horizon, the level at which work can actually be delegated, has been approximately flat at 27 to 32 minutes across two frontier release cycles.</strong><sup><a href="#f5-1" id="r5-1">1</a></sup></p>
               <p>Falsification therefore requires roughly a sixteen-fold rise, four doublings, in under two years, in a series that has not moved. The mechanism is the argument rather than the extrapolation: <strong><a href="https://arxiv.org/abs/2503.14499" target="_blank" rel="noopener noreferrer">capability gains are arriving as intercept rather than slope</a>.</strong> Models are becoming better at succeeding sometimes on long tasks without becoming better at succeeding reliably.</p>
 
-              <Fig src="/manus-storage/IMG_9250_097ac9da.png" alt="50 percent horizon rising while the 80 percent horizon stays flat" width={1384} height={736}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9250_097ac9da.png" alt="50 percent horizon rising while the 80 percent horizon stays flat" width={1384} height={736}
                 caption="<b>The divergence the Call is staked on.</b> The cited 50 percent horizon has risen several-fold. The 80 percent horizon, the level at which work can be delegated, has been flat at 27 to 32 minutes across two frontier release cycles. <span class='vn-src'>METR</span>" />
 
               <h2 id="c-rules">Adjudication rules</h2>
@@ -1167,7 +1172,7 @@ export default function ViaNegativalRead() {
                 <p><strong>This is the classical failure of resource-limit forecasting, reproduced inside our own model, on the tier we had already flagged as exposed to it.</strong> Malthus, the Ehrlich side of the Simon-Ehrlich wager, and <a href="https://www.jstor.org/stable/2230846" target="_blank" rel="noopener noreferrer"><em>The Limits to Growth</em> against the Nordhaus critique</a> all failed identically: the analyst held Permitted fixed while the world held it variable. We named the mechanism and then failed to parameterize it.</p>
               </div>
 
-              <Fig src="/manus-storage/IMG_9264_d4bfc208.png" alt="Backtest of five pre-registered questions, four hits and one miss" width={1386} height={750}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9264_d4bfc208.png" alt="Backtest of five pre-registered questions, four hits and one miss" width={1386} height={750}
                 caption="<b>The record, including the miss.</b> The vertical bar is the outcome. The single miss came at maximum confidence on Tier 2, the tier this framework had already named as most exposed to substitution." />
 
               <p>Three corrections followed. The Tier 2 expansion rate was revised by an order of magnitude, from 0.02 to 0.05 up to 0.30 to 0.60, because the parameter must be the rate at which the <em>effective</em> stock expands including substitution. Three verdicts moved. And the Brier score is now reported by tier rather than in aggregate: the framework is excellent on Tiers 3 and 5, where constraints are industrial and rates are observable, and it was worthless on Tier 2.</p>
@@ -1183,7 +1188,7 @@ export default function ViaNegativalRead() {
 
               <h2 id="c-register">The register, in full</h2>
 
-              <Fig src="/manus-storage/IMG_9269_b37167ea.png" alt="Nineteen tracked signposts: 8 constraint, 5 state, 5 coupling, 1 meta" width={1137} height={579}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9269_b37167ea.png" alt="Nineteen tracked signposts: 8 constraint, 5 state, 5 coupling, 1 meta" width={1137} height={579}
                 caption="<b>What the register measures.</b> Five of the original thirteen measure the world moving inside the walls rather than a wall moving. A register that does not distinguish the two invites over-reading of every trigger." />
 
               <p>No participant in this field maintains a track record. Forecasts are published, cited, and quietly superseded. <strong>This is the scoreboard, and this paper's own entries are listed first and scored on the same basis as everyone else's.</strong></p>
@@ -1250,7 +1255,7 @@ export default function ViaNegativalRead() {
               </table></div>
 
               <h2 id="c-limits">Limits</h2>
-              <Fig src="/manus-storage/IMG_9268_9e141c0f.png" alt="Closed-world enumeration: how many candidates before the leading posterior stabilises" width={1200} height={700}
+              <Fig colorMode={colorMode} src="/manus-storage/IMG_9268_9e141c0f.png" alt="Closed-world enumeration: how many candidates before the leading posterior stabilises" width={1200} height={700}
                 caption="<b>The closed-world problem, illustrated.</b> Enumerate until two consecutive additions leave the leading posterior unchanged. Stopping early overstated the leader by a factor of two in the worked example." />
 
               <p><strong>The closed-world problem is the binding constraint on the method itself.</strong> In the worked verdict it cost a factor of two in the leading posterior before the completeness check caught it. Enumerate until two consecutive additions leave the leader unchanged, and report how many were required.</p>
