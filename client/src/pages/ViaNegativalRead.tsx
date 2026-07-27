@@ -69,6 +69,18 @@ export default function ViaNegativalRead() {
     link.href = "https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap";
     document.head.appendChild(link);
 
+    // Canonical: point at the parent publication page, not this reading edition
+    const existingCanonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    const prevHref = existingCanonical?.href ?? "";
+    if (existingCanonical) {
+      existingCanonical.href = "https://www.theashbyinstitute.org/publications/via-negativa";
+    } else {
+      const canon = document.createElement("link");
+      canon.rel = "canonical";
+      canon.href = "https://www.theashbyinstitute.org/publications/via-negativa";
+      document.head.appendChild(canon);
+    }
+
     // JS tabbed navigation
     const body = document.body;
     body.classList.add("vn-js");
@@ -183,6 +195,9 @@ export default function ViaNegativalRead() {
       body.classList.remove("vn-js");
       goerHandlers.forEach(([el, h]) => el.removeEventListener("click", h));
       anchorHandlers.forEach(([el, h]) => el.removeEventListener("click", h));
+      // Restore canonical
+      const c = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+      if (c) { if (prevHref) c.href = prevHref; else c.remove(); }
     };
   }, []);
 
@@ -408,6 +423,7 @@ export default function ViaNegativalRead() {
           .vn-page h3 { font-size: 11.5pt; }
           figure, table, .vn-call, .vn-concede, .vn-verdict { page-break-inside: avoid; }
           .vn-next { display: none; }
+          .vn-page a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
         }
       `}</style>
 
@@ -1190,6 +1206,9 @@ export default function ViaNegativalRead() {
               </table></div>
 
               <h2 id="c-limits">Limits</h2>
+              <Fig src="/manus-storage/IMG_9268_9e141c0f.png" alt="Closed-world enumeration: how many candidates before the leading posterior stabilises" width={1200} height={700}
+                caption="<b>The closed-world problem, illustrated.</b> Enumerate until two consecutive additions leave the leading posterior unchanged. Stopping early overstated the leader by a factor of two in the worked example." />
+
               <p><strong>The closed-world problem is the binding constraint on the method itself.</strong> In the worked verdict it cost a factor of two in the leading posterior before the completeness check caught it. Enumerate until two consecutive additions leave the leader unchanged, and report how many were required.</p>
               <p><strong>The constraint set and the conclusion overlap.</strong> The six are derived from replenishment mechanisms without reference to AI, which answers the charge structurally. What it does not do is produce a counterexample: in a hundred applications there is no question where the binding constraint is one of the six and value nonetheless accrues to the intelligence layer. Until such a case is found and published, the circularity charge is not fully answered, and this is recorded as open rather than closed.</p>
               <p><strong>The parameters are estimates from thin evidence.</strong> They are better than chosen coefficients because they are in principle measurable, but they are not yet well measured. Signpost S16 exists to detect when they are wrong.</p>
