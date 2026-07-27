@@ -5,7 +5,7 @@
  * Route: /publications/via-negativa/read
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 
 const PDF_URL = "/manus-storage/ViaNegativaarXivv3_58458eb4.pdf";
@@ -62,6 +62,24 @@ function Fig({ src, alt, caption, width = 1200, height = 700 }: {
 }
 
 export default function ViaNegativalRead() {
+  // null = follow OS, 'dark' = forced dark, 'light' = forced light
+  const [colorMode, setColorMode] = useState<'dark' | 'light' | null>(null);
+
+  // Apply forced color mode by toggling a class on the .vn-page element
+  useEffect(() => {
+    const page = document.querySelector('.vn-page') as HTMLElement | null;
+    if (!page) return;
+    if (colorMode === 'dark') {
+      page.classList.add('vn-dark');
+      page.classList.remove('vn-light');
+    } else if (colorMode === 'light') {
+      page.classList.add('vn-light');
+      page.classList.remove('vn-dark');
+    } else {
+      page.classList.remove('vn-dark', 'vn-light');
+    }
+  }, [colorMode]);
+
   useEffect(() => {
     // Inject Google Fonts for this page only
     const link = document.createElement("link");
@@ -396,6 +414,20 @@ export default function ViaNegativalRead() {
           font-size: 11.5px; color: var(--vn-muted); background: var(--vn-paper); }
         .vn-backbar a { border: 0; color: var(--vn-muted); text-decoration: none; }
         .vn-backbar a:hover { color: var(--vn-ink); }
+        .vn-theme-btn { background: none; border: 1px solid var(--vn-rule); border-radius: 6px;
+          padding: 5px 10px; cursor: pointer; font-family: "IBM Plex Mono", monospace; font-size: 11px;
+          color: var(--vn-muted); display: flex; align-items: center; gap: 6px;
+          transition: color 140ms ease-out, border-color 140ms ease-out; }
+        .vn-theme-btn:hover { color: var(--vn-ink); border-color: var(--vn-ink); }
+        .vn-theme-btn:active { transform: scale(0.97); }
+        /* Forced dark mode */
+        .vn-page.vn-dark { --vn-paper: #14171A; --vn-ink: #E9E7E1; --vn-muted: #9DA3AB;
+          --vn-rule: #2C3036; --vn-rule-soft: #23272C;
+          --vn-bind: #5FB8B8; --vn-bind-tint: #1B2A2A; --vn-strike: #71777F; }
+        /* Forced light mode — override dark OS preference */
+        .vn-page.vn-light { --vn-paper: #FFFFFF; --vn-ink: #15181C; --vn-muted: #6A7079;
+          --vn-rule: #E4E3DD; --vn-rule-soft: #EFEEE9;
+          --vn-bind: #0F5257; --vn-bind-tint: #E4EEEE; --vn-strike: #868C94; }
         @media (max-width: 1180px) and (min-width: 901px) {
           nav.vn-side { width: 216px; min-width: 216px; flex: 0 0 216px; padding: 30px 18px; }
           .vn-piece { padding: 52px 32px 120px; }
@@ -433,7 +465,20 @@ export default function ViaNegativalRead() {
         {/* Back bar — links back to the publication page */}
         <div className="vn-backbar">
           <Link href="/publications/via-negativa">← Back to publication page</Link>
-          <span style={{ marginLeft: "auto" }}>
+          <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "14px" }}>
+            <button
+              className="vn-theme-btn"
+              aria-label={colorMode === 'dark' ? 'Switch to light mode' : colorMode === 'light' ? 'Follow system theme' : 'Switch to dark mode'}
+              onClick={() => setColorMode(m => m === null ? 'dark' : m === 'dark' ? 'light' : null)}
+            >
+              {colorMode === 'dark' ? (
+                <>{/* Moon icon */}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> DARK</>
+              ) : colorMode === 'light' ? (
+                <>{/* Sun icon */}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> LIGHT</>
+              ) : (
+                <>{/* Auto icon */}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20V2z" fill="currentColor"/></svg> AUTO</>
+              )}
+            </button>
             <a href={PDF_URL} target="_blank" rel="noopener noreferrer">Download PDF ↗</a>
           </span>
         </div>
