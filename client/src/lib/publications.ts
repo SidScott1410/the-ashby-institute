@@ -45,7 +45,7 @@ export interface Publication {
 
 export const PUBLICATIONS_DATA: Publication[] = [
   {
-    pdfUrl: "/manus-storage/via_negativa_arxiv_25faf71a.pdf",
+    pdfUrl: "/manus-storage/ViaNegativaarXivv3_58458eb4.pdf",
     slug: "via-negativa",
     series: "working-papers",
     seriesLabel: "WORKING PAPER",
