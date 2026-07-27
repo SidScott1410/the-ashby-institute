@@ -632,19 +632,32 @@ export default function Home() {
               "Superintelligence may or may not arrive on schedule; the electricity bill, the memory, and the trust will arrive regardless."
             </p>
           </div>
-          <Link href="/publications/via-negativa" style={{
-            display: "inline-block", padding: "12px 24px",
-            background: "#111", color: "#fff",
-            fontSize: 10, letterSpacing: "0.12em",
-            textDecoration: "none", border: BORDER,
-            alignSelf: "flex-start",
-            transition: "background 0.15s",
-          }}
-            onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
-            onMouseLeave={e => (e.currentTarget.style.background = "#111")}
-          >
-            READ THE WORKING PAPER →
-          </Link>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+            <Link href="/publications/via-negativa" style={{
+              display: "inline-block", padding: "12px 24px",
+              background: "#111", color: "#fff",
+              fontSize: 10, letterSpacing: "0.12em",
+              textDecoration: "none", border: BORDER,
+              transition: "background 0.15s",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
+              onMouseLeave={e => (e.currentTarget.style.background = "#111")}
+            >
+              READ THE WORKING PAPER →
+            </Link>
+            <Link href="/publications/via-negativa/read" style={{
+              display: "inline-block", padding: "12px 24px",
+              background: "transparent", color: "#111",
+              fontSize: 10, letterSpacing: "0.12em",
+              textDecoration: "none", border: BORDER,
+              transition: "background 0.15s, color 0.15s",
+            }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#111"; }}
+            >
+              READ ONLINE ↗
+            </Link>
+          </div>
         </div>
 
         {/* Right: Six Immovables panel */}
