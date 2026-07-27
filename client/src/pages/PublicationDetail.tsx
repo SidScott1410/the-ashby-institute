@@ -155,7 +155,9 @@ export default function PublicationDetail() {
           onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#888"}
         >← PUBLICATIONS</Link>
         <span style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: "#888", padding: "14px 24px", borderRight: B }}>{pub.seriesLabel}</span>
-        <span style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: "#555", padding: "14px 24px" }}>{pub.type.toUpperCase()}</span>
+        {pub.type.toUpperCase() !== pub.seriesLabel.toUpperCase() && (
+          <span style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em", color: "#555", padding: "14px 24px" }}>{pub.type.toUpperCase()}</span>
+        )}
       </nav>
 
       {/* ── HERO BAND — title + ASCII canvas ── */}
@@ -172,7 +174,9 @@ export default function PublicationDetail() {
               }}>
                 {pub.type.toUpperCase()}
               </span>
-              <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: SLATE }}>{pub.seriesLabel}</span>
+              {pub.type.toUpperCase() !== pub.seriesLabel.toUpperCase() && (
+                <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.14em", color: SLATE }}>{pub.seriesLabel}</span>
+              )}
               <span style={{ fontFamily: FONT, fontSize: 8, color: "#bbb" }}>·</span>
               <span style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.1em", color: "#888" }}>{pub.date.toUpperCase()}</span>
               {!isForthcoming && (
