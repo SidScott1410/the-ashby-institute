@@ -553,8 +553,8 @@ export default function PublicationDetail() {
             <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: SLATE, margin: "0 0 12px" }}>SHARE</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {[
-                { label: "X / TWITTER", href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(pub.title)}` },
-                { label: "LINKEDIN", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}` },
+                { label: "X / TWITTER", href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : `https://theashbyinstitute.org/publications/${pub.slug}`)}&text=${encodeURIComponent(pub.title)}` },
+                { label: "LINKEDIN", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : `https://theashbyinstitute.org/publications/${pub.slug}`)}` },
               ].map(({ label, href }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{
                   fontFamily: FONT, fontSize: 7, letterSpacing: "0.1em",
