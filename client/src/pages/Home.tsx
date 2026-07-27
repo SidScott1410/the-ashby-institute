@@ -579,19 +579,32 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <a href="/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf" target="_blank" rel="noopener noreferrer" style={{
-            display: "inline-block", padding: "12px 24px",
-            background: "#111", color: "#fff",
-            fontSize: 10, letterSpacing: "0.12em",
-            textDecoration: "none", border: BORDER,
-            alignSelf: "flex-start",
-            transition: "background 0.15s",
-          }}
-            onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
-            onMouseLeave={e => (e.currentTarget.style.background = "#111")}
-          >
-            READ THE FULL REPORT ↗
-          </a>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 0, alignSelf: "flex-start" }}>
+            <a href="/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf" target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-block", padding: "12px 24px",
+              background: "#111", color: "#fff",
+              fontSize: 10, letterSpacing: "0.12em",
+              textDecoration: "none", border: BORDER,
+              transition: "background 0.15s",
+            }}
+              onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
+              onMouseLeave={e => (e.currentTarget.style.background = "#111")}
+            >
+              READ THE FULL REPORT ↗
+            </a>
+            <a href="https://compute2030.com" target="_blank" rel="noopener noreferrer" style={{
+              display: "inline-block", padding: "12px 24px",
+              background: "#fff", color: "#111",
+              fontSize: 10, letterSpacing: "0.12em",
+              textDecoration: "none", border: BORDER, borderLeft: "none",
+              transition: "color 0.15s, border-color 0.15s",
+            }}
+              onMouseEnter={e => { (e.currentTarget.style.color = SLATE); (e.currentTarget.style.borderColor = SLATE); }}
+              onMouseLeave={e => { (e.currentTarget.style.color = "#111"); (e.currentTarget.style.borderColor = "#111"); }}
+            >
+              EXPLORE COMPUTE2030.COM ↗
+            </a>
+          </div>
         </div>
       </section>
 

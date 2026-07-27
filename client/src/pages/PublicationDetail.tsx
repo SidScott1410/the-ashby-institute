@@ -510,6 +510,27 @@ export default function PublicationDetail() {
             </div>
           )}
 
+          {/* Dedicated site link — Compute 2030 only */}
+          {pub.slug === "compute-2030-four-scenarios" && (
+            <div style={{ borderTop: B, paddingTop: 24, marginBottom: 32 }}>
+              <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: SLATE, margin: "0 0 12px" }}>DEDICATED SITE</p>
+              <a
+                href="https://compute2030.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "block", fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em",
+                  color: SLATE, border: `1px solid ${SLATE}`, padding: "12px 16px",
+                  textDecoration: "none", textAlign: "center", transition: "background 0.15s, color 0.15s",
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = SLATE; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = SLATE; }}
+              >
+                EXPLORE COMPUTE2030.COM ↗
+              </a>
+            </div>
+          )}
+
           {/* Share */}
           <div style={{ borderTop: B, paddingTop: 24 }}>
             <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: SLATE, margin: "0 0 12px" }}>SHARE</p>
