@@ -10,21 +10,52 @@ import { Link } from "wouter";
 
 const PDF_URL = "/manus-storage/ViaNegativaarXivv3_58458eb4.pdf";
 
-// Figure component — renders uploaded images with responsive sizing
+// Map from light-mode src to dark-mode src
+const DARK_SRCS: Record<string, string> = {
+  "/manus-storage/IMG_9248_7900ab5d.png": "/manus-storage/IMG_9248_dark_261639b4.png",
+  "/manus-storage/IMG_9249_23b1f08b.png": "/manus-storage/IMG_9249_dark_195554d8.png",
+  "/manus-storage/IMG_9250_097ac9da.png": "/manus-storage/IMG_9250_dark_a40db8bb.png",
+  "/manus-storage/IMG_9251_2701b107.png": "/manus-storage/IMG_9251_dark_fb9fd2ee.png",
+  "/manus-storage/IMG_9253_7ea0c178.png": "/manus-storage/IMG_9253_dark_b5515e82.png",
+  "/manus-storage/IMG_9254_5b7389e9.png": "/manus-storage/IMG_9254_dark_4d544fb5.png",
+  "/manus-storage/IMG_9255_21b7e237.png": "/manus-storage/IMG_9255_dark_d3ef33e3.png",
+  "/manus-storage/IMG_9256_ebe1e681.png": "/manus-storage/IMG_9256_dark_3010ba86.png",
+  "/manus-storage/IMG_9257_6978ba35.png": "/manus-storage/IMG_9257_dark_3f215598.png",
+  "/manus-storage/IMG_9258_7a4dab4f.png": "/manus-storage/IMG_9258_dark_b0fa4e57.png",
+  "/manus-storage/IMG_9259_703d6e80.png": "/manus-storage/IMG_9259_dark_b08e66a9.png",
+  "/manus-storage/IMG_9260_982b371b.png": "/manus-storage/IMG_9260_dark_8cd3399f.png",
+  "/manus-storage/IMG_9261_0871db68.png": "/manus-storage/IMG_9261_dark_5a3328dd.png",
+  "/manus-storage/IMG_9262_a5de7e49.png": "/manus-storage/IMG_9262_dark_f45ad292.png",
+  "/manus-storage/IMG_9263_7a3e7696.png": "/manus-storage/IMG_9263_dark_50016446.png",
+  "/manus-storage/IMG_9264_d4bfc208.png": "/manus-storage/IMG_9264_dark_e2a411f4.png",
+  "/manus-storage/IMG_9265_1a59bda9.png": "/manus-storage/IMG_9265_dark_1b29ef80.png",
+  "/manus-storage/IMG_9266_d714c7ac.png": "/manus-storage/IMG_9266_dark_713caa4f.png",
+  "/manus-storage/IMG_9267_008efa6e.png": "/manus-storage/IMG_9267_dark_b7bb6239.png",
+  "/manus-storage/IMG_9268_9e141c0f.png": "/manus-storage/IMG_9268_dark_ea57039c.png",
+  "/manus-storage/IMG_9269_b37167ea.png": "/manus-storage/IMG_9269_dark_e847ab6b.png",
+};
+
+// Figure component — renders with picture/source for automatic dark-mode switching
 function Fig({ src, alt, caption, width = 1200, height = 700 }: {
   src: string; alt: string; caption: React.ReactNode; width?: number; height?: number;
 }) {
+  const darkSrc = DARK_SRCS[src];
   return (
     <figure className="vn-figure">
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading="lazy"
-        decoding="async"
-        style={{ display: "block", width: "100%", height: "auto", maxWidth: "100%" }}
-      />
+      <picture>
+        {darkSrc && (
+          <source srcSet={darkSrc} media="(prefers-color-scheme: dark)" />
+        )}
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading="lazy"
+          decoding="async"
+          style={{ display: "block", width: "100%", height: "auto", maxWidth: "100%" }}
+        />
+      </picture>
       <figcaption dangerouslySetInnerHTML={{ __html: caption as string }} />
     </figure>
   );
