@@ -10,26 +10,21 @@ import { Link } from "wouter";
 
 const PDF_URL = "/manus-storage/ViaNegativaarXivv3_58458eb4.pdf";
 
-// Placeholder figure component — renders a labelled grey box until real PNGs are uploaded
+// Figure component — renders uploaded images with responsive sizing
 function Fig({ src, alt, caption, width = 1200, height = 700 }: {
   src: string; alt: string; caption: React.ReactNode; width?: number; height?: number;
 }) {
-  const aspect = (height / width) * 100;
   return (
-    <figure>
-      <div
-        className="vn-fig-placeholder"
-        style={{ paddingBottom: `${aspect}%`, position: "relative", background: "var(--rule-soft)", border: "1px solid var(--rule)", display: "block" }}
-        aria-label={alt}
-      >
-        <span style={{
-          position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: '"IBM Plex Mono", monospace', fontSize: "11px", color: "var(--muted)",
-          textTransform: "uppercase", letterSpacing: ".1em", textAlign: "center", padding: "12px"
-        }}>
-          {alt}
-        </span>
-      </div>
+    <figure className="vn-figure">
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        style={{ display: "block", width: "100%", height: "auto", maxWidth: "100%" }}
+      />
       <figcaption dangerouslySetInnerHTML={{ __html: caption as string }} />
     </figure>
   );
@@ -169,8 +164,8 @@ export default function ViaNegativalRead() {
           font-size: 19px; line-height: 1.62; font-variant-numeric: oldstyle-nums; min-height: 100vh; }
         .vn-page *, .vn-page *::before, .vn-page *::after { box-sizing: border-box; }
         :root {
-          --vn-paper: #FBFBF9; --vn-ink: #15181C; --vn-muted: #6A7079;
-          --vn-rule: #DEDDD6; --vn-rule-soft: #EAE9E3;
+          --vn-paper: #FFFFFF; --vn-ink: #15181C; --vn-muted: #6A7079;
+          --vn-rule: #E4E3DD; --vn-rule-soft: #EFEEE9;
           --vn-bind: #0F5257; --vn-bind-tint: #E4EEEE; --vn-strike: #868C94;
           --vn-measure: 69ch;
         }
@@ -308,7 +303,8 @@ export default function ViaNegativalRead() {
         @media (prefers-color-scheme: dark) { .vn-page caption { color: var(--vn-muted); } }
         .vn-page caption b { font-weight: 600; }
         .vn-page figure { margin: 34px 0 36px; }
-        .vn-page figure img { width: 100%; display: block; border: 1px solid var(--vn-rule-soft); }
+        .vn-page figure img { width: 100%; display: block; max-width: 100%; height: auto; }
+        .vn-figure { overflow-x: hidden; }
         .vn-page figcaption { font-size: 15px; line-height: 1.45; color: #3B4048; margin-top: 11px; }
         @media (prefers-color-scheme: dark) { .vn-page figcaption { color: var(--vn-muted); } }
         .vn-page figcaption b { font-weight: 600; }
