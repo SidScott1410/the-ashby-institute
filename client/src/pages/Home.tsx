@@ -625,7 +625,7 @@ export default function Home() {
             TAI WORKING PAPER SERIES · TAI-WP-2026-02
           </p>
           <p style={{ fontSize: 14, lineHeight: 1.75, color: "#444", marginBottom: 20 }}>
-            The AI economy by elimination. Thirty questions on compute, data, models, labor, and the physical world — each forecast by testing every candidate answer against six hard constraints and keeping only what survives.
+            The AI economy by elimination. Thirty questions on compute, data, models, labor and the physical world, each forecast by testing every candidate answer against six constraints and keeping only what survives. Only one of the six is physical law. The other five reprice rather than forbid, which is why every verdict carries a probability instead of a proof.
           </p>
           <div style={{ borderLeft: `3px solid ${SLATE}`, paddingLeft: 20, marginBottom: 28 }}>
             <p style={{ fontSize: 12, lineHeight: 1.7, color: "#555", fontStyle: "italic" }}>
@@ -643,7 +643,7 @@ export default function Home() {
               onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
               onMouseLeave={e => (e.currentTarget.style.background = "#111")}
             >
-              READ THE WORKING PAPER →
+              DOWNLOAD THE PAPER, 60 PAGES →
             </Link>
             <Link href="/publications/via-negativa/read" style={{
               display: "inline-block", padding: "12px 24px",
@@ -658,18 +658,21 @@ export default function Home() {
               READ ONLINE ↗
             </Link>
           </div>
+          <p style={{ fontSize: 11, lineHeight: 1.7, color: "#555", marginTop: 24, maxWidth: 480 }}>
+            <strong>A published record, not just a forecast.</strong> One dated call with its adjudication rules specified. A pre-registered backtest with four hits and one maximum-confidence miss, kept on the register with its score. And a coined unit withdrawn when its numerator proved not to exist.
+          </p>
         </div>
 
-        {/* Right: Six Immovables panel */}
+        {/* Right: Six Constraints panel */}
         <div className="text-col" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <p style={{ fontSize: 9, letterSpacing: "0.14em", color: "#888", marginBottom: 24 }}>SIX IMMOVABLES</p>
+          <p style={{ fontSize: 9, letterSpacing: "0.14em", color: "#888", marginBottom: 24 }}>SIX CONSTRAINTS, ORDERED BY HOW FAST EACH RELAXES</p>
           {[
-            { n: "01", title: "Physics",        desc: "Thermodynamics, speed of light, materials science." },
-            { n: "02", title: "Capital",        desc: "Available investment, cost of capital, return requirements." },
-            { n: "03", title: "Infrastructure", desc: "Grid capacity, fab throughput, logistics." },
-            { n: "04", title: "Institutions",   desc: "Regulatory capacity, legal doctrine, political economy." },
-            { n: "05", title: "Human Factors",  desc: "Trust, adoption curves, skill formation." },
-            { n: "06", title: "Time",           desc: "The gap between what is needed and what can be built." },
+            { n: "01", title: "Thermodynamics",      time: "never relaxes",       desc: "Physical law. The only constraint that bars a candidate outright." },
+            { n: "02", title: "Talent and Absorption", time: "10 to 40 years",     desc: "Generational time. People raised, trained, and organised into working practice." },
+            { n: "03", title: "Data",                 time: "not replenished",     desc: "An accumulated stock, drawn down rather than produced." },
+            { n: "04", title: "Matter",               time: "2 to 7 years",        desc: "Industrial production. Transformers, turbines, fabs, packaging, interconnection." },
+            { n: "05", title: "Law and Legitimacy",   time: "3 to 24 months",      desc: "A collective decision by people with authority. Moves in both directions." },
+            { n: "06", title: "Capital",              time: "days to weeks",       desc: "A price. The most mutable of the six, and therefore the one least able to bind." },
           ].map((s, i) => (
             <div key={s.n} style={{
               display: "grid", gridTemplateColumns: "36px 1fr", gap: 16,
@@ -679,7 +682,10 @@ export default function Home() {
             }}>
               <span style={{ fontSize: 9, letterSpacing: "0.08em", color: "rgba(44,62,107,0.45)", paddingTop: 2 }}>{s.n}</span>
               <div>
-                <p style={{ fontSize: 12, fontWeight: 600, color: "#111", margin: "0 0 3px" }}>{s.title}</p>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 3 }}>
+                  <p style={{ fontSize: 12, fontWeight: 600, color: "#111", margin: 0 }}>{s.title}</p>
+                  <span style={{ fontSize: 9, letterSpacing: "0.06em", color: "rgba(44,62,107,0.5)", textTransform: "uppercase" }}>{s.time}</span>
+                </div>
                 <p style={{ fontSize: 11, color: "#666", margin: 0, lineHeight: 1.5 }}>{s.desc}</p>
               </div>
             </div>

@@ -501,7 +501,6 @@ export default function ViaNegativalRead() {
             <div className="vn-navfoot">
               <a href={PDF_URL} target="_blank" rel="noopener noreferrer">Full paper as PDF</a>
               <a href="https://www.theashbyinstitute.org">The Ashby Institute</a>
-              <a href="https://mindmeetsmatter.com">Mind Meets Matter</a>
             </div>
           </nav>
 
