@@ -485,6 +485,16 @@ export default function PublicationDetail() {
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = SLATE}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "#111"}
                 >COPY LINK →</button>
+                {pub.slug === "via-negativa" && (
+                  <Link href="/publications/via-negativa/read" style={{
+                    display: "block", fontFamily: FONT, fontSize: 9, letterSpacing: "0.12em",
+                    color: SLATE, border: `1px solid ${SLATE}`, padding: "12px 16px",
+                    textDecoration: "none", textAlign: "center", transition: "background 0.15s, color 0.15s",
+                  }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = SLATE; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = SLATE; }}
+                  >READ ONLINE →</Link>
+                )}
               </div>
             )}
           </div>

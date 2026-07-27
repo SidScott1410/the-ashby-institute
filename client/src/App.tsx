@@ -13,6 +13,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Theory from "./pages/Theory";
 import PublicationDetail from "@/pages/PublicationDetail";
+import ViaNegativalRead from "@/pages/ViaNegativalRead";
 import ScrollToTop from "./components/ScrollToTop";
 
 function Router() {
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/theory" component={Theory} />
       <Route path="/fellows" component={Fellows} />
       <Route path="/publications" component={Publications} />
+      <Route path="/publications/via-negativa/read" component={ViaNegativalRead} />
       <Route path="/publications/:slug" component={PublicationDetail} />
       <Route path="/events" component={Events} />
       <Route path="/about" component={About} />
