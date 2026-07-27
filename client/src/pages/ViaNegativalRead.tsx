@@ -64,7 +64,16 @@ function Fig({ src, alt, caption, width = 1200, height = 700, colorMode }: {
 
 export default function ViaNegativalRead() {
   // 'light' = default (white figures), 'dark' = forced dark, null = follow OS
-  const [colorMode, setColorMode] = useState<'dark' | 'light' | null>('light');
+  // Persist in localStorage so the reader's choice survives page reloads
+  const [colorMode, setColorMode] = useState<'dark' | 'light' | null>(() => {
+    try {
+      const stored = localStorage.getItem('vn-theme');
+      if (stored === 'dark' || stored === 'light' || stored === 'auto') {
+        return stored === 'auto' ? null : stored as 'dark' | 'light';
+      }
+    } catch {}
+    return 'light';
+  });
 
   // Apply forced color mode by toggling a class on the .vn-page element
   useEffect(() => {
@@ -403,7 +412,10 @@ export default function ViaNegativalRead() {
         .vn-fn li { margin-bottom: 9px; }
         .vn-page sup a { border: 0; color: var(--vn-bind); font-family: "IBM Plex Mono", monospace;
           font-size: 11px; padding: 0 1px; text-decoration: none; }
-        .vn-next { margin-top: 60px; padding-top: 22px; border-top: 1px solid var(--vn-rule); font-size: 16px; }
+        .vn-next { margin-top: 60px; padding-top: 22px; border-top: 1px solid var(--vn-rule); font-size: 16px;
+          display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+        .vn-next-item { flex: 1 1 0; min-width: 0; }
+        .vn-next-item.vn-next-right { text-align: right; }
         .vn-next .vn-lbl { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .12em;
           text-transform: uppercase; color: var(--vn-muted); display: block; margin-bottom: 6px; }
         .vn-page a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--vn-rule); }
@@ -476,7 +488,11 @@ export default function ViaNegativalRead() {
             <button
               className="vn-theme-btn"
               aria-label={colorMode === 'dark' ? 'Switch to light mode' : colorMode === 'light' ? 'Follow system theme' : 'Switch to dark mode'}
-              onClick={() => setColorMode(m => m === null ? 'dark' : m === 'dark' ? 'light' : null)}
+              onClick={() => setColorMode(m => {
+                const next = m === null ? 'dark' : m === 'dark' ? 'light' : null;
+                try { localStorage.setItem('vn-theme', next === null ? 'auto' : next); } catch {}
+                return next;
+              })}
             >
               {colorMode === 'dark' ? (
                 <>{/* Moon icon */}<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> DARK</>
@@ -653,8 +669,11 @@ export default function ViaNegativalRead() {
                 </ol>
               </div>
 
-              <div className="vn-next"><span className="vn-lbl">Next</span>
-                <a href="#p1" data-go="p1"><em>I. The Method</em></a></div>
+              <div className="vn-next">
+                <div className="vn-next-item"></div>
+                <div className="vn-next-item vn-next-right"><span className="vn-lbl">Next</span>
+                  <a href="#p1" data-go="p1"><em>I. The Method →</em></a></div>
+              </div>
             </section>
 
             {/* ===== I. THE METHOD ===== */}
@@ -772,8 +791,12 @@ export default function ViaNegativalRead() {
                 <li id="f1-1">Full form, parameters, conversion lags and the treatment of uncomputable cells are in the <a href={PDF_URL} target="_blank" rel="noopener noreferrer">PDF</a>, Section 1. An uncomputable cell does not receive a free pass: it takes a base-rate-bounded interval, and the verdict reports the posterior at both ends. Simulation showed the earlier free-pass treatment was carrying two thirds of an unmeasurable candidate's posterior mass. <a href="#r1-1">↩</a></li>
               </ol></div>
 
-              <div className="vn-next"><span className="vn-lbl">Next</span>
-                <a href="#p2" data-go="p2"><em>II. The Elasticity Gap</em></a></div>
+              <div className="vn-next">
+                <div className="vn-next-item"><span className="vn-lbl">Previous</span>
+                  <a href="#p0" data-go="p0"><em>← Introduction</em></a></div>
+                <div className="vn-next-item vn-next-right"><span className="vn-lbl">Next</span>
+                  <a href="#p2" data-go="p2"><em>II. The Elasticity Gap →</em></a></div>
+              </div>
             </section>
 
             {/* ===== II. THE ELASTICITY GAP ===== */}
@@ -873,8 +896,12 @@ export default function ViaNegativalRead() {
                 <li id="f2-1">Anchors: attributable revenue and capacity series in the <a href={PDF_URL} target="_blank" rel="noopener noreferrer">PDF</a>, Section 2; 29.6 GW of AI data-center power capacity at Q4 2025 from Epoch AI via the <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Stanford AI Index 2026</a>; permitted incremental capacity to 2030 from <a href="https://www.bain.com/insights/topics/technology-report/" target="_blank" rel="noopener noreferrer">Bain's 6th Global Technology Report</a>; efficiency gains from <a href="https://epoch.ai/" target="_blank" rel="noopener noreferrer">Epoch AI</a>. <a href="#r2-1">↩</a></li>
               </ol></div>
 
-              <div className="vn-next"><span className="vn-lbl">Next</span>
-                <a href="#p3" data-go="p3"><em>III. The Roots and the Economy</em></a></div>
+              <div className="vn-next">
+                <div className="vn-next-item"><span className="vn-lbl">Previous</span>
+                  <a href="#p1" data-go="p1"><em>← I. The Method</em></a></div>
+                <div className="vn-next-item vn-next-right"><span className="vn-lbl">Next</span>
+                  <a href="#p3" data-go="p3"><em>III. The Roots and the Economy →</em></a></div>
+              </div>
             </section>
 
             {/* ===== III. ROOTS AND ECONOMY ===== */}
@@ -984,8 +1011,12 @@ export default function ViaNegativalRead() {
                 <li id="f3-1">Adoption and agent deployment both from the <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Stanford AI Index 2026</a>, which also supplies the micro-study gradient in Q5 and the entry-level employment figure in Q8. Productivity figures and the Brynjolfsson J-curve reading are from the same source. <a href="#r3-1">↩</a></li>
               </ol></div>
 
-              <div className="vn-next"><span className="vn-lbl">Next</span>
-                <a href="#p4" data-go="p4"><em>IV. The Binding Constraints</em></a></div>
+              <div className="vn-next">
+                <div className="vn-next-item"><span className="vn-lbl">Previous</span>
+                  <a href="#p2" data-go="p2"><em>← II. The Elasticity Gap</em></a></div>
+                <div className="vn-next-item vn-next-right"><span className="vn-lbl">Next</span>
+                  <a href="#p4" data-go="p4"><em>IV. The Binding Constraints →</em></a></div>
+              </div>
             </section>
 
             {/* ===== IV. BINDING CONSTRAINTS ===== */}
@@ -1102,8 +1133,12 @@ export default function ViaNegativalRead() {
                 <p className="vn-meta">binding: <b>Matter, Tier 3</b> · P ≈ 0.78</p>
               </div>
 
-              <div className="vn-next"><span className="vn-lbl">Next</span>
-                <a href="#p5" data-go="p5"><em>V. The Call and the Record</em></a></div>
+              <div className="vn-next">
+                <div className="vn-next-item"><span className="vn-lbl">Previous</span>
+                  <a href="#p3" data-go="p3"><em>← III. The Roots and the Economy</em></a></div>
+                <div className="vn-next-item vn-next-right"><span className="vn-lbl">Next</span>
+                  <a href="#p5" data-go="p5"><em>V. The Call and the Record →</em></a></div>
+              </div>
             </section>
 
             {/* ===== V. THE CALL AND THE RECORD ===== */}
@@ -1270,8 +1305,11 @@ export default function ViaNegativalRead() {
                 <li id="f5-1">Claude Opus 4.5 measured approximately 27 minutes on the 80 percent horizon in December 2025, and the series had been approximately flat at 27 to 32 minutes across the preceding frontier releases, while 50 percent horizons rose several-fold. The ratio between the two has widened from roughly 5x toward 10x to 25x. Source: <a href="https://metr.org/time-horizons/" target="_blank" rel="noopener noreferrer">METR</a>. <a href="#r5-1">↩</a></li>
               </ol></div>
 
-              <div className="vn-next"><span className="vn-lbl">Read next</span>
-                <a href={PDF_URL} target="_blank" rel="noopener noreferrer">The full paper, with all thirty verdicts and the arithmetic</a>
+              <div className="vn-next">
+                <div className="vn-next-item"><span className="vn-lbl">Previous</span>
+                  <a href="#p4" data-go="p4"><em>← IV. The Binding Constraints</em></a></div>
+                <div className="vn-next-item vn-next-right"><span className="vn-lbl">Read next</span>
+                  <a href={PDF_URL} target="_blank" rel="noopener noreferrer"><em>The full paper →</em></a></div>
               </div>
             </section>
 

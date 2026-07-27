@@ -184,14 +184,14 @@ export default function Publications() {
             >READ THE WORKING PAPER →</Link>
           </div>
           <div className="pub-text" style={{ padding: "56px 48px" }}>
-            <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: "#888", marginBottom: 20, marginTop: 0 }}>SIX IMMOVABLES</p>
+            <p style={{ fontFamily: FONT, fontSize: 8, letterSpacing: "0.16em", color: "#888", marginBottom: 20, marginTop: 0 }}>SIX CONSTRAINTS, ORDERED BY HOW FAST EACH RELAXES</p>
             {[
-              { n: "01", title: "Physics", desc: "Thermodynamics, speed of light, materials science." },
-              { n: "02", title: "Capital", desc: "Available investment, cost of capital, return requirements." },
-              { n: "03", title: "Infrastructure", desc: "Grid capacity, fab throughput, logistics." },
-              { n: "04", title: "Institutions", desc: "Regulatory capacity, legal doctrine, political economy." },
-              { n: "05", title: "Human Factors", desc: "Trust, adoption curves, skill formation." },
-              { n: "06", title: "Time", desc: "The gap between what is needed and what can be built." },
+              { n: "T0", title: "Thermodynamics", desc: "Physical law. The only constraint that bars outright. Never relaxes." },
+              { n: "T1", title: "Talent and Absorption", desc: "Generational time. Organisations learn at human speed. 10 to 40 years." },
+              { n: "T2", title: "Data", desc: "Accumulated stock, not replenished. The training corpus is a fixed endowment." },
+              { n: "T3", title: "Matter", desc: "Industrial production. Transformers, fabs, grid equipment. 2 to 7 years." },
+              { n: "T4", title: "Law and Legitimacy", desc: "Collective decision. Regulation, liability, public trust. 3 to 24 months." },
+              { n: "T5", title: "Capital", desc: "A price. The most mutable of the six, and therefore the one least able to bind." },
             ].map((s, i) => (
               <div key={s.n} style={{ display: "grid", gridTemplateColumns: "32px 1fr", gap: 16, padding: "12px 0", borderBottom: i < 5 ? B : "none" }}>
                 <span style={{ fontFamily: FONT, fontSize: 9, color: "rgba(44,62,107,0.4)" }}>{s.n}</span>
