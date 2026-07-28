@@ -101,11 +101,11 @@ export default function ViaNegativalRead() {
     const existingCanonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     const prevHref = existingCanonical?.href ?? "";
     if (existingCanonical) {
-      existingCanonical.href = "https://www.theashbyinstitute.org/publications/via-negativa";
+      existingCanonical.href = "https://theashbyinstitute.org/publications/via-negativa";
     } else {
       const canon = document.createElement("link");
       canon.rel = "canonical";
-      canon.href = "https://www.theashbyinstitute.org/publications/via-negativa";
+      canon.href = "https://theashbyinstitute.org/publications/via-negativa";
       document.head.appendChild(canon);
     }
 
