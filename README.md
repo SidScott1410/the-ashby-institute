@@ -48,9 +48,9 @@ Each generated HTML file receives a route-specific canonical URL rooted at `http
 
 ## Asset hosting
 
-The website deliberately references research figures, papers, and the Chakra Petch font family through `/manus-storage/` paths. This keeps large assets out of the source tree and out of the normal web build. A complete asset bundle and migration inventory are included in the accompanying export package.
+The website serves research figures, papers, and the Chakra Petch font family from `client/public/manus-storage/`. They are included in this repository, so the application can run independently of managed storage or a vendor-specific asset proxy.
 
-To migrate the site away from the existing asset origin, copy the contents of the export package's `manus-storage/` directory into `client/public/manus-storage/`. The current asset paths will then work without code changes on any static host. Do **not** add those large assets to this repository unless the destination host is intended to serve them directly.
+The source uses root-relative paths such as `/manus-storage/IMG_9248_7900ab5d.png`. Vite copies the complete directory to the production output unchanged, so these paths work on GitHub Pages and other root-domain static hosts without component-level changes.
 
 ## SEO files
 
@@ -58,7 +58,7 @@ The primary search files are [`client/public/robots.txt`](./client/public/robots
 
 ## Deployment notes
 
-The source code can be hosted through a Node-compatible host using `pnpm build` and `pnpm start`. A static host can deploy `dist/public/`, which already contains fully prerendered pages for every public route. Review [DEPLOYMENT.md](./DEPLOYMENT.md) before changing hosts or custom-domain DNS.
+The source code can be hosted through a Node-compatible host using `pnpm build` and `pnpm start`. A static host can deploy `dist/public/`, which already contains fully prerendered pages for every public route. The repository includes GitHub Actions workflows for continuous integration and GitHub Pages deployment. Review [DEPLOYMENT.md](./DEPLOYMENT.md) before changing hosts or custom-domain DNS.
 
 ## License
 

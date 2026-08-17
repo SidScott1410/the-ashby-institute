@@ -109,8 +109,7 @@ temp/
 .webdev/
 .manus-logs/
 
-# Manus version file (auto-generated, not part of source)
-client/public/__manus__/version.json
+# Manus configuration files (not part of the portable source repository)
 .project-config.json
 
 # Local task-management notes

@@ -47,9 +47,9 @@ The server uses `PORT` when present and otherwise listens on port `3000`.
 
 ## Asset migration
 
-The application uses `/manus-storage/` root-relative paths for the Via Negativa PDF, Compute 2030 PDF, the reading-edition figures, and Chakra Petch font files. These paths are served by the existing website deployment. The accompanying full export package contains an `manus-storage/` directory that mirrors this asset namespace.
+The application uses `/manus-storage/` root-relative paths for the Via Negativa PDF, Compute 2030 PDF, the reading-edition figures, and Chakra Petch font files. Those assets are now included in `client/public/manus-storage/`, which Vite copies into `dist/public/manus-storage/` during every build.
 
-To make a wholly self-contained deployment on a new host, place the asset bundle at `client/public/manus-storage/` before running `pnpm build`. The existing source paths then resolve unchanged. Confirm that publication and font licences allow the intended distribution before publishing the copied assets.
+The repository is therefore self-contained for standalone static hosting. Confirm that publication and font licences allow the intended distribution before publishing copied assets.
 
 ## Custom domain and indexing
 
@@ -65,3 +65,9 @@ After deployment, verify the following URLs return HTTP 200 and have a route-spe
 | `https://theashbyinstitute.org/publications/via-negativa/read` | `https://theashbyinstitute.org/publications/via-negativa/read` |
 
 Then resubmit `https://theashbyinstitute.org/sitemap.xml` in Google Search Console. The sitemap is referenced in `robots.txt` and contains every current public route.
+
+## GitHub Pages migration
+
+The repository's `.github/workflows/pages.yml` workflow deploys `dist/public/` to GitHub Pages after a successful push to `main`. The workflow also supports manual deployment from the Actions tab. The custom-domain marker file is `client/public/CNAME`; it specifies `theashbyinstitute.org`.
+
+GitHub Pages custom domains must also be configured in the repository's **Settings → Pages** panel (or through the GitHub API). After the first successful Pages deployment, change the apex-domain DNS records at the domain registrar to the records GitHub supplies and configure `www` as a redirect or CNAME according to GitHub's domain instructions. Do not cancel the current host until the Pages URL, apex domain, HTTPS certificate, asset files, and every sitemap route have been checked.

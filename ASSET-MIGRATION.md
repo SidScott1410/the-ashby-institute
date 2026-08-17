@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The live project keeps large visual and publication assets outside the source tree under the root-relative `/manus-storage/` namespace. The accompanying **complete export package** includes a directory of the same name containing all currently referenced assets, so the website can be migrated to a new host without broken fonts, figures, or publication links.
+The project uses a root-relative `/manus-storage/` namespace for large visual and publication assets. All currently referenced assets are now included in `client/public/manus-storage/`, so the website can be deployed to a new host without broken fonts, figures, or publication links.
 
 ## Bundle contents
 
@@ -16,7 +16,7 @@ The live project keeps large visual and publication assets outside the source tr
 
 ## Migration procedure
 
-Copy the export package's `manus-storage/` directory to `client/public/manus-storage/` in the receiving project **before** running the production build. The source code already uses root-relative paths such as `/manus-storage/IMG_9248_7900ab5d.png`; no component-level source changes are required once the files are placed in that location.
+The asset directory is already present in `client/public/manus-storage/`. The source code uses root-relative paths such as `/manus-storage/IMG_9248_7900ab5d.png`; Vite carries these files to the production build without any component-level source changes.
 
 ```text
 the-ashby-institute/
@@ -30,7 +30,7 @@ the-ashby-institute/
             └── …
 ```
 
-> The source repository intentionally excludes the asset directory from normal commits, because the current deployment workflow serves these files from managed static storage. The complete export ZIP is the archival handoff that includes both source and assets.
+> The source repository now tracks the asset directory because GitHub Pages needs to serve a complete standalone build. The complete export ZIP remains an archival handoff containing the same source and assets.
 
 ## Verification
 
