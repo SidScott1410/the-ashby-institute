@@ -65,7 +65,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
       "A pre-registered backtest records four hits and one maximum-confidence miss, on the tier the framework had already named as most exposed to substitution. Mean Brier 0.228.",
       "Reliability, not capability, remains the binding constraint on agents through 2027. On 31 December 2027 the best generally available model's METR 80% task-completion horizon is under eight hours. P = 0.85.",
     ],
-    pages: 60,
+    pages: 74,
     docNumber: "TAI-WP-2026-02",
     program: "Compute Governance",
     tags: ["AI Economy", "Compute", "Forecasting", "Via Negativa", "Elasticity Gap", "Agent Reliability"],
