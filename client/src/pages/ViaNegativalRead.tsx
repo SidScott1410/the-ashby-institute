@@ -153,68 +153,6 @@ export default function ViaNegativalRead() {
       anchorHandlers.push([a, handler]);
     });
 
-    // Elasticity slider
-    const slider = document.getElementById("aSlider") as HTMLInputElement | null;
-    if (slider) {
-      const REV = 110e9, GW = 29.6, PERMIT = 200, EFF = 0.40, YRS = 4, GDP = 154e12;
-      const F = [
-        { n: "PwC 2017, +$15.7T by 2030", o: 15.7e12, mine: false },
-        { n: "Goldman 2023, +7% global GDP", o: 0.07 * GDP, mine: false },
-        { n: "McKinsey 2023, $4.4T annual", o: 4.4e12, mine: false },
-        { n: "This paper, upper $10.5T", o: 10.5e12, mine: true },
-        { n: "This paper, lower $7.0T", o: 7.0e12, mine: true },
-        { n: "Acemoglu 2024, 0.66% TFP", o: 0.011 * GDP, mine: false },
-      ];
-      const list = document.getElementById("fcList");
-      const valEl = document.getElementById("aVal");
-      const vd = document.getElementById("fcVerdict");
-
-      if (list && valEl && vd) {
-        F.forEach(f => {
-          const d = document.createElement("div");
-          d.className = "vn-fc" + (f.mine ? " vn-mine" : "");
-          d.innerHTML = `<span class="vn-nm">${f.n}</span><span class="vn-bar"><i style="width:0"></i></span><span class="vn-sg">0.00</span>`;
-          list.appendChild(d);
-          (f as any).el = d;
-        });
-
-        const sigma = (o: number, a: number) => {
-          const k = REV / Math.pow(GW, a);
-          const need = Math.pow(o / k, 1 / a) / Math.pow(1 + EFF, YRS);
-          return PERMIT / need;
-        }
-        const label = (a: number) => {
-          if (Math.abs(a - 1.70) < 0.02) return "observed, 2023 to 2024";
-          if (Math.abs(a - 1.17) < 0.02) return "observed, 2024 to 2025";
-          if (Math.abs(a - 1.37) < 0.02) return "observed, 2025 to 2026";
-          if (a < 1.0) return "diminishing returns";
-          if (a === 1.0) return "constant returns";
-          return "increasing returns";
-        }
-        const render = () => {
-          const a = parseFloat(slider!.value);
-          let alive = 0, mineAlive = 0;
-          valEl!.innerHTML = `&alpha; = ${a.toFixed(2)}<small>${label(a)}</small>`;
-          F.forEach(f => {
-            const s = sigma(f.o, a), ok = s >= 1;
-            if (ok) { alive++; if (f.mine) mineAlive++; }
-            const el = (f as any).el as HTMLElement;
-            el.className = "vn-fc" + (f.mine ? " vn-mine" : "") + (ok ? " vn-alive" : "");
-            (el.querySelector("i") as HTMLElement).style.width = Math.min(100, (s / 3) * 100) + "%";
-            (el.querySelector(".vn-sg") as HTMLElement).textContent = s < 0.01 ? "0.00" : s.toFixed(2);
-          });
-          let msg = "";
-          if (alive === 0) msg = "Nothing survives. Every published forecast of AI output, including this one, requires more compute than the grid can deliver by 2030.";
-          else if (mineAlive === 0) msg = `This paper\u2019s own GDP band is eliminated. ${alive} of 6 survive, and the survivor is the most conservative estimate in the field.`;
-          else if (alive === 6) msg = "Everything survives, including the most bullish forecast ever published on this question.";
-          else msg = `${alive} of 6 survive, this paper among them.`;
-          vd!.textContent = msg;
-        }
-        slider.addEventListener("input", render);
-        render();
-      }
-    }
-
     // Restore hash on load
     const h = location.hash.replace("#", "");
     go((h && document.getElementById(h) && h.charAt(0) === "p") ? h : "p0", false);
@@ -536,6 +474,7 @@ export default function ViaNegativalRead() {
               <h1>Via Negativa: The AI Economy by Elimination
                 <span className="vn-sub">What the constraints permit, 2026 to 2030</span>
               </h1>
+              <p style={{ fontSize: "14px", lineHeight: 1.55, color: "var(--vn-muted)", marginBottom: "22px" }}>Revised to Version 4.1, October 2, 2026. The output anchor of Versions 3.0 to 3.4 is withdrawn and the central result of the elasticity section is reversed; see Appendix B of the PDF for the amendment log.</p>
 
               <p className="vn-lede">Every serious forecast of the AI economy is built the same way. Take a trend, project it forward. Those projections now disagree by two orders of magnitude, because a method that chains assumptions inherits the uncertainty of all of them.</p>
 
@@ -573,11 +512,11 @@ export default function ViaNegativalRead() {
                 </div></div>
                 <div className="vn-entry"><span className="vn-toc-num">II</span><div>
                   <h4><a href="#p2" data-go="p2">The Elasticity Gap</a></h4>
-                  <p>Every forecast of AI's contribution to output is a bet on the elasticity between deployed compute and attributable output. Nobody names it, nobody has measured it, and its observed values ran 1.70, then 1.17, then 1.37 across 2023 to 2026. At the low end of that range this paper's own GDP band is eliminated and the sole survivor is the field's most conservative estimate. At the high end even the most bullish survives. The central quantitative dispute in AI economics is a disagreement about one unmeasured number.</p>
+                  <p>Every forecast of AI's contribution to output is a bet on the elasticity between deployed compute and attributable output. Two available series give opposite verdicts. The hardware-inclusive series reads 0.77 to 1.26. The services series reads 1.11, 1.33 and 1.99, rising monotonically. Neither adjudicates.</p>
                 </div></div>
                 <div className="vn-entry"><span className="vn-toc-num">III</span><div>
                   <h4><a href="#p3" data-go="p3">The Roots and the Economy</a></h4>
-                  <p>AI adds roughly 1.0 to 1.5 percentage points of annual growth, not a majority of GDP: the majority claim fails by about ninefold. Realized gains are running at 0.1 to 0.2 points against a 1.5 point electricity precedent. The binding constraint on all of it is organizational absorption, which relaxes on a twenty to forty year clock.</p>
+                  <p>AI adds roughly 1.0 to 1.5 percentage points of annual growth, not a majority of GDP: the majority claim requires about $77T of new output and the constraint set permits about $16T, a 4.8x gap or 0.68 orders of magnitude. Realized gains are running at 0.1 to 0.2 points against a 1.5 point electricity precedent. The binding constraint on all of it is organizational absorption, which relaxes on a twenty to forty year clock.</p>
                 </div></div>
                 <div className="vn-entry"><span className="vn-toc-num">IV</span><div>
                   <h4><a href="#p4" data-go="p4">The Binding Constraints</a></h4>
@@ -631,15 +570,12 @@ export default function ViaNegativalRead() {
               </div>
 
               <h2>The Capture Ratio</h2>
-              <p>A second measure asks how much value is captured at all. Against measured US consumer surplus of roughly $172B annually, producers capture about 0.31 of the value created.<sup><a href="#f0-1" id="r0-1">1</a></sup> <strong>Roughly seventy percent of measured AI value is captured by nobody</strong>, accruing to users as surplus on goods priced at zero.</p>
-              <p><strong>One sourcing note that must travel with this number.</strong> Attributable AI revenue, the numerator, rests on three points covering NVIDIA data-centre revenue alone, one of them unverified, with lab run-rates reported rather than filed. The level is indicative; the second decimal is not real.</p>
-
-              <Fig colorMode={colorMode} src="/manus-storage/IMG_9260_982b371b.png" alt="Value created against value captured, 2025 and 2026" width={1195} height={711}
-                caption="<b>Value created against value captured.</b> Roughly seventy percent of measured AI value accrues to users as surplus on goods priced at or near zero. The hypothesis that capture is collapsing is wrong and withdrawn: K rose from 0.27 to 0.31. The level survives; the trend does not. <span class='vn-src'>Brynjolfsson et al. 2026, via the Stanford AI Index 2026</span>" />
+              <p>A second measure asks how much value is captured at all. Against measured US consumer surplus of roughly $172B annually, producers capture about 0.36 of the value created.<sup><a href="#f0-1" id="r0-1">1</a></sup> <strong>About 64 percent is uncaptured</strong>, accruing to users as surplus on goods priced at zero. Per dollar, the figure is about thirty-six cents on the dollar created.</p>
+              <p><strong>This is a point estimate, not a bound.</strong> The services revenue series excludes hyperscaler AI revenue, which understates capture, and the surplus estimate excludes enterprise surplus, which overstates it. The two biases run in opposite directions.</p>
 
               <div className="vn-concede">
                 <span className="vn-sig">Withdrawn</span>
-                <p>The hypothesis behind the second unit was that capture is <em>collapsing</em>, competed away faster than any layer can hold it. That is wrong: the ratio rose from 0.27 to 0.31 between 2025 and 2026. The trend claim is withdrawn. Only the level survives.</p>
+                <p>The hypothesis behind the second unit was that capture is <em>collapsing</em>, competed away faster than any layer can hold it. That is wrong. The current figure is a point estimate, not a bound, because the two biases run in opposite directions.</p>
               </div>
 
               <h2>The evidence, linked</h2>
@@ -649,7 +585,7 @@ export default function ViaNegativalRead() {
                 <tbody>
                   <tr><td>Interconnection median above 5 years</td><td><a href="https://emp.lbl.gov/queues" target="_blank" rel="noopener noreferrer">LBNL, <em>Queued Up</em> 2026</a></td></tr>
                   <tr><td>80% horizon flat at 27 to 32 min</td><td><a href="https://metr.org/time-horizons/" target="_blank" rel="noopener noreferrer">METR, live time-horizon page</a></td></tr>
-                  <tr><td>29.6 GW AI data-center capacity, Q4 2025</td><td><a href="https://epoch.ai/data/ai-supercomputers" target="_blank" rel="noopener noreferrer">Epoch AI database</a></td></tr>
+                  <tr><td>AI services revenue series: $1.7B, $7.0B, $29.7B and $140.4B, 2023 to 2026</td><td>Compiled provider by provider</td></tr>
                   <tr><td>~300T token public-text stock</td><td><a href="https://arxiv.org/abs/2211.04325" target="_blank" rel="noopener noreferrer">Villalobos et al., arXiv:2211.04325</a></td></tr>
                   <tr><td>Practical CMOS efficiency ceiling</td><td><a href="https://arxiv.org/abs/2312.08595" target="_blank" rel="noopener noreferrer">Ho, Erdil, Besiroglu, arXiv:2312.08595</a></td></tr>
                   <tr><td>Power is the constraint, not compute</td><td><a href="https://www.youtube.com/watch?v=9NtsnzRFJ_o" target="_blank" rel="noopener noreferrer">Nadella, Bg2 Pod, late 2025</a></td></tr>
@@ -665,7 +601,7 @@ export default function ViaNegativalRead() {
 
               <div className="vn-fn">
                 <ol>
-                  <li id="f0-1">Consumer surplus from Brynjolfsson et al. (2026), longitudinal willingness-to-accept estimates, reported in the <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Stanford AI Index 2026</a>: $112B rising to $172B annually, median value per user tripling from $3.40 to $11.40. Captured value is attributable AI revenue. Because the surplus figure covers US consumers only and excludes enterprise surplus entirely, the true capture ratio is lower than stated. <a href="#r0-1">↩</a></li>
+                  <li id="f0-1">Consumer surplus from Brynjolfsson et al. (2026), longitudinal willingness-to-accept estimates, reported in the <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Stanford AI Index 2026</a>: $112B rising to $172B annually, median value per user tripling from $3.40 to $11.40. The services revenue series excludes hyperscaler AI revenue, which understates capture, while the surplus estimate excludes enterprise surplus, which overstates it. The ratio is therefore a point estimate rather than a bound. <a href="#r0-1">↩</a></li>
                 </ol>
               </div>
 
@@ -805,13 +741,13 @@ export default function ViaNegativalRead() {
               <h1>The Elasticity Gap
                 <span className="vn-sub">The parameter the whole field is betting on</span>
               </h1>
-              <p className="vn-summary">Every forecast of AI's contribution to output is a bet on the elasticity between deployed compute and attributable output. Nobody names it, nobody has measured it, and its observed values ran 1.70, then 1.17, then 1.37 across 2023 to 2026. At the low end of that range this paper's own GDP band is eliminated and the sole survivor is the field's most conservative estimate. At the high end even the most bullish survives.</p>
+              <p className="vn-summary">Every forecast of AI's contribution to output is a bet on the elasticity between deployed compute and attributable output. Two available series give opposite verdicts. The hardware-inclusive series reads 0.77 to 1.26. The services series reads 1.11, 1.33 and 1.99, rising monotonically. Neither adjudicates.</p>
 
               <div className="vn-mini"><span className="vn-lbl">In this piece</span>
                 <ul>
                   <li><a href="#e-param">The parameter nobody names</a></li>
-                  <li><a href="#e-table">Every forecast, run through the engine</a></li>
-                  <li><a href="#e-says">What the table says</a></li>
+                  <li><a href="#e-table">The required elasticities</a></li>
+                  <li><a href="#e-says">What the result says</a></li>
                   <li><a href="#e-cost">What it costs this paper</a></li>
                   <li><a href="#e-fix">What would settle it</a></li>
                 </ul>
@@ -823,64 +759,33 @@ export default function ViaNegativalRead() {
                 O &nbsp;=&nbsp; k · C<sup>α</sup>
               </p>
               <p>where <span className="vn-mono">O</span> is AI-attributable output, <span className="vn-mono">C</span> is deployed compute, and <span className="vn-mono">α</span> is the elasticity of the first with respect to the second. At <span className="vn-mono">α = 1</span> output scales proportionally with compute. Below one, each additional gigawatt yields less than the last. Above one, deployed compute yields increasing returns, as it would if a model trained once serves many users or if value accrues through channels consuming little marginal inference.</p>
-              <p><strong>No published forecast of the AI economy states its α.</strong> None reports it, none defends it, and it has never been measured. Yet every such forecast is a bet on its value, because the forecast asserts an output figure, the constraints permit a quantity of compute, and only α connects them.</p>
+              <p><strong>No published forecast of the AI economy states its α.</strong> Two available series estimate it, and they give opposite verdicts. Every such forecast is still a bet on its value, because the forecast asserts an output figure and only α connects that figure to the compute constraint.</p>
 
-              <Fig colorMode={colorMode} src="/manus-storage/IMG_9248_7900ab5d.png" alt="Published forecasts against the Tier 3 constraint as a function of alpha" width={1545} height={890}
-                caption="<b>Every published forecast, run through the constraint engine.</b> At α = 1.0 this paper's own band is eliminated and only Acemoglu survives; at α = 1.4 both survive. The shaded band is the range actually observed. <span class='vn-src'>Drag the slider below, or reproduce from the repository</span>" />
-
-              <div className="vn-explore">
-                <span className="vn-sig">Drag it yourself</span>
-                <p style={{ fontSize: "16px", marginBottom: "4px" }}>Every forecast below is a bet on this one number. Nobody has measured it. Move the slider and watch which survive.</p>
-                <div className="vn-slider-row">
-                  <input type="range" id="aSlider" min="0.55" max="1.85" step="0.01" defaultValue="1.37" aria-label="elasticity alpha" />
-                  <span className="vn-aval" id="aVal">α = 1.37<small>observed, 2025 to 2026</small></span>
-                </div>
-                <div id="fcList"></div>
-                <div className="vn-verdictline" id="fcVerdict"></div>
-                <div className="vn-obsband">Observed values: 1.70 (2023 to 2024) · 1.17 (2024 to 2025) · 1.37 (2025 to 2026). Anchors: $110B attributable output on 29.6 GW in 2026; 200 GW permitted to 2030; 40% annual efficiency gain.</div>
-              </div>
-
-              <h2 id="e-table">Every forecast, run through the engine</h2>
-              <p>Anchoring on 2026 at roughly $110B of attributable output on <a href="https://epoch.ai/data/ai-supercomputers" target="_blank" rel="noopener noreferrer">29.6 GW of AI data-center capacity</a>, taking <a href="https://www.bain.com/insights/topics/technology-report/" target="_blank" rel="noopener noreferrer">permitted incremental capacity to 2030 as roughly 200 GW</a>, and applying the standard <a href="https://epoch.ai/data/machine-learning-hardware" target="_blank" rel="noopener noreferrer">efficiency correction of about 40 percent per year</a>, the slack ratio for each published forecast is a function of α alone.<sup><a href="#f2-1" id="r2-1">1</a></sup></p>
-
+              <h2 id="e-table">The required elasticities</h2>
+              <p>The output anchor is an AI services revenue series compiled provider by provider: $1.7B, $7.0B, $29.7B and $140.4B for 2023 to 2026, with year-on-year multiples of 4.15x, 4.21x and 4.73x. It excludes hardware entirely and excludes hyperscaler AI revenue because an unknown share of it is lab revenue already counted, which makes every level a lower bound. The prior anchor is withdrawn: it was below the reported annualized run rate of either OpenAI or Anthropic on its own.<sup><a href="#f2-1" id="r2-1">1</a></sup></p>
+              <p>The six required elasticities are computed in closed form as <span className="vn-mono">ln(R/O₀)/ln(g)</span>.</p>
               <div className="vn-tbl"><table>
-                <thead><tr><th>Forecast</th><th className="vn-n">α=0.5</th><th className="vn-n">0.7</th><th className="vn-n">1.0</th><th className="vn-n">1.2</th><th className="vn-n">1.4</th><th className="vn-n">1.7</th></tr></thead>
+                <thead><tr><th>Forecast</th><th className="vn-n">Required elasticity</th></tr></thead>
                 <tbody>
-                  <tr><td>PwC 2017, +$15.7T by 2030</td><td className="vn-n vn-gone">0.00</td><td className="vn-n vn-gone">0.02</td><td className="vn-n vn-gone">0.18</td><td className="vn-n vn-gone">0.42</td><td className="vn-n vn-gone">0.75</td><td className="vn-n vn-bind">1.40</td></tr>
-                  <tr><td>Goldman 2023, +7% global GDP</td><td className="vn-n vn-gone">0.00</td><td className="vn-n vn-gone">0.04</td><td className="vn-n vn-gone">0.26</td><td className="vn-n vn-gone">0.57</td><td className="vn-n vn-gone">0.98</td><td className="vn-n vn-bind">1.75</td></tr>
-                  <tr><td>McKinsey 2023, $4.4T annual</td><td className="vn-n vn-gone">0.02</td><td className="vn-n vn-gone">0.13</td><td className="vn-n vn-gone">0.65</td><td className="vn-n vn-bind">1.20</td><td className="vn-n vn-bind">1.86</td><td className="vn-n vn-bind">2.96</td></tr>
-                  <tr><td><strong>This paper, upper $10.5T</strong></td><td className="vn-n vn-gone">0.00</td><td className="vn-n vn-gone">0.04</td><td className="vn-n vn-gone">0.27</td><td className="vn-n vn-gone">0.58</td><td className="vn-n vn-bind">1.00</td><td className="vn-n vn-bind">1.78</td></tr>
-                  <tr><td><strong>This paper, lower $7.0T</strong></td><td className="vn-n vn-gone">0.01</td><td className="vn-n vn-gone">0.07</td><td className="vn-n vn-gone">0.41</td><td className="vn-n vn-gone">0.82</td><td className="vn-n vn-bind">1.34</td><td className="vn-n vn-bind">2.26</td></tr>
-                  <tr><td>Acemoglu 2024, 0.66% TFP over 10 yr</td><td className="vn-n vn-gone">0.11</td><td className="vn-n vn-gone">0.52</td><td className="vn-n vn-bind">1.69</td><td className="vn-n vn-bind">2.66</td><td className="vn-n vn-bind">3.68</td><td className="vn-n vn-bind">5.20</td></tr>
+                  <tr><td>Acemoglu 2024</td><td className="vn-n">0.76</td></tr>
+                  <tr><td>McKinsey 2023</td><td className="vn-n">1.06</td></tr>
+                  <tr><td>This paper, lower</td><td className="vn-n">1.20</td></tr>
+                  <tr><td>This paper, upper</td><td className="vn-n">1.32</td></tr>
+                  <tr><td>Goldman Sachs 2023</td><td className="vn-n">1.33</td></tr>
+                  <tr><td>PwC 2017</td><td className="vn-n">1.45</td></tr>
                 </tbody>
-                <caption><b>Cells give σ, permitted over required. A forecast survives at σ ≥ 1</b>, shown in teal; struck values are eliminated by the Tier 3 constraint.</caption>
+                <caption><b>Six floors spanning 0.69.</b> These are arithmetic on published claims and require no observed elasticity.</caption>
               </table></div>
+              <p>Two available series give opposite verdicts. The hardware-inclusive series reads 0.77 to 1.26. The services series reads 1.11, 1.33 and 1.99, rising monotonically. Neither adjudicates.</p>
 
-              <p>The observed values of α, computed from the attributable-output and capacity series, are unstable and sit in the increasing-returns region:</p>
-              <div className="vn-tbl"><table>
-                <thead><tr><th>Period</th><th className="vn-n">Output</th><th className="vn-n">Capacity</th><th className="vn-n">Implied α</th></tr></thead>
-                <tbody>
-                  <tr><td>2023 to 2024</td><td className="vn-n">5.00x</td><td className="vn-n">2.57x</td><td className="vn-n vn-bind">1.70</td></tr>
-                  <tr><td>2024 to 2025</td><td className="vn-n">2.40x</td><td className="vn-n">2.11x</td><td className="vn-n vn-bind">1.17</td></tr>
-                  <tr><td>2025 to 2026</td><td className="vn-n">1.83x</td><td className="vn-n">1.56x</td><td className="vn-n vn-bind">1.37</td></tr>
-                </tbody>
-              </table></div>
-
-              <h2 id="e-says">What the table says</h2>
-              <p><strong>At α = 1.0, this paper's own GDP band is eliminated.</strong> Both bounds fail, at σ = 0.27 and σ = 0.41, alongside Goldman and PwC. The single survivor is <a href="https://www.nber.org/papers/w32487" target="_blank" rel="noopener noreferrer">Acemoglu, the most conservative published estimate</a> in the field.</p>
-              <p><strong>At α = 1.4, the midpoint of the observed range, this paper survives and so does Goldman.</strong> At α = 1.7, the value observed across 2023 to 2024, even PwC survives.</p>
-              <p>So the central quantitative dispute in this field is a disagreement about α that no participant has named. <a href="https://www.pwc.com/gx/en/issues/analytics/assets/pwc-ai-analysis-sizing-the-prize-report.pdf" target="_blank" rel="noopener noreferrer">PwC's $15.7T is a bet that α ≥ 1.7</a>. <a href="https://www.goldmansachs.com/insights/articles/generative-ai-could-raise-global-gdp-by-7-percent" target="_blank" rel="noopener noreferrer">Goldman's 7 percent is a bet on roughly 1.4</a>. <a href="https://www.nber.org/papers/w32487" target="_blank" rel="noopener noreferrer">Acemoglu's 0.66 percent is a bet that α ≤ 1.0</a>. The verdicts in this paper are a bet on roughly 1.3 to 1.4. <strong>None of them has stated the wager it is making.</strong></p>
-
-              <Fig colorMode={colorMode} src="/manus-storage/IMG_9256_ebe1e681.png" alt="Implied elasticity 2023 to 2026: 1.70, 1.17, 1.37" width={1262} height={655}
-                caption="<b>The elasticity is not a stable parameter.</b> It ran 1.70, then 1.17, then 1.37. That range is wide enough to reverse every forecast in the table above, and no participant in the debate reports it." />
-
-              <p>The observed range spans values that reverse every forecast in the table. That is not a narrow uncertainty around a central estimate. It is the difference between a technology that adds one percent of output and one that adds ten.</p>
+              <h2 id="e-says">What the result says</h2>
+              <p className="vn-lede">The two available series give opposite verdicts. Neither adjudicates. The thresholds, 0.76 to 1.45, are the durable result, and the dataset of Section 2.6 decides.</p>
 
               <h2 id="e-cost">What it costs this paper</h2>
               <div className="vn-concede">
                 <span className="vn-sig">Conceded</span>
-                <p>The GDP verdict cannot be resolved at the confidence a single-point analysis suggests. Its probability falls from 0.62 to roughly 0.55 and is marked α-dependent and provisional. Under α = 1.0 it is not resolved at all.</p>
-                <p>The temptation is to select the α that preserves the band and proceed. That would be the characteristic failure this framework was built to avoid, committed on the framework's own numbers: holding a parameter fixed at a convenient value while the evidence says it is unstable.</p>
+                <p>The GDP verdict cannot be resolved at the confidence a single-point analysis suggests. It is marked α-dependent and provisional because the two available series do not adjudicate.</p>
+                <p>The temptation is to select the series that preserves the band and proceed. That would be the characteristic failure this framework was built to avoid: holding a parameter fixed at a convenient value while the evidence gives opposite verdicts.</p>
               </div>
               <p>The exposure is concentrated rather than general. Verdicts about output magnitude are bets on α. Verdicts about physical delivery, lead times, market structure, liability and reliability are not, because they never require the compute-to-output conversion. Each is marked where it applies.</p>
 
@@ -893,7 +798,7 @@ export default function ViaNegativalRead() {
               </div>
 
               <div className="vn-fn"><ol>
-                <li id="f2-1">Anchors: attributable revenue and capacity series in the <a href={PDF_URL} target="_blank" rel="noopener noreferrer">PDF</a>, Section 2; 29.6 GW of AI data-center power capacity at Q4 2025 from Epoch AI via the <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">Stanford AI Index 2026</a>; permitted incremental capacity to 2030 from <a href="https://www.bain.com/insights/topics/technology-report/" target="_blank" rel="noopener noreferrer">Bain's 6th Global Technology Report</a>; efficiency gains from <a href="https://epoch.ai/" target="_blank" rel="noopener noreferrer">Epoch AI</a>. <a href="#r2-1">↩</a></li>
+                <li id="f2-1">The output anchor is an AI services revenue series compiled provider by provider: $1.7B, $7.0B, $29.7B and $140.4B for 2023 to 2026, with year-on-year multiples of 4.15x, 4.21x and 4.73x. It excludes hardware entirely and excludes hyperscaler AI revenue because an unknown share of it is lab revenue already counted, which makes every level a lower bound. <a href="#r2-1">↩</a></li>
               </ol></div>
 
               <div className="vn-next">
@@ -924,7 +829,7 @@ export default function ViaNegativalRead() {
               <p>Beneath the hundred questions lie five root uncertainties. Every branch question inherits its verdict from one or more of them.</p>
 
               <div className="vn-verdict"><p className="vn-q">R1. Will AI create more value than it destroys?</p>
-                <p className="vn-a">Aggregate value destruction is eliminated at the sign level: every prior general-purpose technology delivered a positive contribution once diffused. What survives is a J-curve. Destruction front-loads, creation lags, and the capital gap dates the lag rather than the destination: <a href="https://www.sec.gov/edgar/search/" target="_blank" rel="noopener noreferrer">$725B of 2026 capex against $110B</a> of attributable revenue.</p>
+                <p className="vn-a">Aggregate value destruction is eliminated at the sign level: every prior general-purpose technology delivered a positive contribution once diffused. What survives is a J-curve. Destruction front-loads, creation lags, and the capital gap dates the lag rather than the destination: <a href="https://www.sec.gov/edgar/search/" target="_blank" rel="noopener noreferrer">$725B of 2026 capex against $140.4B</a> of attributable revenue.</p>
                 <p className="vn-meta">binding: <b>Absorption, Tier 1</b> · P ≈ 0.73 · tails: distributional rejection 0.15, financing cascade 0.07</p>
               </div>
 
@@ -957,12 +862,12 @@ export default function ViaNegativalRead() {
               </div>
 
               <h2 id="r-gdp">How much GDP</h2>
-              <p>The majority-of-GDP claim requires AI-attributable output above half of a $154T 2030 economy. That is $77T of new output in four years. The most bullish credible estimate in the field, <a href="https://www.pwc.com/gx/en/issues/analytics/assets/pwc-ai-analysis-sizing-the-prize-report.pdf" target="_blank" rel="noopener noreferrer">PwC's $15.7T cumulative</a>, permits $16T. <strong>A ninefold gap, and no constraint in the set closes it in four years.</strong></p>
+              <p>The majority-of-GDP claim requires AI-attributable output above half of a $154T 2030 economy. That is $77T of new output in four years. The most bullish credible estimate in the field, <a href="https://www.pwc.com/gx/en/issues/analytics/assets/pwc-ai-analysis-sizing-the-prize-report.pdf" target="_blank" rel="noopener noreferrer">PwC's $15.7T as a 2030 annual contribution</a>, permits $16T. <strong>A 4.8x gap, which is 0.68 orders of magnitude, and no constraint in the set closes it in four years.</strong></p>
 
               <Fig colorMode={colorMode} src="/manus-storage/IMG_9257_6978ba35.png" alt="Majority-of-GDP claim against the feasible band" width={1270} height={776}
                 caption="<b>The majority claim against the feasible band.</b> The survivor sits inside the electricity and information-technology precedents rather than above them." />
 
-              <p>What survives is 1.0 to 1.5 points per year, $7 to $10.5T cumulative by 2030. That is inside the electricity and information-technology precedents, not above them. The bulls are not wrong about the technology. They are wrong about the denominator.</p>
+              <p>What survives is 1.0 to 1.5 points per year, $7 to $10.5T as a 2030 annual contribution. That is inside the electricity and information-technology precedents, not above them. The bulls are not wrong about the technology. They are wrong about the denominator.</p>
               <p>Two qualifications, both of which narrow the claim. It is <a href="#p2" data-go="p2">α-dependent</a> and provisional. And it forecasts <em>measured</em> GDP: value delivered as consumer surplus on goods priced at zero sits outside that quantity by construction, and <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener noreferrer">US consumer surplus alone is running at roughly $172B</a> annually and growing 54 percent. A reader concluding that AI creates little value from a modest GDP verdict has misread it. The verdict is about capture and measurement, not welfare.</p>
 
               <h2 id="r-slow">Why it arrives slowly</h2>
@@ -1255,7 +1160,7 @@ export default function ViaNegativalRead() {
               <div className="vn-tbl"><table className="vn-reg">
                 <thead><tr><th>Forecaster</th><th>Claim</th><th>Resolves</th></tr></thead>
                 <tbody>
-                  <tr><td>PwC, 2017</td><td>+$15.7T to global GDP</td><td>31 Dec 2030</td></tr>
+                  <tr><td>PwC, 2017</td><td>$15.7T as a 2030 annual contribution</td><td>31 Dec 2030</td></tr>
                   <tr><td>Goldman Sachs, 2023</td><td>+7% global GDP, +1.5pp productivity over ten years</td><td>31 Dec 2033</td></tr>
                   <tr><td>Acemoglu, 2024</td><td>TFP effects no more than 0.66% in total</td><td>31 Dec 2034</td></tr>
                   <tr><td>Gartner, 2025</td><td>Over 40% of agentic projects cancelled</td><td>31 Dec 2027</td></tr>
