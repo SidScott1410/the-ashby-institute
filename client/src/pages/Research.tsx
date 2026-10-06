@@ -14,44 +14,54 @@ const BODY_FONT = "'IBM Plex Mono', monospace";
 
 const PROGRAMS = [
   {
-    label: "PROGRAM I",
+    label: "FLAGSHIP FIELD",
+    title: "AI Economics",
+    equation: "value = capability × scarce complements",
+    sim: "cellular" as const,
+    simLabel: "CELLULAR AUTOMATON · EMERGENT ORDER",
+    description: "TAI studies AI as an economic system: the cost curves, bottlenecks, market structures, rents, and adjustment paths through which capability becomes output. We trace the scarce complements — energy, compute, data, talent, infrastructure, and legitimacy — that determine who captures value and when.",
+    outputs: ["AI Economics Working Papers", "AI Cost Curve & Scarcity Briefs", "Market Structure Analyses", "Quarterly AI Economy Notes"],
+    domains: ["Industrial Organisation", "Political Economy", "Productivity"],
+  },
+  {
+    label: "APPLIED PROGRAM I",
     title: "Compute Futures",
     equation: "V(R) ≥ V(D)",
     sim: "lorenz" as const,
     simLabel: "LORENZ ATTRACTOR · SCENARIO SPACE",
-    description: "Scenario analysis and structural forecasting for the compute transition. Examines how shifts in AI-native compute orchestration reshape economic structures, labor markets, and the distribution of productive capacity across geographies and institutions.",
+    description: "Forward-looking AI economics. We model how shifts in compute, energy, capital expenditure, and model efficiency reshape the industrial organisation of AI, labor demand, and the distribution of productive capacity across geographies and institutions.",
     outputs: ["Compute 2030 Annual Report", "Scenario Modeling Working Papers", "Compute Transition Indicators", "Quarterly Structural Briefings"],
-    domains: ["Economics", "Infrastructure", "Labor Markets"],
+    domains: ["Forecasting", "Infrastructure", "Labor Markets"],
   },
   {
-    label: "PROGRAM II",
+    label: "APPLIED PROGRAM II",
     title: "Compute Governance",
     equation: "R ⊇ model(S)",
     sim: "network" as const,
     simLabel: "REGULATORY NETWORK · FEEDBACK DYNAMICS",
-    description: "Institutional design for compute regulation. Applies the Good Regulator Theorem to governance architectures: a regulatory body that cannot model the system it governs cannot govern it. Produces frameworks for compute access policy, export controls, and international coordination mechanisms.",
+    description: "The institutional economics of AI. We examine how compute access policy, export controls, liability, and international coordination shape incentives, investment, market concentration, and the public capacity to govern AI systems.",
     outputs: ["Compute Governance Annual", "Policy Briefs", "Treaty Framework Analysis", "Regulatory Design Templates"],
-    domains: ["Policy", "International Law", "Institutional Design"],
+    domains: ["Policy", "Institutional Economics", "International Law"],
   },
   {
-    label: "PROGRAM III",
+    label: "APPLIED PROGRAM III",
     title: "The Good Regulator Project",
     equation: "∀S ∃R: R ≡ model(S)",
     sim: "reaction-diffusion" as const,
     simLabel: "REACTION-DIFFUSION · TURING PATTERNS",
-    description: "Foundational research applying Ashby's Law and the Good Regulator Theorem across domains beyond compute: AI alignment, critical infrastructure, financial systems, democratic governance, and biological systems. The theorem is a universal constraint on the possibility of control.",
+    description: "The systems theory beneath AI economics. Ashby's Law and the Good Regulator Theorem explain what institutions must model before they can govern a technological economy changing faster than their instruments, data, and incentives.",
     outputs: ["GRT Lecture Series", "Cross-Domain Working Papers", "Alignment Research Notes", "Mathematical Foundations"],
-    domains: ["AI Alignment", "Systems Theory", "Control Theory"],
+    domains: ["Systems Theory", "Control Theory", "Institutional Design"],
   },
   {
-    label: "PROGRAM IV",
+    label: "APPLIED PROGRAM IV",
     title: "Compute & Society",
     equation: "V(equity) ≥ V(harm)",
     sim: "boids" as const,
     simLabel: "BOIDS FLOCKING · DISTRIBUTED CONTROL",
-    description: "Distributional analysis of the compute transition. Examines who gains and loses variety (adaptive capacity) as AI-native systems reshape access to economic opportunity, information, and political agency. Produces the annual Compute Equity Index.",
+    description: "The distributional economics of AI. We study how cheaper intelligence changes labor, bargaining power, access to opportunity, and public capacity — and which institutions can broaden the gains while absorbing the adjustment.",
     outputs: ["Compute Equity Index", "Distributional Analysis Reports", "Civil Society Briefings", "Policy Recommendations"],
-    domains: ["Equity", "Political Economy", "Civil Society"],
+    domains: ["Labor", "Political Economy", "Civil Society"],
   },
 ];
 
@@ -77,10 +87,10 @@ export default function Research() {
               RESEARCH PROGRAMS
             </p>
             <h1 style={{ fontFamily: FONT, fontSize: "clamp(2.5rem, 4vw, 3.5rem)", fontWeight: 700, color: "#111", margin: "0 0 24px", lineHeight: 1.0, letterSpacing: "-0.02em" }}>
-              Four Programs.<br />One Law.
+              AI Economics.<br />Four applied programs.
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              Every research program at TAI is grounded in the same structural premise: Ashby's Law of Requisite Variety. A regulator that cannot model its system cannot govern it. We apply this constraint to compute, governance, society, and the full range of complex systems that define the modern world.
+              AI Economics is the Institute's core field. The four programs below apply it to compute, governance, systems theory, and society. Ashby's Law supplies the shared discipline: institutions, like markets, cannot be understood apart from the systems and constraints that shape them.
             </p>
           </div>
           <div style={{ position: "relative", minHeight: 280 }}>
@@ -191,7 +201,7 @@ export default function Research() {
         <div className="res-header-row" style={{ borderBottom: B, padding: "40px 48px", display: "flex", alignItems: "baseline", gap: 32 }}>
           <p style={{ fontFamily: FONT, fontSize: 9, letterSpacing: "0.18em", color: SLATE, margin: 0 }}>CROSS-DOMAIN APPLICATIONS</p>
           <h2 style={{ fontFamily: FONT, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 700, color: "#111", margin: 0, letterSpacing: "-0.02em" }}>
-            One Law Governs Every System
+            One framework. The AI economy in full.
           </h2>
         </div>
         <div className="res-domains" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
@@ -222,7 +232,7 @@ export default function Research() {
               Compute 2030
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
-              TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law, examining how regulatory variety must evolve to match the variety of AI-native compute systems.
+              TAI's inaugural annual scenario report. Four structural scenarios for the AI economy through 2030, tracing how compute, energy, capital, market structure, and governance can evolve together — or fail to.
             </p>
             <a href="/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf" target="_blank" rel="noopener noreferrer"
               style={{

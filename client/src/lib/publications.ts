@@ -67,7 +67,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     ],
     pages: 74,
     docNumber: "TAI-WP-2026-02",
-    program: "Compute Governance",
+    program: "AI Economics",
     tags: ["AI Economy", "Compute", "Forecasting", "Via Negativa", "Elasticity Gap", "Agent Reliability"],
     readingTime: 90,
     sim: "cellular",

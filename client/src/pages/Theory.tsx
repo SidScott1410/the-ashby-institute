@@ -53,7 +53,7 @@ export default function Theory() {
               The Theory
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              W. Ross Ashby's Law of Requisite Variety (1956) and the Good Regulator Theorem (Conant & Ashby, 1970) are not metaphors. They are mathematical results with direct implications for every governance problem of the compute era.
+              W. Ross Ashby's Law of Requisite Variety (1956) and the Good Regulator Theorem (Conant & Ashby, 1970) are not metaphors. They are mathematical results that discipline AI economics: neither markets nor institutions can be understood without modeling the systems and constraints that shape them.
             </p>
           </div>
           <div className="theory-canvas" style={{ position: "relative", minHeight: 280 }}>
@@ -92,7 +92,7 @@ export default function Theory() {
               Only variety can absorb variety. A regulator can reduce the variety of outcomes in a system only to the extent that it possesses at least as much variety as the disturbances it must absorb.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              This is not a design principle; it is a mathematical constraint. It applies to thermostats, immune systems, financial regulators, AI oversight architectures, and democratic institutions alike.
+              This is not a design principle; it is a mathematical constraint. It applies to thermostats, immune systems, financial regulators, AI oversight architectures, and the institutions that shape an AI economy alike.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 12, color: "#888", fontStyle: "italic", margin: 0 }}>
               "Only variety can destroy variety." — W. Ross Ashby, 1956

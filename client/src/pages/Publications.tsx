@@ -107,7 +107,7 @@ export default function Publications() {
               Publications
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              TAI publishes across six series: annual scenario reports, governance reviews, lecture transcripts, equity indices, working papers, and policy briefs. All publications are open access. No paywalls. No embargoes.
+              TAI publishes research on AI economics, the compute transition, and institutional capacity across six series: annual scenario reports, governance reviews, lecture transcripts, equity indices, working papers, and policy briefs. All publications are open access. No paywalls. No embargoes.
             </p>
           </div>
           <div className="pub-canvas" style={{ position: "relative", minHeight: 280 }}>
@@ -128,7 +128,7 @@ export default function Publications() {
               Compute 2030
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              TAI's inaugural annual scenario report. Four structural scenarios for the compute transition through 2030, each analyzed through the lens of Ashby's Law.
+              TAI's inaugural annual scenario report. Four structural scenarios for the AI economy through 2030, each analyzed through the lens of Ashby's Law and the constraints that shape cost, market structure, and institutional capacity.
             </p>
             <blockquote style={{ borderLeft: "3px solid #2C3E6B", paddingLeft: 20, margin: "0 0 32px", fontStyle: "italic" }}>
               <p style={{ fontFamily: FONT, fontSize: 12, color: "#555", lineHeight: 1.75, margin: 0, fontWeight: 300 }}>

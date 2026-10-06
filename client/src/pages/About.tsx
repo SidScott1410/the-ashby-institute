@@ -45,7 +45,7 @@ export default function About() {
               About
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              The Ashby Institute is an independent nonprofit research organization. We study why AI oversight systems fail — and how to build ones that don't. Our independence is structural: no funder influences our research, and all funding is publicly disclosed.
+              The Ashby Institute is an independent nonprofit research organization for AI economics and the institutions that shape it. We study the cost curves, bottlenecks, market structures, and distributional consequences of artificial intelligence — then ask whether public institutions can keep pace. Our independence is structural: no funder influences our research, and all funding is publicly disclosed.
             </p>
           </div>
           <div className="ab-canvas" style={{ position: "relative", minHeight: 280 }}>
@@ -66,13 +66,13 @@ export default function About() {
               Why TAI Exists
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The compute transition is the most consequential structural shift of our era. AI oversight systems are failing — not because regulators lack intent, but because they lack variety. Within a decade, AI-native compute systems will reshape every sector of the global economy, and the governance institutions designed to manage that transition will either have sufficient variety to do so, or they will not.
+              The AI economy is the most consequential structural shift of our era. Intelligence is becoming cheaper, more widely deployed, and more tightly coupled to energy, capital, infrastructure, labor, and state capacity. The central questions are economic as much as technical: what remains scarce, who captures the returns, and which institutions can absorb the adjustment?
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
               TAI was founded on a simple premise: W. Ross Ashby's Law of Requisite Variety — and its corollary, the Good Regulator Theorem — are the most precise tools available for diagnosing why oversight systems fail. They are not metaphors. They are mathematical results that predict, with structural precision, when a regulator will succeed and when it will not.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: 0, fontWeight: 300 }}>
-              The Institute exists to apply these tools rigorously, producing research that explains why AI oversight fails, what it would take to fix it, and how to build regulatory institutions with sufficient variety to govern the systems they are meant to control. That work requires full independence, enforced through structural firewalls, not categorical exclusions.
+              The Institute exists to apply these tools rigorously: to identify the constraints that bind the AI economy, explain how AI reorders economic power, and show what public institutions must be able to model before they can govern the systems they are meant to control. That work requires full independence, enforced through structural firewalls, not categorical exclusions.
             </p>
           </div>
           <div className="ab-text" style={{ padding: "56px 48px" }}>
@@ -152,7 +152,7 @@ export default function About() {
               Fund the research<br />the field needs.
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#aaa", lineHeight: 1.85, margin: "0 0 16px", fontWeight: 300 }}>
-              The governance of advanced compute systems is one of the most consequential and least-funded research problems of our era. TAI exists to close that gap, through rigorous, structurally grounded work that no commercially entangled institution can produce.
+              The economics and governance of advanced AI are among the most consequential and least-funded research problems of our era. TAI exists to close that gap through rigorous, structurally grounded work that no commercially entangled institution can produce.
             </p>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#aaa", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
               We welcome support from foundations, technology companies, governments, and individuals who share that priority, under a single, non-negotiable condition: your funding does not purchase influence over our findings.

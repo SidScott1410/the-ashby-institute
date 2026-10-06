@@ -13,7 +13,7 @@ const FONT = "'Chakra Petch', 'IBM Plex Mono', monospace";
 const BODY_FONT = "'IBM Plex Mono', monospace";
 
 const INQUIRY_TYPES = [
-  { id: "research", label: "RESEARCH INQUIRY", desc: "Questions about TAI's research programs, publications, or theoretical framework." },
+  { id: "research", label: "RESEARCH INQUIRY", desc: "Questions about TAI's AI Economics research, publications, or theoretical framework." },
   { id: "fellowship", label: "FELLOWSHIP", desc: "Expressions of interest in TAI's fellowship programs: Ashby, Senior, Visiting, or Policy Residency." },
   { id: "media", label: "MEDIA & PRESS", desc: "Press inquiries, interview requests, and media access." },
   { id: "events", label: "EVENTS", desc: "Event attendance, speaker inquiries, and partnership proposals." },
@@ -207,7 +207,7 @@ export default function Contact() {
               Research updates and working papers.
             </h2>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, margin: "0 0 32px", fontWeight: 300 }}>
-              Receive new publications, event announcements, and occasional commentary on the compute transition. No promotional content. Unsubscribe at any time.
+              Receive new publications, event announcements, and occasional commentary on AI economics: prices, bottlenecks, market structure, and public capacity. No promotional content. Unsubscribe at any time.
             </p>
             {newsletterSubmitted ? (
               <p style={{ fontFamily: FONT, fontSize: 12, color: SLATE }}>Subscribed. Thank you.</p>

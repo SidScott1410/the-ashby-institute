@@ -20,7 +20,7 @@ const PROGRAMS = [
     duration: "12 months",
     cycle: "Annual",
     applications: "Open September",
-    description: "TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original research applying Ashby's Law to a governance domain of their choosing: AI alignment, compute governance, financial regulation, democratic institutions, or any other domain where variety deficits are consequential.",
+    description: "TAI's flagship competitive fellowship for early-career researchers. Fellows spend twelve months in residence developing original work on AI economics, systems theory, or institutional design — from AI market structure and infrastructure constraints to governance, labor, and democratic capacity.",
     eligibility: [
       "Doctoral candidates or recent PhDs (within 5 years of degree)",
       "Demonstrated capacity for formal theoretical work",
@@ -131,7 +131,7 @@ export default function Fellows() {
               Fellows
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: "0 0 32px" }}>
-              TAI's fellowship programs bring together researchers, practitioners, and policymakers to develop the analytical capacity required to govern complex systems. Every program is grounded in the same premise: understanding requires modeling, and modeling requires rigor.
+              TAI's fellowship programs bring together researchers, practitioners, and policymakers to study the AI economy as a technical, industrial, and institutional system. Every program is grounded in the same premise: understanding requires modeling, and modeling requires rigor.
             </p>
             <a href="mailto:fellows@theashbyinstitute.org" style={{
               display: "inline-block",

@@ -267,7 +267,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </p>
             <p style={{ fontSize: 10, color: "#888", margin: 0 }}>— W. Ross Ashby & Roger Conant, 1970</p>
             <p style={{ fontSize: 10, color: "#888", marginTop: 20, lineHeight: 1.6 }}>
-              Independent nonprofit research organization.<br />
+              Independent nonprofit research on AI economics.<br />
               Washington D.C. · London · Singapore
             </p>
           </div>
@@ -275,7 +275,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Research */}
           <nav aria-label="Research programs" style={{ padding: "40px 28px", borderRight: BORDER }}>
             <p style={{ fontSize: 8, letterSpacing: "0.16em", color: SLATE, marginBottom: 16, marginTop: 0 }}>RESEARCH</p>
-            {["Compute Futures", "Compute Governance", "Good Regulator Project", "Compute & Society"].map(item => (
+            {["AI Economics", "Compute Futures", "Compute Governance", "Good Regulator Project", "Compute & Society"].map(item => (
               <Link key={item} href="/research" style={{
                 display: "block", fontSize: 11, color: "#555",
                 textDecoration: "none", marginBottom: 10, lineHeight: 1.4,

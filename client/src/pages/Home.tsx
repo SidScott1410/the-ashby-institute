@@ -38,28 +38,35 @@ const DOMAINS = [
 
 const RESEARCH_PROGRAMS = [
   {
+    id: "ai-economics",
+    label: "FLAGSHIP FIELD",
+    title: "AI Economics",
+    desc: "TAI studies AI as an economic system: the cost curves, bottlenecks, market structures, rents, and institutions that determine how intelligence is built, priced, deployed, and distributed.",
+    featured: true,
+  },
+  {
     id: "compute-futures",
-    label: "PROGRAM 01",
+    label: "APPLIED PROGRAM 01",
     title: "Compute Futures",
-    desc: "Scenario analysis and forecasting for AI-native compute architectures. Inaugural output: Compute 2030 — four scenarios for the compute transition.",
+    desc: "AI economics in motion: structural scenarios for compute, energy, capital expenditure, and the industrial organisation of artificial intelligence.",
   },
   {
     id: "compute-governance",
-    label: "PROGRAM 02",
+    label: "APPLIED PROGRAM 02",
     title: "Compute Governance",
-    desc: "Structural analysis of regulatory frameworks for compute infrastructure. Annual publication: Compute Governance Annual.",
+    desc: "The institutional economics of AI: how access regimes, liability, export controls, and state capacity shape investment, competition, and public outcomes.",
   },
   {
     id: "good-regulator",
-    label: "PROGRAM 03",
+    label: "APPLIED PROGRAM 03",
     title: "The Good Regulator Project",
-    desc: "Applied research on Ashby's Law across AI alignment, autonomous systems, and institutional design. GRT Lecture Series.",
+    desc: "The systems theory beneath AI economics: what institutions must model before they can govern a rapidly changing technological economy.",
   },
   {
     id: "compute-society",
-    label: "PROGRAM 04",
+    label: "APPLIED PROGRAM 04",
     title: "Compute & Society",
-    desc: "Distributional effects of the compute transition on labor, equity, and democratic governance. Compute Equity Index.",
+    desc: "The distributional economics of AI: how labor, bargaining power, access, and public capacity change as intelligence becomes cheaper and more widely deployed.",
   },
 ];
 
@@ -349,20 +356,20 @@ export default function Home() {
           zIndex: 10,
         }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>
-            W. ROSS ASHBY · LAW OF REQUISITE VARIETY · 1956
+            THE ASHBY INSTITUTE · AI ECONOMICS
           </p>
           <h1 style={{
             fontSize: "clamp(28px, 3.5vw, 48px)",
             fontWeight: 700, lineHeight: 1.15,
             letterSpacing: "-0.01em", marginBottom: 20,
           }}>
-            Every good regulator must be a model of its system.
+            The AI economy is a system before it is a story.
           </h1>
           <p style={{ fontSize: 13, lineHeight: 1.7, color: "#444", marginBottom: 28, maxWidth: 420 }}>
-            Independent research on compute governance and AI regulatory design. We study why AI oversight systems fail — and how to build ones that don't.
+            Independent research on AI economics: the cost curves, bottlenecks, market structures, and institutions that determine how artificial intelligence is built, priced, deployed, and distributed.
           </p>
           <div className="hero-btns" style={{ display: "flex", gap: 0 }}>
-            <Link href="/theory" style={{
+            <Link href="/research" style={{
               display: "inline-block", padding: "12px 24px",
               background: "#111", color: "#fff",
               fontSize: 10, letterSpacing: "0.12em",
@@ -372,9 +379,9 @@ export default function Home() {
               onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
               onMouseLeave={e => (e.currentTarget.style.background = "#111")}
             >
-              THE THEORY
+              AI ECONOMICS →
             </Link>
-            <a href="/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf" target="_blank" rel="noopener noreferrer" style={{
+            <Link href="/publications/via-negativa" style={{
               display: "inline-block", padding: "12px 24px",
               background: "#fff", color: "#111",
               fontSize: 10, letterSpacing: "0.12em",
@@ -384,8 +391,8 @@ export default function Home() {
               onMouseEnter={e => { e.currentTarget.style.background = "#f5f5f5"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "#fff"; }}
             >
-              COMPUTE 2030 REPORT ↗
-            </a>
+              READ VIA NEGATIVA →
+            </Link>
           </div>
         </div>
 
@@ -442,10 +449,10 @@ export default function Home() {
         {/* Text panel */}
         <div className="text-col" style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>
-            ASHBY'S LAW OF REQUISITE VARIETY
+            A SYSTEMS THEORY FOR AI ECONOMICS
           </p>
           <h2 style={{ fontSize: 28, fontWeight: 700, lineHeight: 1.2, marginBottom: 24 }}>
-            Only variety can absorb variety.
+            Every AI market is also a control problem.
           </h2>
           <div style={{
             background: "#f8f8f8", border: BORDER,
@@ -458,7 +465,7 @@ export default function Home() {
             </div>
           </div>
           <p style={{ fontSize: 13, lineHeight: 1.75, color: "#444" }}>
-            First stated by W. Ross Ashby in <em>An Introduction to Cybernetics</em> (1956), this theorem establishes a fundamental limit on control. A system that cannot model its environment cannot regulate it.
+            First stated by W. Ross Ashby in <em>An Introduction to Cybernetics</em> (1956), this theorem establishes a fundamental limit on control. It gives AI economics a discipline: no forecast of prices, productivity, or power is complete without a model of the constraints and institutions that shape them.
           </p>
           <Link href="/theory" style={{
             display: "inline-block", marginTop: 28, padding: "10px 20px",
@@ -487,12 +494,12 @@ export default function Home() {
           <div style={{ padding: "32px 40px", borderRight: BORDER }}>
             <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 12 }}>RESEARCH SCOPE</p>
             <h2 style={{ fontSize: 26, fontWeight: 700, lineHeight: 1.2 }}>
-              One law.<br/>Eight domains.
+              One field.<br/>Eight lenses.
             </h2>
           </div>
           <div style={{ padding: "32px 40px", display: "flex", alignItems: "center" }}>
             <p style={{ fontSize: 13, lineHeight: 1.75, color: "#444", maxWidth: 480 }}>
-              Ashby's Law is not a metaphor. It is a precise mathematical constraint that applies wherever a regulator must absorb disturbances: from AI alignment to democratic governance, from financial systems to climate modeling.
+              AI economics is not only about models or markets. It is the study of how capability meets scarce complements, institutions, and incentives — from energy and infrastructure to labor, governance, and democratic legitimacy.
             </p>
           </div>
         </div>
@@ -554,7 +561,7 @@ export default function Home() {
             TAI INAUGURAL REPORT SERIES
           </p>
           <p style={{ fontSize: 14, lineHeight: 1.75, color: "#444", marginBottom: 20 }}>
-            Four scenarios for the compute transition, the period in which AI-native compute orchestration reshapes the global economy, governance, and strategic balance.
+            Four scenarios for the AI economy through 2030, tracing how compute, energy, capital, market structure, and public institutions can reshape growth, governance, and strategic balance.
           </p>
           <div style={{ borderLeft: `3px solid ${SLATE}`, paddingLeft: 20, marginBottom: 28 }}>
             <p style={{ fontSize: 12, lineHeight: 1.7, color: "#555", fontStyle: "italic" }}>
@@ -643,7 +650,7 @@ export default function Home() {
               onMouseEnter={e => (e.currentTarget.style.background = SLATE)}
               onMouseLeave={e => (e.currentTarget.style.background = "#111")}
             >
-              DOWNLOAD THE PAPER, 60 PAGES →
+              DOWNLOAD THE PAPER, 74 PAGES →
             </Link>
             <Link href="/publications/via-negativa/read" style={{
               display: "inline-block", padding: "12px 24px",
@@ -700,14 +707,15 @@ export default function Home() {
       <section id="section-programs" style={{ borderBottom: BORDER }}>
         <div className="programs-header" style={{ borderBottom: BORDER, padding: "32px 40px" }}>
           <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 8 }}>RESEARCH PROGRAMS</p>
-          <h2 style={{ fontSize: 26, fontWeight: 700 }}>Four programs. One framework.</h2>
+          <h2 style={{ fontSize: 26, fontWeight: 700 }}>AI Economics first. Four applied programs.</h2>
         </div>
         <div className="programs-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
           {RESEARCH_PROGRAMS.map((p, i) => (
             <div key={p.id} style={{
               padding: "36px 40px",
-              borderRight: i % 2 === 0 ? BORDER : "none",
-              borderBottom: i < 2 ? BORDER : "none",
+              gridColumn: p.featured ? "1 / -1" : undefined,
+              borderRight: p.featured || i % 2 === 0 ? (p.featured ? "none" : BORDER) : "none",
+              borderBottom: i === 0 || i === 1 || i === 2 ? BORDER : "none",
             }}>
               <p style={{ fontSize: 8, letterSpacing: "0.14em", color: SLATE, marginBottom: 12 }}>{p.label}</p>
               <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 14 }}>{p.title}</h3>
@@ -780,7 +788,7 @@ export default function Home() {
               Research updates and working papers.
             </h2>
             <p style={{ fontSize: 12, lineHeight: 1.75, color: "#555" }}>
-              Receive new publications, event announcements, and occasional commentary on the compute transition. No promotional content.
+              Receive new publications, event announcements, and occasional commentary on AI economics: prices, bottlenecks, market structure, and public capacity. No promotional content.
             </p>
           </div>
           <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
@@ -834,7 +842,7 @@ export default function Home() {
           {/* Research */}
           <div style={{ padding: "40px 32px", borderRight: BORDER }}>
             <p style={{ fontSize: 9, letterSpacing: "0.14em", color: SLATE, marginBottom: 16 }}>RESEARCH</p>
-            {["Compute Futures", "Compute Governance", "The Good Regulator Project", "Compute & Society"].map(item => (
+            {['AI Economics', 'Compute Futures', 'Compute Governance', 'The Good Regulator Project', 'Compute & Society'].map(item => (
               <Link key={item} href="/research" style={{
                 display: "block", fontSize: 11, color: "#555",
                 textDecoration: "none", marginBottom: 8,

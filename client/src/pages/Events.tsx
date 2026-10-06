@@ -66,7 +66,7 @@ export default function Events() {
               Events
             </h1>
             <p style={{ fontFamily: FONT, fontSize: 13, color: "#555", lineHeight: 1.85, maxWidth: 520, fontWeight: 300, margin: 0 }}>
-              TAI convenes three types of events: an annual conference for the research community, a quarterly workshop series for policy professionals, and an annual public lecture. All events are designed to advance rigorous structural analysis, not to showcase or promote.
+              TAI convenes an annual conference for the research community, a quarterly workshop series for policy professionals, and an annual public lecture. Each event advances rigorous work on AI economics and institutional capacity — not promotion or spectacle.
             </p>
           </div>
           <div className="ev-canvas" style={{ position: "relative", minHeight: 280 }}>
