@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-31T12:48:22.840Z",
+  "publications": [
+    {
+      "slug": "via-negativa",
+      "url": "https://theashbyinstitute.org/publications/via-negativa",
+      "readingEditionUrl": "https://theashbyinstitute.org/publications/via-negativa/read",
+      "series": "working-papers",
+      "seriesLabel": "WORKING PAPER",
+      "type": "Working Paper",
+      "date": "July 2026",
+      "dateISO": "2026-07-01",
+      "title": "Via Negativa: The AI Economy by Elimination",
+      "subtitle": "Forecasting by elimination against six constraints, only one of which is physical law.",
+      "abstract": "This memorandum forecasts the AI economy by elimination rather than projection. For each question it enumerates the candidate answers, computes for each the time its binding constraint would need to deliver the required expansion, and compares that against the horizon remaining. Six constraints are derived from a question that never mentions artificial intelligence: what does it take to obtain one more unit of a limiting input? Only the first, physical law, licenses deductive elimination. The other five reprice, which is why every verdict carries a probability rather than a proof. The engine decides eight of the thirty questions here, and that ratio is reported as a result: it is a test for which questions have physically determinate answers, and most do not.\n\nTurned on the field's own forecasts, the method produces its most consequential result. Every published estimate of AI's contribution to output is a bet on an unmeasured elasticity between deployed compute and attributable output. Its observed values span a range that reverses all of them, including this memorandum's own GDP band, which the engine eliminates at the low end. The aggregate question is therefore underdetermined on current public data.\n\nTwo further findings cost the paper more than they gave it. The Residual Ratio, this framework's coined unit, is withdrawn: built from primary sources, none of its four complement components is constructible, so the ratio never had a numerator. And a pre-registered backtest records a maximum-confidence miss, on the one constraint tier the framework had already named as most exposed. What survives is smaller and sourced: the price of a fixed capability falls four to fifty-six times faster than the price of the best available model, a binding constraint attracts no supply response where a cycle does, and one dated call is staked with its adjudication rules specified in full.",
+      "authors": [
+        {
+          "name": "Sidney Scott",
+          "role": "The Ashby Institute"
+        }
+      ],
+      "keyFindings": [
+        "As intelligence commoditizes, value migrates to whatever intelligence cannot make abundant. The binding constraint on the 2026 buildout is a transformer, not a chip and not a dollar.",
+        "Every published forecast of AI's contribution to output is a bet on one unmeasured elasticity. Its observed range reverses all of them, including this paper's own.",
+        "The Residual Ratio, this framework's coined unit, is withdrawn. None of its four complement components is constructible from disclosed data, so it never had a numerator.",
+        "A pre-registered backtest records four hits and one maximum-confidence miss, on the tier the framework had already named as most exposed to substitution. Mean Brier 0.228.",
+        "Reliability, not capability, remains the binding constraint on agents through 2027. On 31 December 2027 the best generally available model's METR 80% task-completion horizon is under eight hours. P = 0.85."
+      ],
+      "program": "AI Economics",
+      "tags": [
+        "AI Economy",
+        "Compute",
+        "Forecasting",
+        "Via Negativa",
+        "Elasticity Gap",
+        "Agent Reliability"
+      ],
+      "pages": 74,
+      "pdfUrl": "https://theashbyinstitute.org/manus-storage/ViaNegativaarXivv3_58458eb4.pdf"
+    },
+    {
+      "slug": "compute-2030-four-scenarios",
+      "url": "https://theashbyinstitute.org/publications/compute-2030-four-scenarios",
+      "readingEditionUrl": null,
+      "series": "compute-2030",
+      "seriesLabel": "COMPUTE 2030",
+      "type": "Annual Report",
+      "date": "June 2026",
+      "dateISO": "2026-06-01",
+      "title": "Compute 2030: Four Scenarios for the Compute Transition",
+      "subtitle": "A structural analysis of the governance landscape through the lens of Ashby's Law of Requisite Variety",
+      "abstract": "Four structural scenarios for the compute transition through 2030, analyzed through the lens of Ashby's Law of Requisite Variety. Each scenario represents a distinct configuration of compute power, regulatory capacity, and institutional variety — and each carries different implications for governance, equity, and democratic accountability.",
+      "authors": [
+        {
+          "name": "TAI Research Staff",
+          "role": "The Ashby Institute"
+        }
+      ],
+      "keyFindings": [
+        "Current regulatory architectures exhibit systematic variety deficits relative to the disturbances introduced by the compute transition.",
+        "Scenario I (Concentrated Dominance) is the most likely near-term trajectory absent deliberate institutional intervention.",
+        "The Good Regulator Theorem implies that effective compute governance requires regulators to model the full range of compute applications — a condition no existing body currently meets.",
+        "Compute equity gaps are structural, not incidental, and will widen under all four scenarios without targeted redistribution mechanisms.",
+        "International coordination is necessary but not sufficient; domestic institutional variety must be built in parallel."
+      ],
+      "program": "Compute Futures",
+      "tags": [
+        "Compute Governance",
+        "Scenario Analysis",
+        "Ashby's Law",
+        "AI Policy",
+        "Requisite Variety"
+      ],
+      "pages": 84,
+      "pdfUrl": "https://theashbyinstitute.org/manus-storage/compute2030_report_v1_ec1b767c_ce150801.pdf"
+    },
+    {
+      "slug": "variety-deficits-ai-governance",
+      "url": "https://theashbyinstitute.org/publications/variety-deficits-ai-governance",
+      "readingEditionUrl": null,
+      "series": "working-papers",
+      "seriesLabel": "WORKING PAPER",
+      "type": "Working Paper",
+      "date": "Forthcoming 2026",
+      "dateISO": "2026-09-01",
+      "title": "Variety Deficits in AI Governance: A Structural Analysis",
+      "subtitle": "Applying Ashby's Law of Requisite Variety to current AI regulatory frameworks",
+      "abstract": "An application of Ashby's Law to current AI governance frameworks, identifying structural variety deficits in existing regulatory architectures. We develop a formal measurement methodology for regulatory variety and apply it to six major AI governance frameworks, finding systematic deficits across all six.",
+      "authors": [
+        {
+          "name": "TAI Research Staff",
+          "role": "The Ashby Institute"
+        }
+      ],
+      "keyFindings": [
+        "All six major AI governance frameworks examined exhibit variety deficits relative to the disturbances they are designed to govern.",
+        "The EU AI Act has the highest variety ratio of the frameworks examined, but still falls below the threshold required for effective governance of frontier AI systems.",
+        "Variety deficits are most severe in the dimensions of technical modeling capacity and adaptive capacity.",
+        "Existing frameworks are better designed to govern current AI capabilities than anticipated future capabilities."
+      ],
+      "program": "Compute Governance",
+      "tags": [
+        "AI Governance",
+        "Regulatory Theory",
+        "Ashby's Law",
+        "EU AI Act",
+        "Variety Measurement"
+      ],
+      "pages": 42,
+      "pdfUrl": null
+    },
+    {
+      "slug": "compute-export-controls-grt",
+      "url": "https://theashbyinstitute.org/publications/compute-export-controls-grt",
+      "readingEditionUrl": null,
+      "series": "policy-briefs",
+      "seriesLabel": "POLICY BRIEF",
+      "type": "Policy Brief",
+      "date": "Forthcoming 2026",
+      "dateISO": "2026-10-01",
+      "title": "Compute Export Controls and the Good Regulator Theorem",
+      "subtitle": "Why effective controls require regulators to model the full variety of compute applications",
+      "abstract": "Applies the Good Regulator Theorem to the design of compute export control regimes, arguing that effective controls require regulatory bodies to model the full variety of compute applications. Current export control frameworks exhibit significant variety deficits that undermine their effectiveness.",
+      "authors": [
+        {
+          "name": "TAI Research Staff",
+          "role": "The Ashby Institute"
+        }
+      ],
+      "keyFindings": [
+        "Current compute export control frameworks are designed around a narrow model of compute applications that does not capture the full range of uses relevant to national security.",
+        "The Good Regulator Theorem implies that export control bodies must develop modeling capacity for novel compute applications before those applications become security-relevant.",
+        "Effective export controls require international coordination to prevent regulatory arbitrage."
+      ],
+      "program": "Compute Governance",
+      "tags": [
+        "Export Controls",
+        "Compute Security",
+        "Good Regulator Theorem",
+        "Policy Design"
+      ],
+      "pages": 18,
+      "pdfUrl": null
+    }
+  ]
+}

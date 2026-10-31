@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-31T12:48:22.841Z",
+  "pages": [
+    {
+      "path": "/",
+      "title": "The Ashby Institute | AI Economics Research",
+      "description": "Independent research on AI economics: the cost curves, bottlenecks, market structures, and institutions shaping artificial intelligence.",
+      "url": "https://theashbyinstitute.org/"
+    },
+    {
+      "path": "/theory",
+      "title": "Theory | The Ashby Institute",
+      "description": "Ashby's Law of Requisite Variety and the systems theory used in The Ashby Institute's AI economics research.",
+      "url": "https://theashbyinstitute.org/theory"
+    },
+    {
+      "path": "/research",
+      "title": "Research | The Ashby Institute",
+      "description": "AI economics research on compute, market structure, governance, institutions, and distribution.",
+      "url": "https://theashbyinstitute.org/research"
+    },
+    {
+      "path": "/publications",
+      "title": "Publications | The Ashby Institute",
+      "description": "Open-access research and reports from The Ashby Institute on AI economics, the compute transition, and institutional capacity.",
+      "url": "https://theashbyinstitute.org/publications"
+    },
+    {
+      "path": "/publications/via-negativa",
+      "title": "Via Negativa: The AI Economy by Elimination | The Ashby Institute",
+      "description": "A working paper on the AI economy, forecasting by elimination against six constraints.",
+      "url": "https://theashbyinstitute.org/publications/via-negativa"
+    },
+    {
+      "path": "/publications/via-negativa/read",
+      "title": "Read Via Negativa | The Ashby Institute",
+      "description": "The online reading edition of Via Negativa: The AI Economy by Elimination.",
+      "url": "https://theashbyinstitute.org/publications/via-negativa/read"
+    },
+    {
+      "path": "/publications/compute-2030-four-scenarios",
+      "title": "Compute 2030: Four Scenarios for the Compute Transition | The Ashby Institute",
+      "description": "Four structural scenarios for the compute transition through 2030.",
+      "url": "https://theashbyinstitute.org/publications/compute-2030-four-scenarios"
+    },
+    {
+      "path": "/publications/variety-deficits-ai-governance",
+      "title": "Variety Deficits in AI Governance | The Ashby Institute",
+      "description": "A structural analysis of AI governance through Ashby's Law of Requisite Variety.",
+      "url": "https://theashbyinstitute.org/publications/variety-deficits-ai-governance"
+    },
+    {
+      "path": "/publications/compute-export-controls-grt",
+      "title": "Compute Export Controls and the Good Regulator Theorem | The Ashby Institute",
+      "description": "Why effective compute export controls require regulators to model the full variety of applications.",
+      "url": "https://theashbyinstitute.org/publications/compute-export-controls-grt"
+    },
+    {
+      "path": "/fellows",
+      "title": "Fellows | The Ashby Institute",
+      "description": "The Ashby Institute's research fellowship and scholar community.",
+      "url": "https://theashbyinstitute.org/fellows"
+    },
+    {
+      "path": "/events",
+      "title": "Events | The Ashby Institute",
+      "description": "Events, workshops, and lectures from The Ashby Institute.",
+      "url": "https://theashbyinstitute.org/events"
+    },
+    {
+      "path": "/about",
+      "title": "About | The Ashby Institute",
+      "description": "About The Ashby Institute and its independent research on AI economics.",
+      "url": "https://theashbyinstitute.org/about"
+    },
+    {
+      "path": "/contact",
+      "title": "Contact | The Ashby Institute",
+      "description": "Contact The Ashby Institute for research, fellowship, and press inquiries.",
+      "url": "https://theashbyinstitute.org/contact"
+    }
+  ]
+}
