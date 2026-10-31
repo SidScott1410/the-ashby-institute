@@ -1,11 +1,13 @@
 /**
- * entry-server.tsx
- * SSR entry point used by prerender.mjs to generate static HTML for each route.
- * Uses Wouter's ssrPath prop to render the correct page component for a given URL.
+ * SSR entry point used by the build-time renderer to generate static HTML.
+ * Wouter receives the requested path directly, so every public route can be
+ * written as a complete document before deployment.
  */
 import { renderToString } from "react-dom/server";
 import { Router } from "wouter";
 import App from "./App";
+
+export { PUBLICATIONS_DATA } from "./lib/publications";
 
 export function render(url: string): string {
   return renderToString(

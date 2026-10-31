@@ -9,6 +9,7 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
+    "audit:static": "python3 scripts/audit_static_routes.py dist/public --expect-count 13",
     "format": "prettier --write ."
   },
   "dependencies": {

@@ -293,10 +293,11 @@ export default function Home() {
         ))}
       </div>
 
+      <main id="main-content">
       {/* ══════════════════════════════════════════
           HERO — full-screen ASCII canvas
       ══════════════════════════════════════════ */}
-      <section id="main-content" style={{
+      <section id="hero" style={{
         position: "relative",
         width: "100vw",
         height: "100vh",
@@ -822,6 +823,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* ══════════════════════════════════════════
           FOOTER

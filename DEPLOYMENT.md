@@ -10,9 +10,10 @@ The production build is reproducible with:
 pnpm install --frozen-lockfile
 pnpm check
 pnpm build
+pnpm audit:static
 ```
 
-The `pnpm build` command produces a server-rendered static site in `dist/public/`. All 13 public routes are written as individual HTML documents, so crawlers can read publication text without executing JavaScript.
+The `pnpm build` command produces a server-rendered static site in `dist/public/`. All 13 public routes are written as individual HTML documents, so crawlers can read publication text without executing JavaScript. The build also writes `/publications.json` and `/site-index.json` for fetch clients that need the research catalog or route metadata directly.
 
 ## GitHub transfer
 
@@ -31,7 +32,7 @@ For static hosting providers, build the project and publish **only** `dist/publi
 | Node version | 22.x |
 | Package manager | pnpm 10.x |
 
-Because known routes are prerendered, direct requests for the website's current public URLs resolve to their respective `index.html` files. If new client-side routes are added, they must also be added to `routes` in `prerender.mjs` and to `client/public/sitemap.xml`.
+Because known routes are prerendered, direct requests for the website's current public URLs resolve to their respective `index.html` files. If new client-side routes are added, they must also be added to the route metadata in `prerender.mjs`. The build generates the sitemap from that same route metadata, and `pnpm audit:static` fails if a sitemap route lacks an initial static HTML document, canonical URL, title, H1, or substantive main content.
 
 ## Node-compatible hosting
 

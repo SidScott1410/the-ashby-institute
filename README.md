@@ -1,6 +1,6 @@
 # The Ashby Institute
 
-This repository contains the frontend for [The Ashby Institute](https://theashbyinstitute.org), an independent research institute focused on compute governance and AI regulatory design. It is a React 19 and Vite 7 website with static generation for every public route.
+This repository contains the frontend for [The Ashby Institute](https://theashbyinstitute.org), an independent research institute focused on AI economics. It is a React 19 and Vite 7 website with static generation for every public route.
 
 > **Current production domain:** `https://theashbyinstitute.org`
 
@@ -34,6 +34,19 @@ The resulting static files live in `dist/public/`. The build currently prerender
 
 Each generated HTML file receives a route-specific canonical URL rooted at `https://theashbyinstitute.org`. This is handled by [`prerender.mjs`](./prerender.mjs) and is important for search indexing.
 
+Every canonical page is complete in the initial HTML response. JavaScript hydrates interactive controls but is not required to read the page, the publications list, or publication detail content. The build also produces two machine-readable endpoints:
+
+| Endpoint | Contents |
+|---|---|
+| `/publications.json` | The published research catalog, including URLs, abstracts, authors, tags, and PDF locations. |
+| `/site-index.json` | The canonical route index with each page title and description. |
+
+Run the deterministic no-JavaScript audit after every production build:
+
+```bash
+pnpm audit:static
+```
+
 ## Project structure
 
 | Path | Responsibility |
@@ -42,7 +55,8 @@ Each generated HTML file receives a route-specific canonical URL rooted at `http
 | `client/src/components/` | Shared layout, navigation, visualisation, and UI primitives. |
 | `client/src/lib/publications.ts` | Structured publication metadata and page content. |
 | `client/src/entry-server.tsx` | React server-rendering entry point. |
-| `prerender.mjs` | Static HTML generation and per-route canonical injection. |
+| `prerender.mjs` | Static HTML, route metadata, JSON-LD, sitemap, and machine-readable endpoint generation. |
+| `scripts/audit_static_routes.py` | Verifies the sitemap routes, static HTML marker, canonical, title, H1, and substantive `<main>` content without JavaScript. |
 | `client/public/` | Small local public assets, robots.txt, sitemap.xml, favicon assets, and social image. |
 | `server/index.ts` | Lightweight Express static-file server for Node-compatible hosting. |
 
@@ -54,7 +68,7 @@ The source uses root-relative paths such as `/manus-storage/IMG_9248_7900ab5d.pn
 
 ## SEO files
 
-The primary search files are [`client/public/robots.txt`](./client/public/robots.txt) and [`client/public/sitemap.xml`](./client/public/sitemap.xml). The sitemap lists every currently prerendered public route. After a production deployment, submit `https://theashbyinstitute.org/sitemap.xml` in Google Search Console and request indexing for priority publication URLs.
+The primary search files are [`client/public/robots.txt`](./client/public/robots.txt) and the build-generated `dist/public/sitemap.xml`. The sitemap lists every currently prerendered public route. After a production deployment, submit `https://theashbyinstitute.org/sitemap.xml` in Google Search Console and request indexing for priority publication URLs.
 
 ## Deployment notes
 

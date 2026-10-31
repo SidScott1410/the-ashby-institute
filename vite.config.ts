@@ -1,7 +1,6 @@
 /**
- * Standalone Vite configuration for The Ashby Institute.
- * The project is intentionally portable: React + Tailwind compile to static
- * files in dist/public, with no Manus runtime, storage proxy, or debug plugin.
+ * Portable Vite configuration for The Ashby Institute.
+ * Production builds write a self-contained static site to dist/public.
  */
 import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
@@ -9,8 +8,8 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig } from "vite";
 
-export default defineConfig({
-  plugins: [react(), tailwindcss(), jsxLocPlugin()],
+export default defineConfig(({ command }) => ({
+  plugins: [react(), tailwindcss(), ...(command === "serve" ? [jsxLocPlugin()] : [])],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -27,4 +26,4 @@ export default defineConfig({
     strictPort: false,
     host: true,
   },
-});
+}));
